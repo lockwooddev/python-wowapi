@@ -1,23 +1,31 @@
-import logging
-import requests
+from .connector import (
+    AuctionConnector, ItemConnector
+)
 
 
-logger = logging.getLogger('wowapi')
+def get_auctions(host, *args, **kwargs):
+    connector = AuctionRecource(host, args, kwargs)
+    resource = connector.get_resource()
+    return 
+
+# def get_auctions_overview(region, realm):
+#     return AuctionRecource()
 
 
-class WoWAPI(object):
 
-    def __init__(self):
-        pass
 
-    def get_item(self):
-        pass
-        # return ItemObject
+# item = api.get_item('eu.battle.net', 9999, locale='en_GB')
 
-    def get_auctions(self):
-        pass
-        # return AuctionObject
+# auction_page = api.get_auctions_overview('eu.battle.net', 'khadgar')
+# new = auction_page.updated(last_ts) # return true or false
 
-    def get_character(self):
-        pass
-        # return CharacterObject
+# if new:
+#     auctions = auction_page.get_auctions()
+# else:
+#     pass
+
+# auctions.horde
+# auctions.alliance
+# auctions.neutral
+# auctions.all # modified. One list with faction as property
+
