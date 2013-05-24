@@ -1,3 +1,5 @@
+from .exceptions import APIError
+
 import logging
 import requests
 

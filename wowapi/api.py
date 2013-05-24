@@ -1,15 +1,26 @@
-from .connector import (
-    AuctionConnector, ItemConnector
-)
+from .connectors import (
+    AuctionConnector, ItemConnector)
+from .resources import (
+    AuctionResource, ItemResource)
 
 
 def get_auctions(host, *args, **kwargs):
-    connector = AuctionRecource(host, args, kwargs)
-    resource = connector.get_resource()
-    return 
+    connector = AuctionConnector(host, args, kwargs)
+    response_dict = connector.get_resource()
+    return AuctionResource(response_dict)
 
-# def get_auctions_overview(region, realm):
-#     return AuctionRecource()
+
+def get_item(host, *args, **kwargs):
+    connector = ItemConnector(host, args, kwargs)
+    response_dict = connector.get_resource()
+    return ItemResource(response_dict)
+
+
+
+
+
+
+
 
 
 
