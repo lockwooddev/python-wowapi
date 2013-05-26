@@ -2,7 +2,6 @@ from .api import (
     get_auctions, get_item
 )
 
-
 # Set default logging handler to avoid "No handler found" warnings.
 # Took from Python Request. Thanks Kenneth Reitz!
 import logging

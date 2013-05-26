@@ -13,6 +13,7 @@ class APIConnector(object):
     resource = ""
 
     def __init__(self, host, *args, **kwargs):
+        self.host = host
         self.kwargs = kwargs
         self.args = args
         self.protocol = "https://" if self.kwargs.get("secure") else "http://"
@@ -25,14 +26,11 @@ class APIConnector(object):
         return params
 
     def get_url(self):
-        base = self.protocol + "api/wow/" + self.resource
+        base = self.protocol + self.host + "/api/wow/" + self.resource
         url = base + "/".join(self.args)
         return url
 
-    def get_resource(self):
-        url = self.get_url()
-        params = self.get_query_parameters()
-
+    def handle_request(self, url, params=None):
         try:
             response = requests.get(url, params=params)
         except requests.Timeout, e:
@@ -57,6 +55,12 @@ class APIConnector(object):
             raise APIError(e)
 
         return json.loads(json_response)
+
+    def get_resource(self):
+        url = self.get_url()
+        params = self.get_query_parameters()
+        result = self.handle_request(url, params=params)
+        return result
 
 
 class AuctionConnector(APIConnector):

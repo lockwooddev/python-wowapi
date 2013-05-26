@@ -22,7 +22,7 @@ class APIConnectorTest(unittest.TestCase):
     def test_get_url(self):
         instance = APIConnector(self.host, "guild", "player")
         url = instance.get_url()
-        self.assertEqual("http://api/wow/guild/player", url)
+        self.assertEqual("http://eu.battle.net/api/wow/guild/player", url)
 
     def test_https(self):
         instance = APIConnector(self.host, "guild", "player", secure=True)
@@ -33,33 +33,46 @@ class APIConnectorTest(unittest.TestCase):
         with patch.object(requests, 'get') as mock_method:
             with self.assertRaises(APIError):
                 mock_method.side_effect = requests.Timeout
-                instance.get_resource()
+                instance.handle_request('http://test')
 
     def test_connection_error(self):
         instance = APIConnector(self.host)
         with patch.object(requests, 'get') as mock_method:
             with self.assertRaises(APIError):
                 mock_method.side_effect = requests.ConnectionError
-                instance.get_resource()
+                instance.handle_request('http://test')
 
     def test_http_error(self):
         instance = APIConnector(self.host)
         with patch.object(requests, 'get') as mock_method:
             with self.assertRaises(APIError):
                 mock_method.side_effect = requests.HTTPError
-                instance.get_resource()
+                instance.handle_request('http://test')
 
-    def test_status_not_ok(self):
-        instance = APIConnector(self.host)
-        with patch.object(requests.models.Response, 'ok') as mock_method:
-            with self.assertRaises(APIError):
-                mock_method.side_effect = requests.RequestException
-                instance.get_resource()
+    @patch('requests.get')
+    def test_status_not_ok(self, mock):
+        res = requests.models.Response()
+        res.status_code = 404
+        res._content = json.dumps({
+            "status":"nok",
+            "reason": "something unexpected happened"
+        })
 
-    def test_json_decode_error(self):
+        mock.return_value = res
         instance = APIConnector(self.host)
-        with patch.object(requests.models.Response, 'json') as mock_method:
-            with self.assertRaises(APIError):
-                mock_method.side_effect = ValueError
-                instance.get_resource()
+
+        with self.assertRaises(APIError):
+            response = instance.handle_request('http://test')
+
+    @patch('requests.get')
+    def test_json_decode_error(self, mock):
+        res = requests.models.Response()
+        res.status_code = 200
+        res._content = 'not json'
+
+        mock.return_value = res
+        instance = APIConnector(self.host)
+
+        with self.assertRaises(APIError):
+            instance.handle_request('http://test')
 
