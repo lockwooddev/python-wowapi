@@ -26,6 +26,7 @@ class AuctionResource(APIResource):
         self.url = self.data["files"][0]["url"]
         self.last_modified = self.data["files"][0]["lastModified"]
         self.auction_data = {}
+        self._connector = APIConnector("")
 
     def is_updated(self, timestamp=None):
         new = False
@@ -39,7 +40,7 @@ class AuctionResource(APIResource):
 
         if new:
             try:
-                self.auction_data = APIConnector.handle_request(self.url)
+                self.auction_data = self._connector.handle_request(self.url)
             except APIError, e:
                 logger.error(e)
                 raise APIError(e)

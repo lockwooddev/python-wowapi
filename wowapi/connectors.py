@@ -54,7 +54,7 @@ class APIConnector(object):
             logger.error("No JSON object could be decoded for %s" % url)
             raise APIError(e)
 
-        return json.loads(json_response)
+        return json_response
 
     def get_resource(self):
         url = self.get_url()
