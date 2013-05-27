@@ -13,7 +13,7 @@ Resources
 Auctions
 ~~~~~~~~
 
-.. attribute:: get_auctions(host, realm_slug)
+.. function:: get_auctions(host, realm_slug)
 
 ::
 
@@ -23,7 +23,7 @@ Auctions
 Items
 ~~~~~
 
-.. attribute:: get_item(host, item_id, locale=None)
+.. function:: get_item(host, item_id, locale=None)
 
 ::
 
@@ -36,7 +36,7 @@ Items
 Character
 ~~~~~~~~~
 
-.. attribute:: get_character(host, realm_slug, character_name, locale=None, fields=None)
+.. function:: get_character(host, realm_slug, character_name, locale=None, fields=None)
 
 ::
 
