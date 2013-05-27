@@ -1,4 +1,4 @@
-from wowapi.resources import APIResource, AuctionResource
+from wowapi.resources import APIResource, AuctionResource, CharacterResource
 
 import json
 from mock import patch
@@ -120,3 +120,42 @@ class AuctionResourceTest(unittest.TestCase):
 
         self.assertEqual('Test Realm', resource.realm_name)
         self.assertEqual('test-realm', resource.realm_slug)
+
+
+class ItemResourceTest(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+
+class CharacterResourceTest(unittest.TestCase):
+
+    def setUp(self):
+        self.character = {
+            "lastModified":1000000000000,
+            "name":"Test Player 1",
+            "realm":"test-realm",
+            "battlegroup":"Test Battlegroup",
+            "class":1,
+            "race":1,
+            "gender":0,
+            "level":60,
+            "achievementPoints":0,
+            "thumbnail":"test-avatar.jpg",
+            "calcClass":"U"
+        }
+
+    def test_instantiation(self):
+        resource = CharacterResource(self.character, all_keywords=True)
+        self.assertEqual(self.character["lastModified"], resource.lastModified)
+        self.assertEqual(self.character["name"], resource.name)
+        self.assertEqual(self.character["realm"], resource.realm)
+        self.assertEqual(self.character["battlegroup"], resource.battlegroup)
+        self.assertEqual(self.character["class"], resource.class_)
+        self.assertEqual(self.character["race"], resource.race)
+        self.assertEqual(self.character["gender"], resource.gender)
+        self.assertEqual(self.character["level"], resource.level)
+        self.assertEqual(
+            self.character["achievementPoints"], resource.achievementPoints)
+        self.assertEqual(self.character["thumbnail"], resource.thumbnail)
+        self.assertEqual(self.character["calcClass"], resource.calcClass)

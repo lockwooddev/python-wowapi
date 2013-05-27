@@ -71,3 +71,9 @@ class AuctionConnector(APIConnector):
 class ItemConnector(APIConnector):
     allowed_filters = ['locale']
     resource = "item/"
+
+
+class CharacterConnector(APIConnector):
+    allowed_filters = ['locale', 'fields']
+    resource = "character/"
+

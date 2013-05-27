@@ -1,5 +1,5 @@
 from .api import (
-    get_auctions, get_item
+    get_auctions, get_item, get_character
 )
 
 # Set default logging handler to avoid "No handler found" warnings.

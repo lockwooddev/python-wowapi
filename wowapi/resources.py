@@ -1,7 +1,8 @@
 from .exceptions import APIError
-from .connectors import APIConnector
+from .connectors import APIConnector, CharacterConnector
 
 import copy
+import keyword
 import logging
 
 
@@ -16,7 +17,10 @@ class APIResource(object):
         # set all first row keys as attribute
         if all_keywords:
             for key in self.data:
-                setattr(self, key, self.data[key])
+                if key in keyword.kwlist:
+                    setattr(self, key+"_", self.data[key])
+                else:
+                    setattr(self, key, self.data[key])
 
 
 class AuctionResource(APIResource):
@@ -90,4 +94,7 @@ class AuctionResource(APIResource):
 
 
 class ItemResource(APIResource):
+    pass
+
+class CharacterResource(APIResource):
     pass
