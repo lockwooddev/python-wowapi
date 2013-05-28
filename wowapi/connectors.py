@@ -2,6 +2,10 @@ from .exceptions import APIError
 
 import logging
 import requests
+from requests import (
+    RequestException, Timeout, URLRequired,
+    TooManyRedirects, HTTPError, ConnectionError
+)
 
 
 logger = logging.getLogger("wowapi")
@@ -33,14 +37,9 @@ class APIConnector(object):
     def handle_request(self, url, params=None):
         try:
             response = requests.get(url, params=params)
-        except requests.Timeout, e:
-            logger.error("Timeout for %s" % url)
-            raise APIError(e)
-        except requests.ConnectionError, e:
-            logger.error("ConnectionError for %s" % url)
-            raise APIError(e)
-        except requests.HTTPError, e:
-            logger.error("HTTPError for %s" % url)
+        except (RequestException, Timeout, URLRequired,
+                TooManyRedirects, HTTPError, ConnectionError), e:
+            logger.error("%s for %s" % (e, url))
             raise APIError(e)
 
         if not response.ok:
@@ -73,7 +72,36 @@ class ItemConnector(APIConnector):
     resource = "item/"
 
 
+class ItemSetConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "item/set/"
+
+
 class CharacterConnector(APIConnector):
     allowed_filters = ['locale', 'fields']
     resource = "character/"
 
+
+class PetAbilitiesConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "battlePet/ability/"
+
+
+class PetSpeciesConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "battlePet/species/"
+
+
+class PetStatsConnector(APIConnector):
+    allowed_filters = ['locale', 'level', 'breedId', 'qualityId']
+    resource = "battlePet/stats/"
+
+
+class RealmLeaderboardConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "challenge/"
+
+
+class RegionLeaderboardConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "challenge/region"

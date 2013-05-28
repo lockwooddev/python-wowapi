@@ -96,5 +96,30 @@ class AuctionResource(APIResource):
 class ItemResource(APIResource):
     pass
 
+
+class ItemSetResource(APIResource):
+    pass
+
+
 class CharacterResource(APIResource):
+    pass
+
+
+class PetAbilitiesResource(APIResource):
+    pass
+
+
+class PetSpeciesResource(APIResource):
+    pass
+
+
+class PetStatsResource(APIResource):
+    pass
+
+
+class RealmLeaderboardResource(APIResource):
+    pass
+
+
+class RegionLeaderboardResource(APIResource):
     pass
