@@ -1,11 +1,8 @@
 Python-wowapi
 =============
 
-Python-wowapi is a client library for interacting with the World of Warcraft.
+Python-wowapi is a client library for interacting with the World of Warcraft
 Community API.
-
-I designed the library to wrap data in python instead of returning json.
-It also has to be easy and fast to use.
 
 ::
 
@@ -32,7 +29,7 @@ Contents:
 ~~~~~~~~~
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    installation
    usage
