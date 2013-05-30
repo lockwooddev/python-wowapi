@@ -105,3 +105,43 @@ class RealmLeaderboardConnector(APIConnector):
 class RegionLeaderboardConnector(APIConnector):
     allowed_filters = ['locale']
     resource = "challenge/region"
+
+
+class GuildProfileConnector(APIConnector):
+    allowed_filters = ['locale', 'fields']
+    resource = "guild/"
+
+
+class ArenaTeamConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "arena/"
+
+
+class ArenaLadderConnector(APIConnector):
+    allowed_filters = ['locale', 'page', 'size', 'asc']
+    resource = "pvp/arena/"
+
+
+class BattleGroundLadderConnector(APIConnector):
+    allowed_filters = ['locale', 'page', 'size', 'asc']
+    resource = "pvp/ratedbg/ladder"
+
+
+class QuestConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "quest/"
+
+
+class RealmStatusConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "realm/status"
+
+
+class RecipeConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "recipe/"
+
+
+class SpellConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "spell/"

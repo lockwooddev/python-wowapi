@@ -123,3 +123,35 @@ class RealmLeaderboardResource(APIResource):
 
 class RegionLeaderboardResource(APIResource):
     pass
+
+
+class GuildProfileResource(APIResource):
+    pass
+
+
+class ArenaTeamResource(APIResource):
+    pass
+
+
+class ArenaLadderResource(APIResource):
+    pass
+
+
+class BattleGroundLadderResource(APIResource):
+    pass
+
+
+class QuestResource(APIResource):
+    pass
+
+
+class RealmStatusResource(APIResource):
+    pass
+
+
+class RecipeResource(APIResource):
+    pass
+
+
+class SpellResource(APIResource):
+    pass
