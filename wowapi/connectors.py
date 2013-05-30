@@ -63,7 +63,6 @@ class APIConnector(object):
 
 
 class AuctionConnector(APIConnector):
-    allowed_filters = []
     resource = "auction/data/"
 
 
@@ -145,3 +144,54 @@ class RecipeConnector(APIConnector):
 class SpellConnector(APIConnector):
     allowed_filters = ['locale']
     resource = "spell/"
+
+
+# For Data Resources
+
+class BattlegroupConnector(APIConnector):
+    resource = "data/battlegroups/"
+
+
+class CharacterRaceConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/character/races"
+
+
+class CharacterClassConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/character/classes"
+
+
+class CharacterAchievementConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/character/achievements"
+
+
+class GuildRewardConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/guild/rewards"
+
+
+class GuildPerkConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/guild/perks"
+
+
+class GuildAchievementConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/guild/achievements"
+
+
+class ItemClassConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/item/classes"
+
+
+class TalentConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/talents"
+
+
+class PetTypeConnector(APIConnector):
+    allowed_filters = ['locale']
+    resource = "data/pet/types"

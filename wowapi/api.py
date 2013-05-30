@@ -4,116 +4,157 @@ from .connectors import (
     RealmLeaderboardConnector, RegionLeaderboardConnector,
     GuildProfileConnector,
     ArenaTeamConnector, ArenaLadderConnector, BattleGroundLadderConnector,
-    QuestConnector, RealmStatusConnector, RecipeConnector, SpellConnector
+    QuestConnector, RealmStatusConnector, RecipeConnector, SpellConnector,
+    BattlegroupConnector, CharacterRaceConnector, CharacterClassConnector,
+    CharacterAchievementConnector, GuildRewardConnector, GuildPerkConnector,
+    GuildAchievementConnector, ItemClassConnector, TalentConnector,
+    PetTypeConnector
 )
 from .resources import (
     AuctionResource, ItemResource, ItemSetResource, CharacterResource,
     PetAbilitiesResource, PetSpeciesResource, PetStatsResource,
     RealmLeaderboardResource, RegionLeaderboardResource, GuildProfileResource,
     ArenaTeamResource, ArenaLadderResource, BattleGroundLadderResource,
-    QuestResource, RealmStatusResource, RecipeResource, SpellResource
+    QuestResource, RealmStatusResource, RecipeResource, SpellResource,
+    DataResource
 )
 
 
 def get_auctions(host, realm_slug, **kwargs):
     connector = AuctionConnector(host, *[realm_slug], **kwargs)
-    response_dict = connector.get_resource()
-    return AuctionResource(response_dict)
+    return AuctionResource(connector.get_resource())
 
 
 def get_item(host, item_id, **kwargs):
     connector = ItemConnector(host, *[item_id], **kwargs)
-    response_dict = connector.get_resource()
-    return ItemResource(response_dict, all_keywords=True)
+    return ItemResource(connector.get_resource(), all_keywords=True)
 
 
 def get_item_set(host, set_id, **kwargs):
     connector = ItemSetConnector(host, *[set_id], **kwargs)
-    response_dict = connector.get_resource()
-    return ItemSetResource(response_dict, all_keywords=True)
+    return ItemSetResource(connector.get_resource(), all_keywords=True)
 
 
 def get_character(host, realm_slug, character_name, **kwargs):
     connector = CharacterConnector(
         host, *[realm_slug, character_name], **kwargs)
-    response_dict = connector.get_resource()
-    return CharacterResource(response_dict, all_keywords=True)
+    return CharacterResource(connector.get_resource(), all_keywords=True)
 
 
 def get_pet_abilities(host, ability_id, **kwargs):
     connector = PetAbilitiesConnector(host, *[ability_id], **kwargs)
-    response_dict = connector.get_resource()
-    return PetAbilitiesResource(response_dict, all_keywords=True)
+    return PetAbilitiesResource(connector.get_resource(), all_keywords=True)
 
 
 def get_pet_species(host, species_id, **kwargs):
     connector = PetSpeciesConnector(host, *[species_id], **kwargs)
-    response_dict = connector.get_resource()
-    return PetSpeciesResource(response_dict, all_keywords=True)
+    return PetSpeciesResource(connector.get_resource(), all_keywords=True)
 
 
 def get_pet_stats(host, species_id, **kwargs):
     connector = PetStatsConnector(host, *[species_id], **kwargs)
-    response_dict = connector.get_resource()
-    return PetStatsResource(response_dict, all_keywords=True)
+    return PetStatsResource(connector.get_resource(), all_keywords=True)
 
 
 def get_realm_leaderboard(host, realm_slug, **kwargs):
     connector = RealmLeaderboardConnector(host, *[realm_slug], **kwargs)
-    response_dict = connector.get_resource()
-    return RealmLeaderboardResource(response_dict, all_keywords=True)
+    return RealmLeaderboardResource(connector.get_resource(), all_keywords=True)
 
 
 def get_region_leaderboard(host, **kwargs):
     connector = RegionLeaderboardConnector(host, **kwargs)
-    response_dict = connector.get_resource()
-    return RegionLeaderboardResource(response_dict, all_keywords=True)
+    return RegionLeaderboardResource(connector.get_resource(), all_keywords=True)
 
 
 def get_guild_profile(host, realm_slug, guild_name, **kwargs):
     connector = GuildProfileConnector(host, *[realm_slug, guild_name], **kwargs)
-    response_dict = connector.get_resource()
-    return GuildProfileResource(response_dict, all_keywords=True)
+    return GuildProfileResource(connector.get_resource(), all_keywords=True)
 
 
 def get_arena_team(host, realm_slug, team_size, team_name, **kwargs):
     connector = ArenaTeamConnector(
         host, *[realm_slug, team_size, team_name], **kwargs)
-    response_dict = connector.get_resource()
-    return ArenaTeamResource(response_dict, all_keywords=True)
+    return ArenaTeamResource(connector.get_resource(), all_keywords=True)
 
 
 def get_arena_ladder(host, battlegroup, team_size, **kwargs):
     connector = ArenaLadderConnector(host, *[battlegroup, team_size], **kwargs)
-    response_dict = connector.get_resource()
-    return ArenaLadderResource(response_dict, all_keywords=True)
+    return ArenaLadderResource(connector.get_resource(), all_keywords=True)
 
 
 def get_rated_battleground_ladder(host, **kwargs):
     connector = BattleGroundLadderConnector(host, **kwargs)
-    response_dict = connector.get_resource()
-    return BattleGroundLadderResource(response_dict, all_keywords=True)
+    return BattleGroundLadderResource(connector.get_resource(), all_keywords=True)
 
 
 def get_quest(host, quest_id, **kwargs):
     connector = QuestConnector(host, *[quest_id], **kwargs)
-    response_dict = connector.get_resource()
-    return QuestResource(response_dict, all_keywords=True)
+    return QuestResource(connector.get_resource(), all_keywords=True)
 
 
 def get_realm_status(host, **kwargs):
     connector = RealmStatusConnector(host, **kwargs)
-    response_dict = connector.get_resource()
-    return RealmStatusResource(response_dict, all_keywords=True)
+    return RealmStatusResource(connector.get_resource(), all_keywords=True)
 
 
 def get_recipe(host, recipe_id, **kwargs):
     connector = RecipeConnector(host, *[recipe_id], **kwargs)
-    response_dict = connector.get_resource()
-    return RecipeResource(response_dict, all_keywords=True)
+    return RecipeResource(connector.get_resource(), all_keywords=True)
 
 
 def get_spell(host, spell_id, **kwargs):
     connector = SpellConnector(host, *[spell_id], **kwargs)
-    response_dict = connector.get_resource()
-    return SpellResource(response_dict, all_keywords=True)
+    return SpellResource(connector.get_resource(), all_keywords=True)
+
+
+# data resources
+
+def get_battlegroups(host, **kwargs):
+    connector = BattlegroupConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_character_races(host, **kwargs):
+    connector = CharacterRaceConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_character_classes(host, **kwargs):
+    connector = CharacterClassConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_character_achievements(host, **kwargs):
+    connector = CharacterAchievementConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_guild_rewards(host, **kwargs):
+    connector = GuildRewardConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_guild_perks(host, **kwargs):
+    connector = GuildPerkConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_guild_achievements(host, **kwargs):
+    connector = GuildAchievementConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_item_classes(host, **kwargs):
+    connector = ItemClassConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_talents(host, **kwargs):
+    connector = TalentConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+
+
+def get_pet_types(host, **kwargs):
+    connector = PetTypeConnector(host, **kwargs)
+    return DataResource(connector.get_resource(), all_keywords=True)
+

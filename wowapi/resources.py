@@ -155,3 +155,7 @@ class RecipeResource(APIResource):
 
 class SpellResource(APIResource):
     pass
+
+
+class DataResource(APIResource):
+    pass
