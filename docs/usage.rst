@@ -11,8 +11,8 @@ API Resources
 
 All the endpoints of the Community API are implemented in this library.
 
-Every endpoint returns a resource object. Depending on the type of resource,
-the data attributes are set on the object based on the dataset.
+Every api method returns a resource object. The keys of the dataset are
+set as attributes on the resource.
 
 Example with an ItemResource::
 
@@ -81,7 +81,7 @@ new attributes if ``is_new()`` is ``True``:
 Items
 ~~~~~
 
-Returns an ``ItemResource`` for the selected item.
+Returns an ``ItemResource`` of an individual item.
 
 .. function:: get_item(host, item_id, locale=None)
 
@@ -96,7 +96,7 @@ Returns an ``ItemResource`` for the selected item.
 Item sets
 ~~~~~~~~~
 
-Returns an ``ItemSetResource`` for the selected item set.
+Returns an ``ItemSetResource`` of an individual item set.
 
 .. function:: get_item_set(host, set_id, locale=None)
 
@@ -107,6 +107,8 @@ Returns an ``ItemSetResource`` for the selected item set.
 
 Character Profile
 ~~~~~~~~~~~~~~~~~
+
+Returns a ``CharacterResource`` of an individual character.
 
 .. function:: get_character(host, realm_slug, character_name, locale=None, fields=[extra fields])
 
@@ -142,6 +144,8 @@ extra fields:
 Pet abilities
 ~~~~~~~~~~~~~
 
+Returns a ``PetAbilitiesResource`` of an individual pet ability.
+
 .. function:: get_pet_abilities(host, ability_id, locale=None)
 
 ::
@@ -152,6 +156,8 @@ Pet abilities
 Pet species
 ~~~~~~~~~~~
 
+Returns a ``PetSpeciesResource`` of an individual pet species.
+
 .. function:: get_pet_species(host, species_id, locale=None)
 
 ::
@@ -161,6 +167,8 @@ Pet species
 
 Pet stats
 ~~~~~~~~~
+
+Returns a ``PetStatsResource`` of an individual pet species.
 
 .. function:: get_pet_stats(host, species_id, locale=None, level=1, breedId=3, qualityId=1)
 
@@ -178,6 +186,9 @@ extra filters:
 Realm Leaderboard
 ~~~~~~~~~~~~~~~~~
 
+Returns a ``RealmLeaderboardResource`` of all challenges on an individual
+realm.
+
 .. function:: get_realm_leaderboard(host, realm_slug, locale=None)
 
 ::
@@ -188,7 +199,10 @@ Realm Leaderboard
 Region Leaderboard
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: get_region_leaderboard(host, realm_slug, locale=None)
+Returns a ``RegionLeaderboardResource`` of the top 100 challenge results for
+the region.
+
+.. function:: get_region_leaderboard(host, locale=None)
 
 ::
 
@@ -197,6 +211,8 @@ Region Leaderboard
 
 Guild Profile
 ~~~~~~~~~~~~~
+
+Returns a ``GuildProfileResource`` of an individual guild.
 
 .. function:: get_guild_profile(host, realm_slug, guild_name, locale=None, fields=[extra fields])
 
@@ -215,6 +231,8 @@ extra fields:
 Arena Team
 ~~~~~~~~~~
 
+Returns an ``ArenaTeamResource`` of an individual arena team.
+
 .. function:: get_arena_team(host, realm_slug, team_size, team_name, locale=None)
 
 ``team_size`` options:
@@ -230,6 +248,8 @@ Arena Team
 
 Arena Ladder
 ~~~~~~~~~~~~
+
+Returns an ``ArenaLadderResource`` of an individual battlegroup.
 
 .. function:: get_arena_ladder(host, battlegroup, team_size, locale=None, page=1, size=50, asc=True)
 
@@ -253,6 +273,8 @@ Extra filters:
 Rated Battleground Ladder
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Returns a ``BattleGroundLadderResource`` of an individual region.
+
 .. function:: get_rated_battleground_ladder(host, locale=None, page=1, size=50, asc=True)
 
 Extra filters:
@@ -266,9 +288,10 @@ Extra filters:
     resource = wowapi.get_rated_battleground_ladder('eu.battle.net')
 
 
-
 Quest
 ~~~~~
+
+Returns a ``QuestResource`` of an individual quest.
 
 .. function:: get_quest(host, quest_id, locale=None)
 
@@ -280,6 +303,8 @@ Quest
 Realm Status
 ~~~~~~~~~~~~
 
+Returns a ``RealmStatusResource`` of all realms in the region.
+
 .. function:: get_realm_status(host, locale=None)
 
 ::
@@ -290,6 +315,8 @@ Realm Status
 Recipe
 ~~~~~~
 
+Returns a ``RecipeResource`` of an individual recipe.
+
 .. function:: get_recipe(host, recipe_id, locale=None)
 
 ::
@@ -299,6 +326,8 @@ Recipe
 
 Spell
 ~~~~~
+
+Returns a ``SpellResource`` of an individual spell.
 
 .. function:: get_spell(host, spell_id, locale=None)
 
