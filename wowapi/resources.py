@@ -32,7 +32,7 @@ class AuctionResource(APIResource):
         self.auction_data = {}
         self._connector = APIConnector("")
 
-    def is_updated(self, timestamp=None):
+    def is_new(self, timestamp=None):
         new = False
 
         if timestamp:

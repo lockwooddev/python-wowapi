@@ -77,24 +77,24 @@ class AuctionResourceTest(unittest.TestCase):
         self.assertEqual('', resource.realm_slug)
 
     @patch("wowapi.connectors.APIConnector.handle_request")
-    def test_is_updated_no_timestamp_given(self, mock):
+    def test_is_new_no_timestamp_given(self, mock):
         mock.return_value = self.auction_response
         resource = AuctionResource(self.response_dict)
-        has_new = resource.is_updated()
+        has_new = resource.is_new()
         self.assertTrue(has_new)
         self.assertTrue(resource.auction_data)
 
-    def test_is_updated_timestamp_old(self):
+    def test_is_new_timestamp_old(self):
         resource = AuctionResource(self.response_dict)
-        has_new = resource.is_updated(timestamp=1369578638001)
+        has_new = resource.is_new(timestamp=1369578638001)
         self.assertFalse(has_new)
         self.assertFalse(resource.auction_data)
 
     @patch("wowapi.connectors.APIConnector.handle_request")
-    def test_is_updated_timestamp_new(self, mock):
+    def test_is_new_timestamp_new(self, mock):
         mock.return_value = self.auction_response
         resource = AuctionResource(self.response_dict)
-        has_new = resource.is_updated(timestamp=1369578637999)
+        has_new = resource.is_new(timestamp=1369578637999)
         self.assertTrue(has_new)
         self.assertTrue(resource.auction_data)
 

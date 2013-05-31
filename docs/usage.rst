@@ -40,9 +40,42 @@ Auctions
 
 .. function:: get_auctions(host, realm_slug)
 
+Returns an auction resource for the selected realm.
+
 ::
 
-    resource = wowapi.get_auctions('eu.battle.net', 'khadgar')
+    >>> resource = wowapi.get_auctions('eu.battle.net', 'defias-brotherhood')
+
+    >>> resource
+    <wowapi.resources.AuctionResource object at 0x104853c90>
+
+This endpoint does not directly fetch all the auctions data. It creates the
+following data attributes on the ``AuctionResource`` instance:
+
+- ``last_modified`` js timestamp of last update.
+- ``url`` uri to actual auctions data.
+
+This in between step allows API developers to compare timestamps between
+previous requested data.
+
+::
+
+    # returns true, fetches auctions and ignores the timestamp check.
+    resource.is_new()
+
+    # checks if your given timestamp is older. If True, the data is requested
+    # and extra data attributes are set on the instance.
+    resource.is_new(timestamp=1369578638000)
+
+
+new attributes if ``is_new()`` is ``True``:
+
+- ``all`` list of dictionaries with all auctions and extra key ``faction``
+- ``alliance`` list of dictionaries with alliance auctions
+- ``horde`` list of dictionaries with horde auctions
+- ``neutral`` list of dictionaries with neutral auctions
+- ``realm_name`` name of realm
+- ``realm_slug`` slug of realm
 
 
 Items
