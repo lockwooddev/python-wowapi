@@ -33,6 +33,7 @@ Contents:
 
    installation
    usage
+   exceptions
 
 
 

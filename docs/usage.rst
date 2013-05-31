@@ -40,7 +40,7 @@ Auctions
 
 .. function:: get_auctions(host, realm_slug)
 
-Returns an auction resource for the selected realm.
+Returns an ``AuctionResource`` for the selected realm.
 
 ::
 
@@ -81,6 +81,8 @@ new attributes if ``is_new()`` is ``True``:
 Items
 ~~~~~
 
+Returns an ``ItemResource`` for the selected item.
+
 .. function:: get_item(host, item_id, locale=None)
 
 ::
@@ -93,6 +95,8 @@ Items
 
 Item sets
 ~~~~~~~~~
+
+Returns an ``ItemSetResource`` for the selected item set.
 
 .. function:: get_item_set(host, set_id, locale=None)
 
