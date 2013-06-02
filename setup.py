@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='python-wowapi',
     description="Python-wowapi is a client library for interacting with the World of Warcraft Community API.",
-    version=wowapi.__version__,
+    version='0.1',
     packages=[
         'wowapi',
         'wowapi.tests',
