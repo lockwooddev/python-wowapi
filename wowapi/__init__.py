@@ -1,3 +1,6 @@
+__version__ = '0.1'
+
+
 from .api import (
     get_auctions, get_item, get_item_set, get_character, get_pet_abilities,
     get_pet_species, get_pet_stats, get_realm_leaderboard,
@@ -8,6 +11,7 @@ from .api import (
     get_guild_rewards, get_guild_perks, get_guild_achievements,
     get_item_classes, get_talents, get_pet_types
 )
+
 
 # Set default logging handler to avoid "No handler found" warnings.
 # Took from Python Request. Thanks Kenneth Reitz!

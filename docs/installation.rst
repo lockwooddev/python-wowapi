@@ -20,13 +20,10 @@ With pip from GitHub
     pip install git+https://github.com/lockwooddev/python-wowapi.git
 
 
-Dependencies
-------------
+Running tests
+-------------
 
-Required
-^^^^^^^^
+If you want to run the tests of the package, install at least::
 
-
-- Requests
-
-    A python HTTP library for humans (really!).
+    requests >= 1.1.0
+    mock >= 1.0.1

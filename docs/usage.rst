@@ -344,6 +344,9 @@ Data Resources
 Another part of the API are the data endpoints. The data stored behind these
 endpoints can be connected to data from other endpoints.
 
+The data endpoints all return a ``DataResource`` with attributes from the
+different datasets.
+
 Battlegroups
 ~~~~~~~~~~~~
 
