@@ -1,7 +1,5 @@
 from distutils.core import setup
 
-import wowapi
-
 
 setup(
     name='python-wowapi',
