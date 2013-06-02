@@ -11,8 +11,8 @@ API Resources
 
 All the endpoints of the Community API are implemented in this library.
 
-Every api method returns a resource object. The keys of the dataset are
-set as attributes on the resource.
+Every endpoint returns a resource object with a bunch of attributes that are
+acquired from the first level of keys of the APIs json response.
 
 Example with an ItemResource::
 
@@ -49,14 +49,14 @@ Returns an ``AuctionResource`` for the selected realm.
     >>> resource
     <wowapi.resources.AuctionResource object at 0x104853c90>
 
-This endpoint does not directly fetch all the auctions data. It creates the
+This endpoint does not directly fetch all the auction data. It creates the
 following data attributes on the ``AuctionResource`` instance:
 
 - ``last_modified`` js timestamp of last update.
-- ``url`` uri to actual auctions data.
+- ``url`` uri to actual auction data.
 
 This in between step allows API developers to compare timestamps between
-previous requested data.
+previous requested data and the current response.
 
 ::
 
@@ -70,7 +70,7 @@ previous requested data.
 
 new attributes if ``is_new()`` is ``True``:
 
-- ``all`` list of dictionaries with all auctions and extra key ``faction``
+- ``all`` list of dictionaries with all auctions combined and one extra key ``faction``
 - ``alliance`` list of dictionaries with alliance auctions
 - ``horde`` list of dictionaries with horde auctions
 - ``neutral`` list of dictionaries with neutral auctions

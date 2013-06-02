@@ -1,21 +1,18 @@
 Installation
 ============
 
-Here you can read how to install the package using either GitHub or Pip.
+Here you can read how to install the package.
 
 
-With pip from PyPi
-------------------
+Pip
+---
 
 * Install the package with ``pip`` in your terminal::
 
     pip install python-wowapi
 
 
-With pip from GitHub
---------------------
-
-* Install the package from GitHub in your terminal::
+* Or install the package directly from GitHub::
 
     pip install git+https://github.com/lockwooddev/python-wowapi.git
 
