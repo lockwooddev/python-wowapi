@@ -34,6 +34,7 @@ Contents:
    installation
    usage
    exceptions
+   changelog
 
 
 
