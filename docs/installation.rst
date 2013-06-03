@@ -12,9 +12,9 @@ Pip
     pip install python-wowapi
 
 
-* Or install the package directly from GitHub::
+* Or install the package directly from Bitbucket::
 
-    pip install git+https://github.com/lockwooddev/python-wowapi.git
+    pip install git+https://bitbucket.org/lockwood/python-wowapi.git
 
 
 Running tests
