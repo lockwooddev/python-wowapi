@@ -1,8 +1,17 @@
 Changelog
 =========
 
+0.2 (27-09-2013)
+----------------
+
+* Fix PEP8 Style.
+* Remove ``all`` property from AuctionResouce.
+* Add fetch argument to ``is_new`` method of AuctionResource.
+* Add ``download_auctions`` method to AuctionResource.
+* Update documentation.
+* Update tests.
 
 0.1 (02-06-2013)
 ----------------
 
-* Initial release
+* Initial release.

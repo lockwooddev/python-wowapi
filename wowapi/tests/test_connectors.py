@@ -62,7 +62,7 @@ class APIConnectorTest(unittest.TestCase):
         instance = APIConnector(self.host)
 
         with self.assertRaises(APIError):
-            response = instance.handle_request('http://test')
+            instance.handle_request('http://test')
 
     @patch('requests.get')
     def test_json_decode_error(self, mock):

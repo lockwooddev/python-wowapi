@@ -20,7 +20,11 @@ Pip
 Running tests
 -------------
 
-If you want to run the tests of the package, install at least::
+To run the tests you need the following packages::
 
     requests >= 1.1.0
     mock >= 1.0.1
+
+To run the tests, cd to the directory and run::
+
+    python -m unittest discover

@@ -6,8 +6,8 @@ Usage
 Read here about using python-wowapi after setting it up.
 
 
-API Resources
-------------
+API Endpoints
+=============
 
 All the endpoints of the Community API are implemented in this library.
 
@@ -36,7 +36,7 @@ Example with an ItemResource::
 
 
 Auctions
-~~~~~~~~
+--------
 
 .. function:: get_auctions(host, realm_slug)
 
@@ -55,22 +55,40 @@ following data attributes on the ``AuctionResource`` instance:
 - ``last_modified`` js timestamp of last update.
 - ``url`` uri to actual auction data.
 
-This in between step allows API developers to compare timestamps between
-previous requested data and the current response.
+Resource methods
+^^^^^^^^^^^^^^^^
+
+There are a few methods available for the resource returned by this endpoint:
+
+
+.. py:method:: AuctionResource.is_new(last_timestamp=None, fetch=False)
+
+This method can check if the underlying auctions are new. It will return True or False depending
+on arguments usage.
+
+-   ``last_timestamp`` this should be the timestamp of your previous requested document.
+-   ``fetch`` if this is set to true, then the auction data is fetched if the method returns True.
 
 ::
 
     # returns true, fetches auctions and ignores the timestamp check.
+    resource.is_new(fetch=True)
+    >>> True
+
+    # returns true, fetches auctions and ignores the timestamp check.
     resource.is_new()
+    >>> True
 
     # checks if your given timestamp is older. If True, the data is requested
-    # and extra data attributes are set on the instance.
+    # and extra data attributes are set on the instance if fetch is also True
+    resource.is_new(timestamp=1369578638000, fetch=True)
+
+    # does the same, but does not fetch the auctions
     resource.is_new(timestamp=1369578638000)
 
 
-new attributes if ``is_new()`` is ``True``:
+So if the data is fetched by ``is_new``, then the following attributes are available:
 
-- ``all`` list of dictionaries with all auctions combined and one extra key ``faction``
 - ``alliance`` list of dictionaries with alliance auctions
 - ``horde`` list of dictionaries with horde auctions
 - ``neutral`` list of dictionaries with neutral auctions
@@ -78,8 +96,13 @@ new attributes if ``is_new()`` is ``True``:
 - ``realm_slug`` slug of realm
 
 
+.. py:method:: AuctionResource.download_auctions()
+
+This method directly downloads the auctions.
+
+
 Items
-~~~~~
+-----
 
 Returns an ``ItemResource`` of an individual item.
 
@@ -94,7 +117,7 @@ Returns an ``ItemResource`` of an individual item.
 
 
 Item sets
-~~~~~~~~~
+---------
 
 Returns an ``ItemSetResource`` of an individual item set.
 
@@ -106,7 +129,7 @@ Returns an ``ItemSetResource`` of an individual item set.
 
 
 Character Profile
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Returns a ``CharacterResource`` of an individual character.
 
@@ -142,7 +165,7 @@ extra fields:
 
 
 Pet abilities
-~~~~~~~~~~~~~
+-------------
 
 Returns a ``PetAbilitiesResource`` of an individual pet ability.
 
@@ -154,7 +177,7 @@ Returns a ``PetAbilitiesResource`` of an individual pet ability.
 
 
 Pet species
-~~~~~~~~~~~
+-----------
 
 Returns a ``PetSpeciesResource`` of an individual pet species.
 
@@ -166,7 +189,7 @@ Returns a ``PetSpeciesResource`` of an individual pet species.
 
 
 Pet stats
-~~~~~~~~~
+---------
 
 Returns a ``PetStatsResource`` of an individual pet species.
 
@@ -184,7 +207,7 @@ extra filters:
 
 
 Realm Leaderboard
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Returns a ``RealmLeaderboardResource`` of all challenges on an individual
 realm.
@@ -197,7 +220,7 @@ realm.
 
 
 Region Leaderboard
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Returns a ``RegionLeaderboardResource`` of the top 100 challenge results for
 the region.
@@ -210,7 +233,7 @@ the region.
 
 
 Guild Profile
-~~~~~~~~~~~~~
+-------------
 
 Returns a ``GuildProfileResource`` of an individual guild.
 
@@ -229,7 +252,7 @@ extra fields:
 
 
 Arena Team
-~~~~~~~~~~
+----------
 
 Returns an ``ArenaTeamResource`` of an individual arena team.
 
@@ -247,7 +270,7 @@ Returns an ``ArenaTeamResource`` of an individual arena team.
 
 
 Arena Ladder
-~~~~~~~~~~~~
+------------
 
 Returns an ``ArenaLadderResource`` of an individual battlegroup.
 
@@ -271,7 +294,7 @@ Extra filters:
 
 
 Rated Battleground Ladder
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 Returns a ``BattleGroundLadderResource`` of an individual region.
 
@@ -289,7 +312,7 @@ Extra filters:
 
 
 Quest
-~~~~~
+-----
 
 Returns a ``QuestResource`` of an individual quest.
 
@@ -301,7 +324,7 @@ Returns a ``QuestResource`` of an individual quest.
 
 
 Realm Status
-~~~~~~~~~~~~
+------------
 
 Returns a ``RealmStatusResource`` of all realms in the region.
 
@@ -313,7 +336,7 @@ Returns a ``RealmStatusResource`` of all realms in the region.
 
 
 Recipe
-~~~~~~
+------
 
 Returns a ``RecipeResource`` of an individual recipe.
 
@@ -325,7 +348,7 @@ Returns a ``RecipeResource`` of an individual recipe.
 
 
 Spell
-~~~~~
+-----
 
 Returns a ``SpellResource`` of an individual spell.
 
@@ -339,7 +362,7 @@ Returns a ``SpellResource`` of an individual spell.
 
 
 Data Resources
---------------
+==============
 
 Another part of the API are the data endpoints. The data stored behind these
 endpoints can be connected to data from other endpoints.
@@ -348,7 +371,7 @@ The data endpoints all return a ``DataResource`` with attributes from the
 different datasets.
 
 Battlegroups
-~~~~~~~~~~~~
+------------
 
 .. function:: get_battlegroups(host)
 
@@ -358,7 +381,7 @@ Battlegroups
 
 
 Character Races
-~~~~~~~~~~~~~~~
+---------------
 
 .. function:: get_character_races(host, locale=None)
 
@@ -368,7 +391,7 @@ Character Races
 
 
 Character Classes
-~~~~~~~~~~~~~~~~~
+-----------------
 
 .. function:: get_character_classes(host, locale=None)
 
@@ -378,7 +401,7 @@ Character Classes
 
 
 Character Achievements
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 .. function:: get_character_achievements(host, locale=None)
 
@@ -388,7 +411,7 @@ Character Achievements
 
 
 Guild Rewards
-~~~~~~~~~~~~~
+-------------
 
 .. function:: get_guild_rewards(host, locale=None)
 
@@ -398,7 +421,7 @@ Guild Rewards
 
 
 Guild Perks
-~~~~~~~~~~~
+-----------
 
 .. function:: get_guild_perks(host, locale=None)
 
@@ -408,7 +431,7 @@ Guild Perks
 
 
 Guild Achievements
-~~~~~~~~~~~~~~~~~~
+------------------
 
 .. function:: get_guild_achievements(host, locale=None)
 
@@ -418,7 +441,7 @@ Guild Achievements
 
 
 Item Classes
-~~~~~~~~~~~~
+------------
 
 .. function:: get_item_classes(host, locale=None)
 
@@ -428,7 +451,7 @@ Item Classes
 
 
 Talents
-~~~~~~~
+-------
 
 .. function:: get_talents(host, locale=None)
 
@@ -438,7 +461,7 @@ Talents
 
 
 Pet Types
-~~~~~~~~~
+---------
 
 .. function:: get_pet_types(host, locale=None)
 

@@ -13,7 +13,7 @@ class APIResourceTest(unittest.TestCase):
             "name": "test",
             "container": [
                 {"a": 1},
-                {"b", 2}
+                {"b": 2}
             ]
         }
 
@@ -37,7 +37,7 @@ class AuctionResourceTest(unittest.TestCase):
             "files":[
                 {
                      "url":"http://test/auctions.json",
-                     "lastModified":1369578638000
+                     "lastModified":1000
                 }
             ]
         }
@@ -69,42 +69,61 @@ class AuctionResourceTest(unittest.TestCase):
 
     def test_instantiation(self):
         resource = AuctionResource(self.response_dict)
-        self.assertEqual([], resource.all)
         self.assertEqual([], resource.alliance)
         self.assertEqual([], resource.horde)
         self.assertEqual([], resource.neutral)
         self.assertEqual('', resource.realm_name)
         self.assertEqual('', resource.realm_slug)
 
-    @patch("wowapi.connectors.APIConnector.handle_request")
-    def test_is_new_no_timestamp_given(self, mock):
-        mock.return_value = self.auction_response
-        resource = AuctionResource(self.response_dict)
-        has_new = resource.is_new()
-        self.assertTrue(has_new)
-        self.assertTrue(resource.auction_data)
+    def test_is_new_1(self):
+        """
+        Tests no last_timestamp given and fetch False
 
-    def test_is_new_timestamp_old(self):
+        Should return True and not fetch the resource
+        """
         resource = AuctionResource(self.response_dict)
-        has_new = resource.is_new(timestamp=1369578638001)
-        self.assertFalse(has_new)
+        self.assertTrue(resource.is_new(fetch=False))
         self.assertFalse(resource.auction_data)
 
     @patch("wowapi.connectors.APIConnector.handle_request")
-    def test_is_new_timestamp_new(self, mock):
+    def test_is_new_2(self, mock):
+        """
+        Tests no last_timestamp given and fetch True
+
+        Should return True and fetch the resource
+        """
         mock.return_value = self.auction_response
         resource = AuctionResource(self.response_dict)
-        has_new = resource.is_new(timestamp=1369578637999)
-        self.assertTrue(has_new)
+        self.assertTrue(resource.is_new(fetch=True))
         self.assertTrue(resource.auction_data)
+
+    def test_is_new_3(self):
+        """
+        Tests old last_timestamp given and fetch False
+
+        Should return True and not fetch the resource
+        """
+        resource = AuctionResource(self.response_dict)
+        has_new = resource.is_new(last_timestamp=800, fetch=False)
+        self.assertTrue(has_new)
+        self.assertFalse(resource.auction_data)
+
+    @patch("wowapi.connectors.APIConnector.handle_request")
+    def test_is_new_4(self, mock):
+        """
+        Tests new last_timestamp given and fetch True
+
+        Should return False and not fetch the resource
+        """
+        mock.return_value = self.auction_response
+        resource = AuctionResource(self.response_dict)
+        has_new = resource.is_new(last_timestamp=1100, fetch=True)
+        self.assertFalse(has_new)
+        self.assertFalse(resource.auction_data)
 
     def test_properties(self):
         resource = AuctionResource(self.response_dict)
         resource.auction_data = json.loads(self.auction_response)
-        self.assertTrue(resource.all)
-        self.assertEqual("alliance", resource.all[0]["faction"])
-        self.assertEqual("horde", resource.all[1]["faction"])
-        self.assertEqual("neutral", resource.all[2]["faction"])
 
         self.assertEqual(1, len(resource.alliance))
         self.assertEqual(1, resource.alliance[0]["auc"])
@@ -132,17 +151,17 @@ class CharacterResourceTest(unittest.TestCase):
 
     def setUp(self):
         self.character = {
-            "lastModified":1000000000000,
-            "name":"Test Player 1",
-            "realm":"test-realm",
-            "battlegroup":"Test Battlegroup",
-            "class":1,
-            "race":1,
-            "gender":0,
-            "level":60,
-            "achievementPoints":0,
-            "thumbnail":"test-avatar.jpg",
-            "calcClass":"U"
+            "lastModified": 1000000000000,
+            "name": "Test Player 1",
+            "realm": "test-realm",
+            "battlegroup": "Test Battlegroup",
+            "class": 1,
+            "race": 1,
+            "gender": 0,
+            "level": 60,
+            "achievementPoints": 0,
+            "thumbnail": "test-avatar.jpg",
+            "calcClass": "U"
         }
 
     def test_instantiation(self):

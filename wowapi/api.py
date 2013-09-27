@@ -36,8 +36,7 @@ def get_item_set(host, set_id, **kwargs):
 
 
 def get_character(host, realm_slug, character_name, **kwargs):
-    connector = CharacterConnector(
-        host, *[realm_slug, character_name], **kwargs)
+    connector = CharacterConnector(host, *[realm_slug, character_name], **kwargs)
     return CharacterResource(connector.get_resource(), all_keywords=True)
 
 
@@ -72,8 +71,7 @@ def get_guild_profile(host, realm_slug, guild_name, **kwargs):
 
 
 def get_arena_team(host, realm_slug, team_size, team_name, **kwargs):
-    connector = ArenaTeamConnector(
-        host, *[realm_slug, team_size, team_name], **kwargs)
+    connector = ArenaTeamConnector(host, *[realm_slug, team_size, team_name], **kwargs)
     return ArenaTeamResource(connector.get_resource(), all_keywords=True)
 
 
@@ -157,4 +155,3 @@ def get_talents(host, **kwargs):
 def get_pet_types(host, **kwargs):
     connector = PetTypeConnector(host, **kwargs)
     return DataResource(connector.get_resource(), all_keywords=True)
-

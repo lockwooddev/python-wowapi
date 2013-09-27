@@ -1,7 +1,6 @@
 from .exceptions import APIError
-from .connectors import APIConnector, CharacterConnector
+from .connectors import APIConnector
 
-import copy
 import keyword
 import logging
 
@@ -32,45 +31,37 @@ class AuctionResource(APIResource):
         self.auction_data = {}
         self._connector = APIConnector("")
 
-    def is_new(self, timestamp=None):
+    def is_new(self, last_timestamp=None, fetch=False):
         new = False
 
-        if timestamp:
-            if timestamp < self.last_modified:
+        # If last_timestamp as arg, compare if given ts is smaller
+        # of course the arg ts should be the ts of your last fetched last_modified key.
+        if last_timestamp:
+            if last_timestamp < self.last_modified:
                 new = True
+        # new auctions also true if last_timestamp not an arg. This is useful if you request this
+        # endpoint for the first time.
         else:
-            # if no timestamp argument. Download auctions.
             new = True
 
-        if new:
-            try:
-                self.auction_data = self._connector.handle_request(self.url)
-            except APIError, e:
-                logger.error(e)
-                raise APIError(e)
+        # If fetch and new are true, it downloads the auctions and sets the auction_data attribute.
+        if fetch and new:
+            self.auction_data = self.download_auctions()
 
         return new
+
+    def download_auctions(self):
+        try:
+            return self._connector.handle_request(self.url)
+        except APIError, e:
+            logger.error(e)
+            raise APIError(e)
 
     def get_property(self, key1, key2, false_return=[]):
         if self.auction_data:
             property_ = self.auction_data.get(key1)
             return property_[key2]
         return false_return
-
-    @property
-    def all(self):
-        keywords = ["alliance", "horde", "neutral"]
-        all_ = []
-        if self.auction_data:
-            dict_copy = copy.deepcopy(self.auction_data)
-            for k in keywords:
-                auctions = dict_copy.get(k)
-                auctions = auctions["auctions"]
-
-                for auction in auctions:
-                    auction["faction"] = k
-                    all_.append(auction)
-        return all_
 
     @property
     def alliance(self):

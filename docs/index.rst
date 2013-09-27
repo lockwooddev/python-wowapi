@@ -25,8 +25,8 @@ For more information on the official community API visit:
 - `Official API documentation on github <http://blizzard.github.io/api-wow-docs/>`_
 - `Official Community Platform API Forum <http://us.battle.net/wow/en/forum/2626217/>`_
 
-Contents:
-~~~~~~~~~
+Contents
+========
 
 .. toctree::
    :maxdepth: 3

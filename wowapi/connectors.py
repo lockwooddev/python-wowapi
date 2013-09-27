@@ -43,8 +43,7 @@ class APIConnector(object):
             raise APIError(e)
 
         if not response.ok:
-            logger.error("API response (%i) not okay for %s" %
-                (response.status_code, url))
+            logger.error("API response (%i) not okay for %s" % (response.status_code, url))
             raise APIError(response.status_code, response.json()["reason"])
 
         try:
