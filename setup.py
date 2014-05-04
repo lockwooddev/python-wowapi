@@ -27,5 +27,6 @@ setup(
     long_description=open('README.txt').read(),
     install_requires=[
         'requests >= 1.1.0',
+        'mock >= 1.0.1',
     ],
 )

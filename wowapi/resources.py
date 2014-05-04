@@ -1,25 +1,6 @@
-from .exceptions import APIError
+from .exceptions import WowApiError
 from .connectors import APIConnector
-
-import keyword
-import logging
-
-
-logger = logging.getLogger("wowapi")
-
-
-class APIResource(object):
-
-    def __init__(self, response_dict, all_keywords=False):
-        self.data = response_dict
-
-        # set all first row keys as attribute
-        if all_keywords:
-            for key in self.data:
-                if key in keyword.kwlist:
-                    setattr(self, key+"_", self.data[key])
-                else:
-                    setattr(self, key, self.data[key])
+from .resource_base import APIResource
 
 
 class AuctionResource(APIResource):
@@ -53,9 +34,8 @@ class AuctionResource(APIResource):
     def download_auctions(self):
         try:
             return self._connector.handle_request(self.url)
-        except APIError, e:
-            logger.error(e)
-            raise APIError(e)
+        except WowApiError, e:
+            raise WowApiError(e)
 
     def get_property(self, key1, key2, false_return=[]):
         if self.auction_data:

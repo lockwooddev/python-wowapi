@@ -141,12 +141,6 @@ class AuctionResourceTest(unittest.TestCase):
         self.assertEqual('test-realm', resource.realm_slug)
 
 
-class ItemResourceTest(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-
 class CharacterResourceTest(unittest.TestCase):
 
     def setUp(self):

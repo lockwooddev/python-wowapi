@@ -1,5 +1,5 @@
 from wowapi.connectors import APIConnector
-from wowapi.exceptions import APIError
+from wowapi.exceptions import WowApiError, WowApiClientError
 
 import json
 from mock import patch
@@ -14,7 +14,7 @@ class APIConnectorTest(unittest.TestCase):
 
     def test_get_query_parameters(self):
         instance = APIConnector(self.host, locale="en_GB", custom="test")
-        instance.allowed_filters = ["locale", ]
+        instance.filters = ["locale", ]
         url_parameters = instance.get_query_parameters()
         self.assertEqual(1, len(url_parameters))
         self.assertNotIn("custom", url_parameters)
@@ -28,25 +28,11 @@ class APIConnectorTest(unittest.TestCase):
         instance = APIConnector(self.host, "guild", "player", secure=True)
         self.assertEqual("https://", instance.protocol)
 
-    def test_timeout(self):
+    def test_requests_error(self):
         instance = APIConnector(self.host)
         with patch.object(requests, 'get') as mock_method:
-            with self.assertRaises(APIError):
-                mock_method.side_effect = requests.Timeout
-                instance.handle_request('http://test')
-
-    def test_connection_error(self):
-        instance = APIConnector(self.host)
-        with patch.object(requests, 'get') as mock_method:
-            with self.assertRaises(APIError):
-                mock_method.side_effect = requests.ConnectionError
-                instance.handle_request('http://test')
-
-    def test_http_error(self):
-        instance = APIConnector(self.host)
-        with patch.object(requests, 'get') as mock_method:
-            with self.assertRaises(APIError):
-                mock_method.side_effect = requests.HTTPError
+            with self.assertRaises(WowApiClientError):
+                mock_method.side_effect = requests.RequestException
                 instance.handle_request('http://test')
 
     @patch('requests.get')
@@ -61,7 +47,7 @@ class APIConnectorTest(unittest.TestCase):
         mock.return_value = res
         instance = APIConnector(self.host)
 
-        with self.assertRaises(APIError):
+        with self.assertRaises(WowApiError):
             instance.handle_request('http://test')
 
     @patch('requests.get')
@@ -73,6 +59,6 @@ class APIConnectorTest(unittest.TestCase):
         mock.return_value = res
         instance = APIConnector(self.host)
 
-        with self.assertRaises(APIError):
+        with self.assertRaises(WowApiClientError):
             instance.handle_request('http://test')
 
