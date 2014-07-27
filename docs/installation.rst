@@ -20,11 +20,16 @@ Pip
 Running tests
 -------------
 
-To run the tests you need the following packages::
+To run the tests you need to install the test requirements::
 
-    requests >= 1.1.0
-    mock >= 1.0.1
+.. code-block:: bash
 
-To run the tests, cd to the directory and run::
+    pip install -r test_requirements
 
-    python -m unittest discover
+Now you can run the tests with pytest from the directory where ``Makefile`` is located.
+
+.. code-block:: bash
+
+    make tests
+    make test test=test_name_of_test
+    make test_class path=path/to/test/test_name.py::TestClass

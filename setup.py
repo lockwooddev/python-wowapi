@@ -1,10 +1,12 @@
 from distutils.core import setup
 
+from wowapi.version import __version__
+
 
 setup(
     name='python-wowapi',
-    description="Python-wowapi is a client library for interacting with the World of Warcraft Community API.",
-    version='0.2',
+    description="Python-wowapi is a client library for the World of Warcraft Community API.",
+    version=__version__,
     packages=[
         'wowapi',
         'wowapi.tests',

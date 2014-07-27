@@ -49,56 +49,70 @@ Returns an ``AuctionResource`` for the selected realm.
     >>> resource
     <wowapi.resources.AuctionResource object at 0x104853c90>
 
-This endpoint does not directly fetch all the auction data. It creates the
-following data attributes on the ``AuctionResource`` instance:
+This endpoint does not directly fetch all the auction data. First it fetches an overview page with
+an url to the auctions resource and a last modified timestamp.
+
+It sets the following attributes on the instance:
 
 - ``last_modified`` js timestamp of last update.
 - ``url`` uri to actual auction data.
 
-Resource methods
-^^^^^^^^^^^^^^^^
-
-There are a few methods available for the resource returned by this endpoint:
-
+Fetch auctions
+^^^^^^^^^^^^^^
 
 .. py:method:: AuctionResource.is_new(last_timestamp=None, fetch=False)
 
-This method can check if the underlying auctions are new. It will return True or False depending
-on arguments usage.
-
--   ``last_timestamp`` this should be the timestamp of your previous requested document.
--   ``fetch`` if this is set to true, then the auction data is fetched if the method returns True.
+This method will check if the timestamp argument given is smaller than the timestamp from the
+instance ``last_modified``.
 
 ::
 
-    # returns true, fetches auctions and ignores the timestamp check.
-    resource.is_new(fetch=True)
-    >>> True
+    >>> resource.last_modified
+    1000
 
-    # returns true, fetches auctions and ignores the timestamp check.
-    resource.is_new()
-    >>> True
+    >>> resource.is_new(999)
+    True, {"realm": {"name":"Defias Brotherhood", "slug":"defias-brotherhood"}..}
 
-    # checks if your given timestamp is older. If True, the data is requested
-    # and extra data attributes are set on the instance if fetch is also True
-    resource.is_new(timestamp=1369578638000, fetch=True)
-
-    # does the same, but does not fetch the auctions
-    resource.is_new(timestamp=1369578638000)
+    >>> resource.is_new(2000)
+    False, None
 
 
-So if the data is fetched by ``is_new``, then the following attributes are available:
+If ``is_new`` is successfully evaluated, then you can also access ``resource.auction_data``
 
-- ``alliance`` list of dictionaries with alliance auctions
-- ``horde`` list of dictionaries with horde auctions
-- ``neutral`` list of dictionaries with neutral auctions
-- ``realm_name`` name of realm
-- ``realm_slug`` slug of realm
-
+Download auctions directly
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:method:: AuctionResource.download_auctions()
 
 This method directly downloads the auctions.
+
+::
+
+    >>> resource.download_auctions()
+    {
+        "realm": {
+            "name":"Defias Brotherhood",
+            "slug":"defias-brotherhood"
+        },
+        "alliance": {
+            "auctions":[
+                {"auc":1,"item":1,"owner":"p1","bid":1,"buyout":1,
+                    "quantity":1,"timeLeft":"SHORT"},
+            ]
+        },
+        "horde": {
+            "auctions":[
+                {"auc":2,"item":1,"owner":"p2","bid":1,"buyout":1,
+                    "quantity":1,"timeLeft":"SHORT"},
+            ]
+        },
+        "neutral": {
+            "auctions":[
+                {"auc":3,"item":1,"owner":"p3","bid":1,"buyout":1,
+                    "quantity":1,"timeLeft":"SHORT"},
+            ]
+        }
+    }
 
 
 Items
