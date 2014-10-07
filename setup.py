@@ -15,7 +15,7 @@ setup(
     author='Carlo Smouter',
     license='MIT',
     author_email='lockwooddev@gmail.com',
-    url='https://twitter.com/lockwooddev',
+    url='https://bitbucket.org/lockwood/python-wowapi',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
