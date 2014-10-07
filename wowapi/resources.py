@@ -12,6 +12,9 @@ class AuctionResource(APIResource):
         self.auction_data = {}
         self._connector = APIConnector("")
 
+    def __repr__(self):
+        return '<{0} ({1})>'.format(self.__class__.__name__, self.url)
+
     def is_new(self, timestamp):
         # only fetch if the timestamp arg is older than the last_modified of the realm.
         if timestamp < self.last_modified:
@@ -28,7 +31,10 @@ class AuctionResource(APIResource):
 
 
 class ItemResource(APIResource):
-    pass
+
+    def __repr__(self):
+        return '<%s (%i): %s>' % (
+            self.__class__.__name__, self.data['id'], self.data['name'].encode('utf-8'))
 
 
 class ItemSetResource(APIResource):
