@@ -1,6 +1,7 @@
 from distutils.core import setup
 
-from wowapi.version import __version__
+
+__version__ = '0.3'
 
 
 setup(
