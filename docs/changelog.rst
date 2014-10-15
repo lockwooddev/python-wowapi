@@ -1,6 +1,16 @@
 Changelog
 =========
 
+0.4 (09-07-2014)
+----------------
+* Fix importing requests module on setup before the requirement could be satisfied.
+* Update requirements.
+
+0.3 (27-07-2014)
+----------------
+* test with pytest.
+* update docs.
+
 0.2 (27-09-2013)
 ----------------
 

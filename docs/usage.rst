@@ -94,24 +94,13 @@ This method directly downloads the auctions.
             "name":"Defias Brotherhood",
             "slug":"defias-brotherhood"
         },
-        "alliance": {
+        "auctions": {
             "auctions":[
-                {"auc":1,"item":1,"owner":"p1","bid":1,"buyout":1,
-                    "quantity":1,"timeLeft":"SHORT"},
+                {"auc":1,"item":1,"owner":"p1","bid":1,"buyout":1, "quantity":1,"timeLeft":"SHORT"},
+                {"auc":2,"item":1,"owner":"p2","bid":1,"buyout":1, "quantity":1,"timeLeft":"SHORT"},
+                {"auc":3,"item":1,"owner":"p3","bid":1,"buyout":1, "quantity":1,"timeLeft":"SHORT"},
             ]
         },
-        "horde": {
-            "auctions":[
-                {"auc":2,"item":1,"owner":"p2","bid":1,"buyout":1,
-                    "quantity":1,"timeLeft":"SHORT"},
-            ]
-        },
-        "neutral": {
-            "auctions":[
-                {"auc":3,"item":1,"owner":"p3","bid":1,"buyout":1,
-                    "quantity":1,"timeLeft":"SHORT"},
-            ]
-        }
     }
 
 
