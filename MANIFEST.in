@@ -1,6 +1,5 @@
-include README.rst
+include setup.py README.rst Makefile MANIFEST.in
 include LICENSE.txt
 include Makefile
 include pytest.ini
-include test_requirements.txt
 recursive-include docs *

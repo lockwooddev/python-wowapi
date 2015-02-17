@@ -20,16 +20,15 @@ Pip
 Running tests
 -------------
 
-To run the tests you need to install the test requirements::
+To run the tests, you need to install the test requirements with pip:
 
 .. code-block:: bash
 
-    pip install -r test_requirements
+    $ pip install -e .[tests]
 
-Now you can run the tests with pytest from the directory where ``Makefile`` is located.
+
+Now you can run the tests from the root folder of the package:
 
 .. code-block:: bash
 
-    make tests
-    make test test=test_name_of_test
-    make test_class path=path/to/test/test_name.py::TestClass
+    $ make tests

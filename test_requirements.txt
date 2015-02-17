@@ -1,8 +1,0 @@
-requests >= 1.1.0
-mock >= 1.0.1
-
-py==1.4.25
-pytest==2.6.3
-pytest-cov==1.8.0
-pytest-flakes==0.2
-pytest-pep8==1.0.6

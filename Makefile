@@ -1,11 +1,23 @@
+.PHONY: tests coverage coverage-html devinstall docs clean
+APP=wowapi
+COV=wowapi
+OPTS=
+
 tests:
 	py.test -s -v $(APP)
 
-test:
-	py.test -s -v -k $(test)
-
-test_class:
-	py.test -s -v $(path)
-
 coverage:
-	py.test -s -v --cov=$(APP) --cov-report=term-missing $(APP)
+	coverage run `which py.test` ${OPTS} ${APP}
+	coverage report -m --include=${COV}* --omit='*/tests*'
+
+coverage-html:
+	coverage run `which py.test` ${OPTS} ${APP}
+	coverage html -d htmlcov --include=${COV}* --omit='*/tests*'
+
+devinstall:
+	pip install -e .
+	pip install -e .[tests]
+
+docs: clean
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
