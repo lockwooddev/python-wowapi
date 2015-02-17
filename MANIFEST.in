@@ -3,3 +3,7 @@ include LICENSE.txt
 include Makefile
 include pytest.ini
 recursive-include docs *
+recursive-exclude docs/_build *
+recursive-exclude * *.pyc
+recursive-exclude * *.pyo
+recursive-exclude * *.DS_Store
