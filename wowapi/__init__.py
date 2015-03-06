@@ -1,1 +1,2 @@
-from .api import *  # noqa
+from wowapi.api import *  # noqa
+from wowapi.exceptions import * # noqa
