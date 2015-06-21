@@ -3,7 +3,7 @@ import codecs
 from setuptools import setup
 
 
-__version__ = '0.4'
+__version__ = '0.5'
 
 
 def read(*parts):
@@ -59,8 +59,8 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
         'Topic :: Internet :: WWW/HTTP',
     ],
     packages=[

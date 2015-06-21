@@ -1,6 +1,9 @@
 Changelog
 =========
 
+0.5 (21-06-2015)
+* Make python 3 compatible.
+
 0.4 (09-07-2014)
 ----------------
 * Fix importing requests module on setup before the requirement could be satisfied.
