@@ -11,14 +11,14 @@ Community API.
     >>> item = wowapi.get_item('eu.battle.net', '9999')
 
     >>> item.name
-    u'Black Mageweave Leggings'
+    'Black Mageweave Leggings'
 
 ::
 
     >>> item = wowapi.get_item('eu.battle.net', '9999', locale='de_DE')
 
     >>> item.name
-    u'Schwarze Magiestoffgamaschen'
+    'Schwarze Magiestoffgamaschen'
 
 For more information on the official community API visit:
 

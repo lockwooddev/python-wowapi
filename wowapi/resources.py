@@ -26,7 +26,7 @@ class AuctionResource(APIResource):
     def download_auctions(self):
         try:
             return self._connector.handle_request(self.url)
-        except WowApiError, e:
+        except WowApiError as e:
             raise WowApiError(e)
 
 

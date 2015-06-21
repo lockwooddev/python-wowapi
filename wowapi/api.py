@@ -1,5 +1,5 @@
-import connectors
-import resources
+from . import connectors
+from . import resources
 
 
 def get_auctions(host, realm_slug, **kwargs):
