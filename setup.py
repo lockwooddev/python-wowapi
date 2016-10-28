@@ -3,7 +3,7 @@ import codecs
 from setuptools import setup
 
 
-__version__ = '0.5'
+__version__ = '0.6'
 
 
 def read(*parts):
@@ -13,29 +13,24 @@ def read(*parts):
 
 
 install_requirements = [
-    'requests >= 1.1.0',
+    'requests==2.11.1',
 ]
 
 test_requirements = [
-    'tox==1.8.1',
-    'py==1.4.26',
-    'pyflakes==0.8.1',
-    'pytest==2.6.4',
-    'pytest-cov==1.8.1',
+    'tox==2.4.1',
+    'py==1.4.31',
+    'pyflakes==1.3.0',
+    'pytest==3.0.3',
     'pytest-cache==1.0',
-    'pytest-flakes==0.2',
+    'pytest-flakes==1.0.1',
     'pytest-pep8==1.0.6',
-    'pytest-django==2.8.0',
-    'factory-boy==2.4.1',
-    'cov-core==1.15.0',
-    'coverage==3.7.1',
-    'execnet==1.2.0',
     'mock==1.0.1',
-    'pep8==1.6.1',
+    'pep8==1.7.0',
+    'pytest-mock==1.2',
 ]
 
 docs_requirements = [
-    'Sphinx==1.2.3',
+    'Sphinx==1.4.8',
 ]
 
 setup(
@@ -52,7 +47,7 @@ setup(
         'docs': docs_requirements,
     },
     license='MIT',
-    keywords=['warcraft', 'api', 'wow', 'auctionhouse'],
+    keywords=['warcraft', 'api', 'wow', 'auctionhouse', 'community'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',

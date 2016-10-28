@@ -1,137 +1,285 @@
-from . import connectors
-from . import resources
+import os
+
+import requests
+from requests.exceptions import RequestException
+
+from .exceptions import WowApiException, WowApiConfigException
 
 
-def get_auctions(host, realm_slug, **kwargs):
-    connector = connectors.AuctionConnector(host, *[realm_slug], **kwargs)
-    return resources.AuctionResource(connector.get_resource())
+class WowApi(object):
 
+    base_urls = {
+        'us': 'us.api.battle.net',
+        'eu': 'eu.api.battle.net',
+        'kr': 'kr.api.battle.net',
+        'tw': 'tw.api.battle.net',
+        'cn': 'api.battlenet.com.cn',
+        'sea': 'sea.api.battle.net',
+    }
 
-def get_item(host, item_id, **kwargs):
-    connector = connectors.ItemConnector(host, *[item_id], **kwargs)
-    return resources.ItemResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_resource(cls, resource, region, *args, **filters):
+        resource = resource.format(*args)
 
+        region_url = cls.base_urls.get(region, None)
+        if not region_url:
+            raise WowApiConfigException("Region '{0}' not a valid region".format(region))
 
-def get_item_set(host, set_id, **kwargs):
-    connector = connectors.ItemSetConnector(host, *[set_id], **kwargs)
-    return resources.ItemSetResource(connector.get_resource(), all_keywords=True)
+        url = 'https://{0}/wow/{1}'.format(cls.base_urls[region], resource)
 
+        api_key = os.environ.get('WOWAPI_APIKEY', None)
+        if not api_key:
+            raise WowApiConfigException('WOWAPI_APIKEY is missing from your env variables')
 
-def get_character(host, realm_slug, character_name, **kwargs):
-    connector = connectors.CharacterConnector(host, *[realm_slug, character_name], **kwargs)
-    return resources.CharacterResource(connector.get_resource(), all_keywords=True)
+        filters['apikey'] = api_key
 
+        try:
+            response = requests.get(url, params=filters)
+        except RequestException as exc:
+            raise
 
-def get_pet_abilities(host, ability_id, **kwargs):
-    connector = connectors.PetAbilitiesConnector(host, *[ability_id], **kwargs)
-    return resources.PetAbilitiesResource(connector.get_resource(), all_keywords=True)
+        if response.ok:
+            try:
+                json = response.json()
+            except Exception as exc:
+                raise WowApiException('Invalid Json: {0}'.format(response.content))
 
+        else:
+            error_msg = '{0} - {1}'.format(url, response.status_code)
+            raise WowApiException(error_msg)
 
-def get_pet_species(host, species_id, **kwargs):
-    connector = connectors.PetSpeciesConnector(host, *[species_id], **kwargs)
-    return resources.PetSpeciesResource(connector.get_resource(), all_keywords=True)
+        return json
 
+    @classmethod
+    def get_achievement(cls, region, id, **filters):
+        """
+        Achievement api
 
-def get_pet_stats(host, species_id, **kwargs):
-    connector = connectors.PetStatsConnector(host, *[species_id], **kwargs)
-    return resources.PetStatsResource(connector.get_resource(), all_keywords=True)
+        >>> WowApi.get_achievement('us', 2144, locale='pt_BR')
+        """
+        return cls.get_resource('achievement/{0}', region, *[id], **filters)
 
+    @classmethod
+    def get_auctions(cls, region, realm_slug):
+        """
+        Auctions api
+        """
+        return cls.get_resource('auction/data/{0}', region, *[realm_slug])
 
-def get_realm_leaderboard(host, realm_slug, **kwargs):
-    connector = connectors.RealmLeaderboardConnector(host, *[realm_slug], **kwargs)
-    return resources.RealmLeaderboardResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_bosses(cls, region, **filters):
+        """
+        Boss api - list of all supported bosses
+        """
+        return cls.get_resource('boss/', region, **filters)
 
+    @classmethod
+    def get_boss(cls, region, id, **filters):
+        """
+        Boss api - details of bosses
+        """
+        return cls.get_resource('boss/{0}', region, *[id], **filters)
 
-def get_region_leaderboard(host, **kwargs):
-    connector = connectors.RegionLeaderboardConnector(host, **kwargs)
-    return resources.RegionLeaderboardResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_realm_leaderboard(cls, region, realm, **filters):
+        """
+        Challenge mode api - realm leaderboard
+        """
+        return cls.get_resource('challenge/{0}', region, *[realm], **filters)
 
+    @classmethod
+    def get_region_leaderboard(cls, region, **filters):
+        """
+        Challenge mode api - region leaderboard
+        """
+        return cls.get_resource('challenge/region', region, **filters)
 
-def get_guild_profile(host, realm_slug, guild_name, **kwargs):
-    connector = connectors.GuildProfileConnector(host, *[realm_slug, guild_name], **kwargs)
-    return resources.GuildProfileResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_character_profile(cls, region, realm, character_name, **filters):
+        """
+        Character profile api - base info or specific comma separated fields as filters
 
+        >>> WowApi.get_character_profile('eu', 'khadgar', 'patchwerk')
 
-def get_arena_team(host, realm_slug, team_size, team_name, **kwargs):
-    connector = connectors.ArenaTeamConnector(host, *[realm_slug, team_size, team_name], **kwargs)
-    return resources.ArenaTeamResource(connector.get_resource(), all_keywords=True)
+        >>> WowApi.get_character_profile('eu', 'khadgar', 'patchwerk', locale='en_GB', fields='guild,mounts')
+        """  # noqa
+        return cls.get_resource(
+            'character/{0}/{1}', region, *[realm, character_name], **filters
+        )
 
+    @classmethod
+    def get_guild_profile(cls, region, realm, guild_name, **filters):
+        """
+        Guild profile api - base info or specific comma separated fields as filters
+        """
+        return cls.get_resource(
+            'guild/{0}/{1}', region, *[realm, guild_name], **filters
+        )
 
-def get_arena_ladder(host, battlegroup, team_size, **kwargs):
-    connector = connectors.ArenaLadderConnector(host, *[battlegroup, team_size], **kwargs)
-    return resources.ArenaLadderResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_item(cls, region, id, **filters):
+        """
+        Item api - detail iten
+        """
+        return cls.get_resource('item/{0}', region, *[id], **filters)
 
+    @classmethod
+    def get_item_set(cls, region, id, **filters):
+        """
+        Item api - detail iten set
+        """
+        return cls.get_resource('item/set/{0}', region, *[id], **filters)
 
-def get_rated_battleground_ladder(host, **kwargs):
-    connector = connectors.BattleGroundLadderConnector(host, **kwargs)
-    return resources.BattleGroundLadderResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_mounts(cls, region, **filters):
+        """
+        Mounts api - all supported mounts
+        """
+        return cls.get_resource('mount/', region, **filters)
 
+    @classmethod
+    def get_pets(cls, region, **filters):
+        """
+        Pets api - all supported pets
+        """
+        return cls.get_resource('pet/', region, **filters)
 
-def get_quest(host, quest_id, **kwargs):
-    connector = connectors.QuestConnector(host, *[quest_id], **kwargs)
-    return resources.QuestResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_pet_ability(cls, region, id, **filters):
+        """
+        Pets api - pet ability details
+        """
+        return cls.get_resource('pet/ability/{0}', region, *[id], **filters)
 
+    @classmethod
+    def get_pet_species(cls, region, id, **filters):
+        """
+        Pets api - pet species details
+        """
+        return cls.get_resource('pet/species/{0}', region, *[id], **filters)
 
-def get_realm_status(host, **kwargs):
-    connector = connectors.RealmStatusConnector(host, **kwargs)
-    return resources.RealmStatusResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_pet_stats(cls, region, id, **filters):
+        """
+        Pets api - pet stats details
+        """
+        return cls.get_resource('pet/stats/{0}', region, *[id], **filters)
 
+    @classmethod
+    def get_leaderboards(cls, region, bracket, **filters):
+        """
+        Pvp api - pvp bracket leaderboard and rbg
+        """
+        return cls.get_resource('leaderboard/{0}', region, *[bracket], **filters)
 
-def get_recipe(host, recipe_id, **kwargs):
-    connector = connectors.RecipeConnector(host, *[recipe_id], **kwargs)
-    return resources.RecipeResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_quest(cls, region, id, **filters):
+        """
+        Quest api - metadata for quests
+        """
+        return cls.get_resource('quest/{0}', region, *[id], **filters)
 
+    @classmethod
+    def get_realm_status(cls, region, **filters):
+        """
+        Realm status api - realm status for region
+        """
+        return cls.get_resource('realm/status', region, **filters)
 
-def get_spell(host, spell_id, **kwargs):
-    connector = connectors.SpellConnector(host, *[spell_id], **kwargs)
-    return resources.SpellResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_recipe(cls, region, id, **filters):
+        """
+        Recipe api - recipe details
+        """
+        return cls.get_resource('recipe/{0}', region, *[id], **filters)
 
+    @classmethod
+    def get_spell(cls, region, id, **filters):
+        """
+        Spell api - spell details
+        """
+        return cls.get_resource('spell/{0}', region, *[id], **filters)
 
-def get_battlegroups(host, **kwargs):
-    connector = connectors.BattlegroupConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_zones(cls, region, **filters):
+        """
+        Zone api - all supported zones and bosses
+        """
+        return cls.get_resource('zone/', region, **filters)
 
+    @classmethod
+    def get_zone(cls, region, id, **filters):
+        """
+        Zone api - zone details
+        """
+        return cls.get_resource('zone/{0}', region, *[id], **filters)
 
-def get_character_races(host, **kwargs):
-    connector = connectors.CharacterRaceConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_battlegroups(cls, region, **filters):
+        """
+        Data resources api - all battlegroups
+        """
+        return cls.get_resource('data/battlegroups/', region, **filters)
 
+    @classmethod
+    def get_character_races(cls, region, **filters):
+        """
+        Data resources api - all character races
+        """
+        return cls.get_resource('data/character/races', region, **filters)
 
-def get_character_classes(host, **kwargs):
-    connector = connectors.CharacterClassConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_character_classes(cls, region, **filters):
+        """
+        Data resources api - all character classes
+        """
+        return cls.get_resource('data/character/classes', region, **filters)
 
+    @classmethod
+    def get_character_achievements(cls, region, **filters):
+        """
+        Data resources api - all character achievements
+        """
+        return cls.get_resource('data/character/achievements', region, **filters)
 
-def get_character_achievements(host, **kwargs):
-    connector = connectors.CharacterAchievementConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_guild_rewards(cls, region, **filters):
+        """
+        Data resources api - all guild rewards
+        """
+        return cls.get_resource('data/guild/rewards', region, **filters)
 
+    @classmethod
+    def get_guild_perks(cls, region, **filters):
+        """
+        Data resources api - all guild perks
+        """
+        return cls.get_resource('data/guild/perks', region, **filters)
 
-def get_guild_rewards(host, **kwargs):
-    connector = connectors.GuildRewardConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_guild_achievements(cls, region, **filters):
+        """
+        Data resources api - all guild achievements
+        """
+        return cls.get_resource('data/guild/achievements', region, **filters)
 
+    @classmethod
+    def get_item_classes(cls, region, **filters):
+        """
+        Data resources api - all item classes
+        """
+        return cls.get_resource('data/item/classes', region, **filters)
 
-def get_guild_perks(host, **kwargs):
-    connector = connectors.GuildPerkConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_talents(cls, region, **filters):
+        """
+        Data resources api - all talents, specs and glyphs for each class
+        """
+        return cls.get_resource('data/talents', region, **filters)
 
-
-def get_guild_achievements(host, **kwargs):
-    connector = connectors.GuildAchievementConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
-
-
-def get_item_classes(host, **kwargs):
-    connector = connectors.ItemClassConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
-
-
-def get_talents(host, **kwargs):
-    connector = connectors.TalentConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
-
-
-def get_pet_types(host, **kwargs):
-    connector = connectors.PetTypeConnector(host, **kwargs)
-    return resources.DataResource(connector.get_resource(), all_keywords=True)
+    @classmethod
+    def get_pet_types(cls, region, **filters):
+        """
+        Data resources api - all pet types
+        """
+        return cls.get_resource('data/pet/types', region, **filters)

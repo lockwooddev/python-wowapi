@@ -1,23 +1,15 @@
-.PHONY: tests coverage coverage-html devinstall docs clean
-APP=wowapi
-COV=wowapi
-OPTS=
+.PHONY: tests devinstall docs clean
+
 
 tests:
-	py.test -s -v $(APP)
-
-coverage:
-	coverage run `which py.test` ${OPTS} ${APP}
-	coverage report -m --include=${COV}* --omit='*/tests*'
-
-coverage-html:
-	coverage run `which py.test` ${OPTS} ${APP}
-	coverage html -d htmlcov --include=${COV}* --omit='*/tests*'
+	py.test -s -v tests
 
 devinstall:
 	pip install -e .
 	pip install -e .[tests]
+	pip install -e .[docs]
 
 docs: clean
+	sphinx-apidoc --force -o docs/modules/ wowapi
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html

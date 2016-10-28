@@ -1,41 +1,77 @@
 Python-wowapi
 =============
 
-Python-wowapi is a client library for interacting with the World of Warcraft
-Community API.
+Python-wowapi is a client library for interacting with the World of Warcraft Community API.
+
+For more information visit:
+
+- `Official API documentation <https://dev.battle.net/io-docs>`_
+- `Official API Forum <http://us.battle.net/forums/en/bnet/15051532/>`_
+
+
+Usage
+-----
+
+.. warning::
+    `WOWAPI_APIKEY` has to be set as an environment variable before calling the api endpoints.
 
 ::
 
-    >>> import wowapi
+    >>> from wowapi import WowApi
+    >>> item = WowApi.get_item('eu', 9999)
 
-    >>> item = wowapi.get_item('eu.battle.net', '9999')
-
-    >>> item.name
-    'Black Mageweave Leggings'
+    {
+        "id": 9999,
+        "disenchantingSkillRank": 125,
+        "description": "",
+        "name": "Black Mageweave Leggings",
+        "icon": "inv_pants_09",
+        ...
+    }
 
 ::
 
-    >>> item = wowapi.get_item('eu.battle.net', '9999', locale='de_DE')
+    >>> item = WowApi.get_item('eu', 9999, locale='de_DE')
 
-    >>> item.name
-    'Schwarze Magiestoffgamaschen'
+    {
+        "id": 9999,
+        "disenchantingSkillRank": 125,
+        "description": "",
+        "name": "Schwarze Magiestoffgamaschen",
+        "icon": "inv_pants_09",
+        ...
+    }
 
-For more information on the official community API visit:
 
-- `Official API documentation on github <http://blizzard.github.io/api-wow-docs/>`_
-- `Official Community Platform API Forum <http://us.battle.net/en/forum/#forum15051531/>`_
-
-Contents
-========
+Api endpoints
+-------------
 
 .. toctree::
    :maxdepth: 3
 
-   installation
-   usage
-   exceptions
-   changelog
+   modules/modules
 
+
+Installation
+------------
+
+Install the package with ``pip`` in your terminal::
+
+    pip install python-wowapi
+
+
+Or install the package directly from Github::
+
+    pip install git+https://github.com/lockwooddev/python-wowapi.git
+
+
+Running tests
+-------------
+
+.. code-block:: bash
+
+    $ make devinstall
+    $ make tests
 
 
 Indices and tables
