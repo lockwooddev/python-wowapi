@@ -60,7 +60,7 @@ setup(
     ],
     packages=[
         'wowapi',
-        'wowapi.tests',
+        'tests',
         'docs',
     ],
 )
