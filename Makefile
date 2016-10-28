@@ -1,4 +1,4 @@
-.PHONY: tests devinstall docs clean
+.PHONY: tests devinstall docs clean build
 
 
 tests:
@@ -13,3 +13,6 @@ docs: clean
 	sphinx-apidoc --force -o docs/modules/ wowapi
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
+
+build:
+	python setup.py sdist bdist_wheel
