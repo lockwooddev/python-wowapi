@@ -1,7 +1,6 @@
 import os
 
 import pytest
-import requests
 from requests.exceptions import RequestException
 
 from wowapi import WowApi, WowApiException, WowApiConfigException
@@ -11,11 +10,6 @@ class TestWowApi(object):
 
     def setup(self):
         os.environ['WOWAPI_APIKEY'] = 'foo'
-
-        self.response_mock = requests.models.Response()
-        self.response_mock.status_code = 200
-        self.response_mock._content = b'{}'
-
         self.params = {'apikey': 'foo'}
 
     def test_get_resource_wrong_region_arg(self):
