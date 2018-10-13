@@ -1,6 +1,6 @@
 python-wowapi
 -----------------
-Copyright (c) 2013 python-wowapi | Carlo Smouter
+Copyright (c) 2018 python-wowapi | Carlo Smouter
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -3,7 +3,7 @@ import codecs
 from setuptools import setup
 
 
-__version__ = '1.0'
+__version__ = '2.0'
 
 
 def read(*parts):
@@ -13,24 +13,20 @@ def read(*parts):
 
 
 install_requirements = [
-    'requests==2.11.1',
+    'requests==2.19.1',
 ]
 
 test_requirements = [
-    'tox==2.4.1',
-    'py==1.4.31',
-    'pyflakes==1.3.0',
-    'pytest==3.0.3',
-    'pytest-cache==1.0',
-    'pytest-flakes==1.0.1',
+    'pytest==3.8.2',
+    'pytest-flakes==4.0.0',
     'pytest-pep8==1.0.6',
-    'mock==1.0.1',
-    'pep8==1.7.0',
-    'pytest-mock==1.2',
+    'pytest-cov==2.6.0',
+    'mock==2.0.0',
+    'pytest-mock==1.10.0',
 ]
 
 docs_requirements = [
-    'Sphinx==1.4.8',
+    'Sphinx==1.8.1',
 ]
 
 setup(
@@ -55,7 +51,9 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Internet :: WWW/HTTP',
     ],
     packages=[

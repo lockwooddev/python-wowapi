@@ -1,2 +1,2 @@
-from .api import WowApi
-from .exceptions import WowApiException, WowApiConfigException
+from .api import WowApi  # noqa
+from .exceptions import WowApiException, WowApiOauthException  # noqa

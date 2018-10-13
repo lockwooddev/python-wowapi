@@ -3,22 +3,22 @@ Python-wowapi
 
 Python-wowapi is a client library for interacting with the World of Warcraft Community API.
 
+This library requires a client-id and client secret for the Community API OAuth client credentials flow.
+
 For more information visit:
 
-- `Official API documentation <https://dev.battle.net/io-docs>`_
-- `Official API Forum <http://us.battle.net/forums/en/bnet/15051532/>`_
+- `Official API documentation <https://develop.battle.net/documentation>`_
+- `Official API Forum <https://us.battle.net/forums/en/bnet/15051532/>`_
 
 
 Usage
 -----
 
-.. warning::
-    `WOWAPI_APIKEY` has to be set as an environment variable before calling the api endpoints.
-
 ::
 
     >>> from wowapi import WowApi
-    >>> item = WowApi.get_item('eu', 9999)
+    >>> api = WowApi('client-id', 'client-secret')
+    >>> item = api.get_item('eu', 9999)
 
     {
         "id": 9999,
@@ -31,7 +31,7 @@ Usage
 
 ::
 
-    >>> item = WowApi.get_item('eu', 9999, locale='de_DE')
+    >>> item = api.get_item('eu', 9999, locale='de_DE')
 
     {
         "id": 9999,

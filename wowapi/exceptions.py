@@ -2,5 +2,5 @@ class WowApiException(Exception):
     pass
 
 
-class WowApiConfigException(WowApiException):
+class WowApiOauthException(WowApiException):
     pass

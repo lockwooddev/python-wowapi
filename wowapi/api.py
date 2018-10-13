@@ -1,285 +1,317 @@
-import os
+import logging
+from datetime import datetime, timedelta
 
 import requests
 from requests.exceptions import RequestException
 
-from .exceptions import WowApiException, WowApiConfigException
+from .exceptions import WowApiException, WowApiOauthException
+
+
+logger = logging.getLogger('wowapi')
+logger.addHandler(logging.NullHandler())
 
 
 class WowApi(object):
 
-    base_urls = {
-        'us': 'us.api.battle.net',
-        'eu': 'eu.api.battle.net',
-        'kr': 'kr.api.battle.net',
-        'tw': 'tw.api.battle.net',
-        'cn': 'api.battlenet.com.cn',
-        'sea': 'sea.api.battle.net',
-    }
+    __base_url = '{0}.api.blizzard.com'
 
-    @classmethod
-    def get_resource(cls, resource, region, *args, **filters):
-        resource = resource.format(*args)
+    def __init__(self, client_id, client_secret):
+        self._client_id = client_id
+        self._client_secret = client_secret
 
-        region_url = cls.base_urls.get(region, None)
-        if not region_url:
-            raise WowApiConfigException("Region '{0}' not a valid region".format(region))
+        self._session = requests.Session()
 
-        url = 'https://{0}/wow/{1}'.format(cls.base_urls[region], resource)
+        self._access_token = None
+        self._access_token_expiration = None
 
-        api_key = os.environ.get('WOWAPI_APIKEY', None)
-        if not api_key:
-            raise WowApiConfigException('WOWAPI_APIKEY is missing from your env variables')
+    def _utcnow(self):
+        return datetime.utcnow()
 
-        filters['apikey'] = api_key
+    def _get_client_credentials(self):
+        path = '/oauth/token?grant_type=client_credentials&client_id={0}&client_secret={1}'.format(
+            self._client_id, self._client_secret
+        )
+        url = 'https://us.battle.net{0}'.format(path)
+
+        logger.info('Fetching new token from: {0}'.format(url))
+
+        now = self._utcnow()
+        try:
+            response = self._session.get(url)
+        except RequestException as exc:
+            logger.exception(str(exc))
+            raise WowApiOauthException(str(exc))
+
+        if not response.ok:
+            msg = 'Invalid response - {0} for {1}'.format(response.status_code, url)
+            logger.warning(msg)
+            raise WowApiOauthException(msg)
 
         try:
-            response = requests.get(url, params=filters)
+            json = response.json()
+        except Exception:
+            msg = 'Invalid Json in OAuth request: {0} for {1}'.format(response.content, url)
+            logger.exception(msg)
+            raise WowApiOauthException(msg)
+
+        token = json['access_token']
+        expiration = now + timedelta(seconds=json['expires_in'])
+        logger.info('New token {0} expires at {1} UTC'.format(token, expiration))
+
+        self._access_token = token
+        self._access_token_expiration = expiration
+
+    def _handle_request(self, url, **kwargs):
+        try:
+            response = self._session.get(url, **kwargs)
         except RequestException as exc:
-            raise
+            logger.exception(str(exc))
+            raise WowApiException(str(exc))
 
-        if response.ok:
-            try:
-                json = response.json()
-            except Exception as exc:
-                raise WowApiException('Invalid Json: {0}'.format(response.content))
+        if not response.ok:
+            # get a new token and try request again
+            if response.status_code == 401:
+                logger.info('Access token invalid. Fetching new token..')
+                self._get_client_credentials()
+                return self._handle_request(url, **kwargs)
 
+            msg = 'Invalid response - {0} - {1}'.format(url, response.status_code)
+            logger.warning(msg)
+            raise WowApiException(msg)
+
+        try:
+            return response.json()
+        except Exception:
+            msg = 'Invalid Json: {0} for {1}'.format(response.content, url)
+            logger.exception(msg)
+            raise WowApiException(msg)
+
+    def get_resource(self, resource, region, *args, **filters):
+        resource = resource.format(*args)
+
+        base_url = self.__base_url.format(region)
+        if region == 'cn':
+            base_url = 'api.blizzard.com.cn'
+
+        url = 'https://{0}/wow/{1}'.format(base_url, resource)
+
+        # fetch access token on first run
+        if not self._access_token:
+            logger.info('Fetching access token..')
+            self._get_client_credentials()
         else:
-            error_msg = '{0} - {1}'.format(url, response.status_code)
-            raise WowApiException(error_msg)
+            now = datetime.utcnow()
+            # refresh access token if expired
+            if now >= self._access_token_expiration:
+                logger.info('Access token expired. Fetching new token..')
+                self._get_client_credentials()
 
-        return json
+        filters['access_token'] = self._access_token
+        logger.info('Requesting resource: {0} with parameters: {1}'.format(url, filters))
+        return self._handle_request(url, params=filters)
 
-    @classmethod
-    def get_achievement(cls, region, id, **filters):
+    def get_achievement(self, region, id, **filters):
         """
         Achievement api
 
         >>> WowApi.get_achievement('us', 2144, locale='pt_BR')
         """
-        return cls.get_resource('achievement/{0}', region, *[id], **filters)
+        return self.get_resource('achievement/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_auctions(cls, region, realm_slug):
+    def get_auctions(self, region, realm_slug, **filters):
         """
-        Auctions api
+        Auctions data status
         """
-        return cls.get_resource('auction/data/{0}', region, *[realm_slug])
+        return self.get_resource('auction/data/{0}', region, *[realm_slug], **filters)
 
-    @classmethod
-    def get_bosses(cls, region, **filters):
+    def get_bosses(self, region, **filters):
         """
-        Boss api - list of all supported bosses
+        Boss api - Master list of bosses
         """
-        return cls.get_resource('boss/', region, **filters)
+        return self.get_resource('boss/', region, **filters)
 
-    @classmethod
-    def get_boss(cls, region, id, **filters):
+    def get_boss(self, region, id, **filters):
         """
-        Boss api - details of bosses
+        Boss api - Boss details
         """
-        return cls.get_resource('boss/{0}', region, *[id], **filters)
+        return self.get_resource('boss/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_realm_leaderboard(cls, region, realm, **filters):
+    def get_realm_leaderboard(self, region, realm, **filters):
         """
         Challenge mode api - realm leaderboard
         """
-        return cls.get_resource('challenge/{0}', region, *[realm], **filters)
+        return self.get_resource('challenge/{0}', region, *[realm], **filters)
 
-    @classmethod
-    def get_region_leaderboard(cls, region, **filters):
+    def get_region_leaderboard(self, region, **filters):
         """
         Challenge mode api - region leaderboard
         """
-        return cls.get_resource('challenge/region', region, **filters)
+        return self.get_resource('challenge/region', region, **filters)
 
-    @classmethod
-    def get_character_profile(cls, region, realm, character_name, **filters):
+    def get_character_profile(self, region, realm, character_name, **filters):
         """
         Character profile api - base info or specific comma separated fields as filters
 
-        >>> WowApi.get_character_profile('eu', 'khadgar', 'patchwerk')
-
-        >>> WowApi.get_character_profile('eu', 'khadgar', 'patchwerk', locale='en_GB', fields='guild,mounts')
+        >>> api = WowApi('client-id', 'client-secret')
+        >>> api.get_character_profile('eu', 'khadgar', 'patchwerk')
+        >>> api.get_character_profile('eu', 'khadgar', 'patchwerk', locale='en_GB', fields='guild,mounts')
         """  # noqa
-        return cls.get_resource(
+        return self.get_resource(
             'character/{0}/{1}', region, *[realm, character_name], **filters
         )
 
-    @classmethod
-    def get_guild_profile(cls, region, realm, guild_name, **filters):
+    def get_guild_profile(self, region, realm, guild_name, **filters):
         """
         Guild profile api - base info or specific comma separated fields as filters
+
+        >>> api = WowApi('client-id', 'client-secret')
+        >>> api.get_guild_profile('eu', 'khadgar')
+        >>> api.get_guild_profile('eu', 'khadgar', locale='en_GB', fields='achievements,challenge')
         """
-        return cls.get_resource(
+        return self.get_resource(
             'guild/{0}/{1}', region, *[realm, guild_name], **filters
         )
 
-    @classmethod
-    def get_item(cls, region, id, **filters):
+    def get_item(self, region, id, **filters):
         """
         Item api - detail iten
         """
-        return cls.get_resource('item/{0}', region, *[id], **filters)
+        return self.get_resource('item/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_item_set(cls, region, id, **filters):
+    def get_item_set(self, region, id, **filters):
         """
         Item api - detail iten set
         """
-        return cls.get_resource('item/set/{0}', region, *[id], **filters)
+        return self.get_resource('item/set/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_mounts(cls, region, **filters):
+    def get_mounts(self, region, **filters):
         """
         Mounts api - all supported mounts
         """
-        return cls.get_resource('mount/', region, **filters)
+        return self.get_resource('mount/', region, **filters)
 
-    @classmethod
-    def get_pets(cls, region, **filters):
+    def get_pets(self, region, **filters):
         """
         Pets api - all supported pets
         """
-        return cls.get_resource('pet/', region, **filters)
+        return self.get_resource('pet/', region, **filters)
 
-    @classmethod
-    def get_pet_ability(cls, region, id, **filters):
+    def get_pet_ability(self, region, id, **filters):
         """
         Pets api - pet ability details
         """
-        return cls.get_resource('pet/ability/{0}', region, *[id], **filters)
+        return self.get_resource('pet/ability/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_pet_species(cls, region, id, **filters):
+    def get_pet_species(self, region, id, **filters):
         """
         Pets api - pet species details
         """
-        return cls.get_resource('pet/species/{0}', region, *[id], **filters)
+        return self.get_resource('pet/species/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_pet_stats(cls, region, id, **filters):
+    def get_pet_stats(self, region, id, **filters):
         """
         Pets api - pet stats details
         """
-        return cls.get_resource('pet/stats/{0}', region, *[id], **filters)
+        return self.get_resource('pet/stats/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_leaderboards(cls, region, bracket, **filters):
+    def get_leaderboards(self, region, bracket, **filters):
         """
         Pvp api - pvp bracket leaderboard and rbg
         """
-        return cls.get_resource('leaderboard/{0}', region, *[bracket], **filters)
+        return self.get_resource('leaderboard/{0}', region, *[bracket], **filters)
 
-    @classmethod
-    def get_quest(cls, region, id, **filters):
+    def get_quest(self, region, id, **filters):
         """
         Quest api - metadata for quests
         """
-        return cls.get_resource('quest/{0}', region, *[id], **filters)
+        return self.get_resource('quest/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_realm_status(cls, region, **filters):
+    def get_realm_status(self, region, **filters):
         """
         Realm status api - realm status for region
         """
-        return cls.get_resource('realm/status', region, **filters)
+        return self.get_resource('realm/status', region, **filters)
 
-    @classmethod
-    def get_recipe(cls, region, id, **filters):
+    def get_recipe(self, region, id, **filters):
         """
         Recipe api - recipe details
         """
-        return cls.get_resource('recipe/{0}', region, *[id], **filters)
+        return self.get_resource('recipe/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_spell(cls, region, id, **filters):
+    def get_spell(self, region, id, **filters):
         """
         Spell api - spell details
         """
-        return cls.get_resource('spell/{0}', region, *[id], **filters)
+        return self.get_resource('spell/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_zones(cls, region, **filters):
+    def get_zones(self, region, **filters):
         """
-        Zone api - all supported zones and bosses
+        Zone api - master list
         """
-        return cls.get_resource('zone/', region, **filters)
+        return self.get_resource('zone/', region, **filters)
 
-    @classmethod
-    def get_zone(cls, region, id, **filters):
+    def get_zone(self, region, id, **filters):
         """
-        Zone api - zone details
+        Zone api - detail zone
         """
-        return cls.get_resource('zone/{0}', region, *[id], **filters)
+        return self.get_resource('zone/{0}', region, *[id], **filters)
 
-    @classmethod
-    def get_battlegroups(cls, region, **filters):
+    def get_battlegroups(self, region, **filters):
         """
         Data resources api - all battlegroups
         """
-        return cls.get_resource('data/battlegroups/', region, **filters)
+        return self.get_resource('data/battlegroups/', region, **filters)
 
-    @classmethod
-    def get_character_races(cls, region, **filters):
+    def get_character_races(self, region, **filters):
         """
         Data resources api - all character races
         """
-        return cls.get_resource('data/character/races', region, **filters)
+        return self.get_resource('data/character/races', region, **filters)
 
-    @classmethod
-    def get_character_classes(cls, region, **filters):
+    def get_character_classes(self, region, **filters):
         """
         Data resources api - all character classes
         """
-        return cls.get_resource('data/character/classes', region, **filters)
+        return self.get_resource('data/character/classes', region, **filters)
 
-    @classmethod
-    def get_character_achievements(cls, region, **filters):
+    def get_character_achievements(self, region, **filters):
         """
         Data resources api - all character achievements
         """
-        return cls.get_resource('data/character/achievements', region, **filters)
+        return self.get_resource('data/character/achievements', region, **filters)
 
-    @classmethod
-    def get_guild_rewards(cls, region, **filters):
+    def get_guild_rewards(self, region, **filters):
         """
         Data resources api - all guild rewards
         """
-        return cls.get_resource('data/guild/rewards', region, **filters)
+        return self.get_resource('data/guild/rewards', region, **filters)
 
-    @classmethod
-    def get_guild_perks(cls, region, **filters):
+    def get_guild_perks(self, region, **filters):
         """
         Data resources api - all guild perks
         """
-        return cls.get_resource('data/guild/perks', region, **filters)
+        return self.get_resource('data/guild/perks', region, **filters)
 
-    @classmethod
-    def get_guild_achievements(cls, region, **filters):
+    def get_guild_achievements(self, region, **filters):
         """
         Data resources api - all guild achievements
         """
-        return cls.get_resource('data/guild/achievements', region, **filters)
+        return self.get_resource('data/guild/achievements', region, **filters)
 
-    @classmethod
-    def get_item_classes(cls, region, **filters):
+    def get_item_classes(self, region, **filters):
         """
         Data resources api - all item classes
         """
-        return cls.get_resource('data/item/classes', region, **filters)
+        return self.get_resource('data/item/classes', region, **filters)
 
-    @classmethod
-    def get_talents(cls, region, **filters):
+    def get_talents(self, region, **filters):
         """
         Data resources api - all talents, specs and glyphs for each class
         """
-        return cls.get_resource('data/talents', region, **filters)
+        return self.get_resource('data/talents', region, **filters)
 
-    @classmethod
-    def get_pet_types(cls, region, **filters):
+    def get_pet_types(self, region, **filters):
         """
         Data resources api - all pet types
         """
-        return cls.get_resource('data/pet/types', region, **filters)
+        return self.get_resource('data/pet/types', region, **filters)

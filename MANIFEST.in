@@ -1,4 +1,8 @@
-include setup.py README.rst Makefile MANIFEST.in
+include setup.py
+include README.md
+include CHANGELOG.md
+include Makefile
+include MANIFEST.in
 include LICENSE.txt
 include Makefile
 include pytest.ini
