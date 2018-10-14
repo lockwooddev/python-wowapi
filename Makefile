@@ -1,4 +1,4 @@
-.PHONY: tests devinstall docs clean build
+.PHONY: tests devinstall docs clean build test_publish publish
 
 
 tests:
@@ -16,3 +16,11 @@ docs: clean
 
 build:
 	python setup.py sdist bdist_wheel
+
+test_publish:
+	pip install --upgrade twine
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+publish:
+	pip install --upgrade twine
+	twine upload dist/*
