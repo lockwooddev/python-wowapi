@@ -1,5 +1,5 @@
 pipeline:
-  build:
+  test:
     image: python:${PYTHON_VERSION}-alpine3.8
     commands:
       - find . -name "*.py[co]" -delete
@@ -8,8 +8,12 @@ pipeline:
       - pip install -e .[tests]
       - py.test
       - find . -name "*.py[co]" -delete
-    when:
-      include: [ master, develop, feature/*, release/* ]
+  build:
+    image: python:${PYTHON_VERSION}-alpine3.8
+    commands:
+      - python setup.py sdist bdist_wheel
+      - rm -rf dist
+      - rm -rf build
 matrix:
   PYTHON_VERSION:
     - "3.7"

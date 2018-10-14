@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0 (In Development)
+## 2.0.0
 
 * Deprecate 1.0 WowApi
 * Implement client credentials flow for OAuth authentication
