@@ -1,15 +1,15 @@
 pipeline:
   test:
     image: python:${PYTHON_VERSION}-alpine3.8
+    group: build
     commands:
-      - find . -name "*.py[co]" -delete
       - pip install --upgrade pip
       - pip install -e .
       - pip install -e .[tests]
       - py.test
-      - find . -name "*.py[co]" -delete
-  build:
+  package:
     image: python:${PYTHON_VERSION}-alpine3.8
+    group: build
     commands:
       - python setup.py sdist bdist_wheel
       - rm -rf dist

@@ -1,4 +1,3 @@
-import os
 from datetime import datetime, timedelta
 
 import pytest
@@ -11,13 +10,12 @@ from .fixtures import ResponseMock
 class TestWowApi(object):
 
     def setup(self):
-        os.environ['WOWAPI_APIKEY'] = 'foo'
         self.params = {'access_token': '987'}
 
         self.api = WowApi('client-id', 'client-secret')
 
         self.authorized_api = WowApi('client-id', 'client-secret')
-        self.authorized_api._access_token = '987'
+        self.authorized_api._access_token = self.params['access_token']
         self.authorized_api._access_token_expiration = datetime.utcnow() + timedelta(hours=1)
 
         self.test_url = 'http://example.com'

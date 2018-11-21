@@ -13,7 +13,7 @@ def read(*parts):
 
 
 install_requirements = [
-    'requests==2.19.1',
+    'requests==2.20.1',
 ]
 
 test_requirements = [
