@@ -1,5 +1,7 @@
 # python-wowapi
 
+[![Build Status](https://cloud.drone.io/api/badges/lockwooddev/python-wowapi/status.svg)](https://cloud.drone.io/lockwooddev/python-wowapi)
+
 Python-wowapi is a client library for interacting with the World of Warcraft
 Community API.
 
@@ -31,14 +33,3 @@ pip install -e .
 pip install -e .[tests]
 py.test
 ```
-
-## Drone test runner
-
-```
-PYTHON_VERSION=3.7 drone exec
-PYTHON_VERSION=3.6 drone exec
-PYTHON_VERSION=3.5 drone exec
-PYTHON_VERSION=2.7 drone exec
-```
-
-For more information about Drone, visit [Drone.io](https://drone.io/)
