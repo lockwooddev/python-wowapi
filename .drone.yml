@@ -1,22 +1,24 @@
-pipeline:
-  test:
-    image: python:${PYTHON_VERSION}-alpine3.8
-    group: build
-    commands:
-      - pip install --upgrade pip
-      - pip install -e .
-      - pip install -e .[tests]
-      - py.test
-  package:
-    image: python:${PYTHON_VERSION}-alpine3.8
-    group: build
-    commands:
-      - python setup.py sdist bdist_wheel
-      - rm -rf dist
-      - rm -rf build
-matrix:
-  PYTHON_VERSION:
-    - "3.7"
-    - "3.6"
-    - "3.5"
-    - "2.7"
+---
+kind: pipeline
+name: default
+
+steps:
+- name: build27
+  image: python:2.7-alpine3.8
+  commands:
+    - ./drone.sh
+
+- name: build35
+  image: python:3.5-alpine3.8
+  commands:
+    - ./drone.sh
+
+- name: build36
+  image: python:3.6-alpine3.8
+  commands:
+    - ./drone.sh
+
+- name: build37
+  image: python:3.7-alpine3.8
+  commands:
+    - ./drone.sh
