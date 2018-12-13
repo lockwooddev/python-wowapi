@@ -13,7 +13,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-logger.info('WowApi example')
+logger.info('Community API Example')
 
 api = WowApi(os.environ['WOW_CLIENT_ID'], os.environ['WOW_CLIENT_SECRET'])
 data = api.get_auctions('eu', 'silvermoon', locale='de_DE')

@@ -1,3 +1,4 @@
+import copy
 from datetime import datetime, timedelta
 
 import pytest
@@ -10,44 +11,53 @@ from .fixtures import ResponseMock
 class TestWowApi(object):
 
     def setup(self):
-        self.params = {'access_token': '987'}
+        self.params = {'access_token': 'secret'}
 
         self.api = WowApi('client-id', 'client-secret')
 
         self.authorized_api = WowApi('client-id', 'client-secret')
-        self.authorized_api._access_token = self.params['access_token']
-        self.authorized_api._access_token_expiration = datetime.utcnow() + timedelta(hours=1)
+        self.authorized_api._access_tokens = {
+            'us': {
+                'token': 'secret',
+                'expiration': datetime.utcnow() + timedelta(hours=1)
+            },
+            'cn': {
+                'token': 'secret',
+                'expiration': datetime.utcnow() + timedelta(hours=1)
+            }
+        }
 
         self.test_url = 'http://example.com'
 
+        self.default_region = 'us'
+
     def test_instance(self):
-        assert not self.api._access_token
-        assert not self.api._access_token_expiration
+        assert not self.api._access_tokens
 
     def test_handle_request_success(self, session_get_mock):
         session_get_mock.return_value = ResponseMock()(200, b'{}')
-        data = self.api._handle_request(self.test_url)
+        data = self.api._handle_request(self.test_url, self.default_region)
         assert data == {}
         session_get_mock.assert_called_with(self.test_url)
 
     def test_handle_request_request_exception(self, session_get_mock):
         session_get_mock.side_effect = RequestException('Error')
         with pytest.raises(WowApiException) as exc:
-            self.api._handle_request(self.test_url)
+            self.api._handle_request(self.test_url, self.default_region)
 
         assert 'Error' in str(exc)
 
     def test_handle_request_invalid_json(self, session_get_mock):
         session_get_mock.return_value = ResponseMock()(200, b'{"foo": "bar"},')
         with pytest.raises(WowApiException) as exc:
-            self.api._handle_request(self.test_url)
+            self.api._handle_request(self.test_url, self.default_region)
 
         assert 'Invalid Json' in str(exc)
 
     def test_handle_request_404(self, session_get_mock):
         session_get_mock.return_value = ResponseMock()(404, b'{}')
         with pytest.raises(WowApiException) as exc:
-            self.api._handle_request(self.test_url)
+            self.api._handle_request(self.test_url, self.default_region)
 
         assert '404' in str(exc)
 
@@ -61,11 +71,15 @@ class TestWowApi(object):
             ResponseMock()(200, b'{"access_token": "123", "expires_in": 120}'),
             ResponseMock()(200, b'{"response": "ok"}'),
         ]
-        data = self.api._handle_request(self.test_url)
+        data = self.api._handle_request(self.test_url, self.default_region)
 
         assert data == {'response': 'ok'}
-        assert self.api._access_token == '123'
-        assert self.api._access_token_expiration == now + timedelta(seconds=120)
+        assert self.api._access_tokens == {
+            'us': {
+                'token': '123',
+                'expiration': now + timedelta(seconds=120)
+            }
+        }
 
     def test_handle_request_cannot_authorize(self, session_get_mock):
         session_get_mock.side_effect = [
@@ -74,18 +88,18 @@ class TestWowApi(object):
         ]
 
         with pytest.raises(WowApiException) as exc:
-            self.api._handle_request(self.test_url)
+            self.api._handle_request(self.test_url, self.default_region)
 
         assert '401 for https://us.battle.net/oauth/token' in str(exc)
 
     def test_get_resource_call(self, response_mock):
         self.authorized_api.get_resource(
-            'foo/{0}', 'us', 1, locale='en_US', fields='pets,stats', breedId=9999)
+            'resource/{0}', 'us', 1, locale='en_US', fields='pets,stats', breedId=9999)
 
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/wow/foo/1',
+            'https://us.api.blizzard.com/resource/1',
             params={
-                'access_token': '987',
+                'access_token': 'secret',
                 'locale': 'en_US',
                 'fields': 'pets,stats',
                 'breedId': 9999
@@ -93,13 +107,12 @@ class TestWowApi(object):
         )
 
     def test_get_resource_call_china(self, response_mock):
-        self.authorized_api.get_resource(
-            'foo/{0}', 'cn', 1)
+        self.authorized_api.get_resource('resource/{0}', 'cn', 1)
 
         response_mock.assert_called_with(
-            'https://api.blizzard.com.cn/wow/foo/1',
+            'https://www.gateway.battlenet.com.cn/resource/1',
             params={
-                'access_token': '987',
+                'access_token': 'secret',
             }
         )
 
@@ -114,25 +127,37 @@ class TestWowApi(object):
         data = self.api.get_resource('foo', 'eu')
 
         assert data == {'response': 'ok'}
-        assert self.api._access_token == '111'
-        assert self.api._access_token_expiration == now + timedelta(seconds=60)
+        assert self.api._access_tokens == {
+            'eu': {
+                'token': '111',
+                'expiration': now + timedelta(seconds=60)
+            }
+        }
 
     def test_get_resource_no_access_expired(self, session_get_mock, utc_mock):
         now = datetime.utcnow()
         utc_mock.return_value = now
 
-        self.api._access_token = '222'
-        self.api._access_token_expiration = now
+        self.api._access_tokens = {
+            'eu': {
+                'token': '222',
+                'expiration': now
+            }
+        }
 
         session_get_mock.side_effect = [
-            ResponseMock()(200, b'{"access_token": "999", "expires_in": 60}'),
+            ResponseMock()(200, b'{"access_token": "333", "expires_in": 60}'),
             ResponseMock()(200, b'{"response": "ok"}'),
         ]
         data = self.api.get_resource('foo', 'eu')
 
         assert data == {'response': 'ok'}
-        assert self.api._access_token == '999'
-        assert self.api._access_token_expiration == now + timedelta(seconds=60)
+        assert self.api._access_tokens == {
+            'eu': {
+                'token': '333',
+                'expiration': now + timedelta(seconds=60)
+            }
+        }
 
     def test_get_achievement(self, response_mock):
         self.authorized_api.get_achievement('us', 1234)
@@ -165,14 +190,14 @@ class TestWowApi(object):
             'https://us.api.blizzard.com/wow/challenge/region', params=self.params)
 
     def test_get_character_profile(self, response_mock):
-        self.authorized_api.get_character_profile('eu', 'khadgar', 'patchwerk')
+        self.authorized_api.get_character_profile('us', 'khadgar', 'patchwerk')
         response_mock.assert_called_with(
-            'https://eu.api.blizzard.com/wow/character/khadgar/patchwerk', params=self.params)
+            'https://us.api.blizzard.com/wow/character/khadgar/patchwerk', params=self.params)
 
     def test_get_guild_profile(self, response_mock):
-        self.authorized_api.get_guild_profile('eu', 'draenor', 'topguild')
+        self.authorized_api.get_guild_profile('us', 'draenor', 'topguild')
         response_mock.assert_called_with(
-            'https://eu.api.blizzard.com/wow/guild/draenor/topguild', params=self.params)
+            'https://us.api.blizzard.com/wow/guild/draenor/topguild', params=self.params)
 
     def test_get_item(self, response_mock):
         self.authorized_api.get_item('us', 9999)
@@ -205,9 +230,9 @@ class TestWowApi(object):
             'https://us.api.blizzard.com/wow/pet/species/258', params=self.params)
 
     def test_get_pet_stats(self, response_mock):
-        self.authorized_api.get_pet_stats('eu', 258)
+        self.authorized_api.get_pet_stats('us', 258)
         response_mock.assert_called_with(
-            'https://eu.api.blizzard.com/wow/pet/stats/258', params=self.params)
+            'https://us.api.blizzard.com/wow/pet/stats/258', params=self.params)
 
     def test_get_leaderboards(self, response_mock):
         self.authorized_api.get_leaderboards('us', '5v5')
@@ -220,9 +245,9 @@ class TestWowApi(object):
             'https://us.api.blizzard.com/wow/quest/13146', params=self.params)
 
     def test_get_realm_status(self, response_mock):
-        self.authorized_api.get_realm_status('kr')
+        self.authorized_api.get_realm_status('us')
         response_mock.assert_called_with(
-            'https://kr.api.blizzard.com/wow/realm/status', params=self.params)
+            'https://us.api.blizzard.com/wow/realm/status', params=self.params)
 
     def test_get_recipe(self, response_mock):
         self.authorized_api.get_recipe('us', 33994)
@@ -293,3 +318,136 @@ class TestWowApi(object):
         self.authorized_api.get_pet_types('us')
         response_mock.assert_called_with(
             'https://us.api.blizzard.com/wow/data/pet/types', params=self.params)
+
+    # ---------------------------------------------------------------------------------------------
+    # Game Data API tests
+    # ---------------------------------------------------------------------------------------------
+
+    def test_get_connected_realms(self, response_mock):
+        self.authorized_api.get_connected_realms('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/connected-realm/', params=params)
+
+    def test_get_connected_realm(self, response_mock):
+        self.authorized_api.get_connected_realm('us', 'dynamic-us', 1)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/connected-realm/1', params=params)
+
+    def test_get_mythic_keystone_leaderboards(self, response_mock):
+        self.authorized_api.get_mythic_keystone_leaderboards('us', 'dynamic-us', 1)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/connected-realm/1/mythic-leaderboard/',
+            params=params
+        )
+
+    def test_get_mythic_keystone_leaderboard(self, response_mock):
+        self.authorized_api.get_mythic_keystone_leaderboard('us', 'dynamic-us', 1, 2, 3)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/connected-realm/1/mythic-leaderboard/2/period/3',
+            params=params
+        )
+
+    def test_get_mythic_raid_leaderboard(self, response_mock):
+        self.authorized_api.get_mythic_raid_leaderboard('us', 'dynamic-us', 'uldir', 'horde')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/leaderboard/hall-of-fame/uldir/horde',
+            params=params
+        )
+
+    def test_get_mythic_challenge_modes(self, response_mock):
+        self.authorized_api.get_mythic_challenge_modes('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-challenge-mode/',
+            params=params
+        )
+
+    def test_get_playable_classes(self, response_mock):
+        self.authorized_api.get_playable_classes('us', 'static-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/playable-class/',
+            params=params
+        )
+
+    def test_get_playable_class(self, response_mock):
+        self.authorized_api.get_playable_class('us', 'static-us', 7)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/playable-class/7',
+            params=params
+        )
+
+    def test_get_playable_specializations(self, response_mock):
+        self.authorized_api.get_playable_specializations('us', 'static-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/playable-specialization/',
+            params=params
+        )
+
+    def test_get_playable_specialization(self, response_mock):
+        self.authorized_api.get_playable_specialization('us', 'static-us', 262)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/playable-specialization/262',
+            params=params
+        )
+
+    def test_get_realms(self, response_mock):
+        self.authorized_api.get_realms('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/realm/',
+            params=params
+        )
+
+    def test_get_realm(self, response_mock):
+        self.authorized_api.get_realm('us', 'dynamic-us', 'tichondrius')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/realm/tichondrius',
+            params=params
+        )
+
+    def test_get_regions(self, response_mock):
+        self.authorized_api.get_regions('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/region/',
+            params=params
+        )
+
+    def test_get_region(self, response_mock):
+        self.authorized_api.get_region('us', 'dynamic-us', 1)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/region/1',
+            params=params
+        )
+
+    def test_get_token(self, response_mock):
+        self.authorized_api.get_token('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/token/', params=params)

@@ -1,9 +1,9 @@
 import os
 import codecs
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
-__version__ = '2.0.0'
+__version__ = '2.1.0'
 
 
 def read(*parts):
@@ -17,7 +17,7 @@ install_requirements = [
 ]
 
 test_requirements = [
-    'pytest==3.8.2',
+    'pytest==4.0.1',
     'pytest-flakes==4.0.0',
     'pytest-pep8==1.0.6',
     'pytest-cov==2.6.0',
@@ -38,13 +38,15 @@ setup(
     author='Carlo Smouter',
     author_email='lockwooddev@gmail.com',
     url='https://github.com/lockwooddev/python-wowapi',
+    packages=find_packages(exclude=['tests', 'tests.*']),
+    include_package_data=True,
     install_requires=install_requirements,
     extras_require={
         'tests': test_requirements,
         'docs': docs_requirements,
     },
     license='MIT',
-    keywords=['warcraft', 'api', 'wow', 'auctionhouse', 'community'],
+    keywords=['warcraft', 'api', 'wow', 'auctionhouse', 'community', 'game'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -56,10 +58,5 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Topic :: Internet :: WWW/HTTP',
-    ],
-    packages=[
-        'wowapi',
-        'tests',
-        'docs',
     ],
 )

@@ -1,4 +1,4 @@
-.PHONY: tests devinstall docs clean build test_publish publish
+.PHONY: tests devinstall docs clean clean_build build test_publish publish
 
 
 tests:
@@ -15,6 +15,8 @@ docs: clean
 	$(MAKE) -C docs html
 
 build:
+	rm -rf dist
+	rm -rf build
 	python setup.py sdist bdist_wheel
 
 test_publish:
