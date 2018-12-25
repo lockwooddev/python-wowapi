@@ -14,7 +14,11 @@
 * Bump requests library to 2.20.1
 * Change packaging with setup.py
 
-## 2.1.0 (TBD)
+## 2.1.0 (13-12-2018)
 
 * Add Game Data API methods
 * Token handling per region
+
+## 2.2.0 (25-12-2018)
+
+* Add new Game Data API's

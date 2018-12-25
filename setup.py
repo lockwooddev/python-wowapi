@@ -3,7 +3,7 @@ import codecs
 from setuptools import setup, find_packages
 
 
-__version__ = '2.1.0'
+__version__ = '2.2.0'
 
 
 def read(*parts):
@@ -17,9 +17,8 @@ install_requirements = [
 ]
 
 test_requirements = [
-    'pytest==4.0.1',
-    'pytest-flakes==4.0.0',
-    'pytest-pep8==1.0.6',
+    'pytest==4.0.2',
+    "pytest-pycodestyle ; python_version>'3.5'",
     'pytest-cov==2.6.0',
     'mock==2.0.0',
     'pytest-mock==1.10.0',

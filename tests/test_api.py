@@ -323,12 +323,14 @@ class TestWowApi(object):
     # Game Data API tests
     # ---------------------------------------------------------------------------------------------
 
+    # Connected Realm API
+
     def test_get_connected_realms(self, response_mock):
         self.authorized_api.get_connected_realms('us', 'dynamic-us')
         params = copy.deepcopy(self.params)
         params['namespace'] = 'dynamic-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/connected-realm/', params=params)
+            'https://us.api.blizzard.com/data/wow/connected-realm/index', params=params)
 
     def test_get_connected_realm(self, response_mock):
         self.authorized_api.get_connected_realm('us', 'dynamic-us', 1)
@@ -337,12 +339,92 @@ class TestWowApi(object):
         response_mock.assert_called_with(
             'https://us.api.blizzard.com/data/wow/connected-realm/1', params=params)
 
+    # Mythic Keystone Affix API
+
+    def test_get_mythic_keystone_affixes(self, response_mock):
+        self.authorized_api.get_mythic_keystone_affixes('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/keystone-affix/index', params=params)
+
+    def test_get_mythic_keystone_affix(self, response_mock):
+        self.authorized_api.get_mythic_keystone_affix('us', 'dynamic-us', 3)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/keystone-affix/3', params=params)
+
+    # Mythic Raid Leaderboard API
+
+    def test_get_mythic_raid_leaderboard(self, response_mock):
+        self.authorized_api.get_mythic_raid_leaderboard('us', 'dynamic-us', 'uldir', 'horde')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/leaderboard/hall-of-fame/uldir/horde',
+            params=params
+        )
+
+    # Mythic Keystone Dungeon API
+
+    def test_get_mythic_keystone_dungeons(self, response_mock):
+        self.authorized_api.get_mythic_keystone_dungeons('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/dungeon/index', params=params)
+
+    def test_get_mythic_keystone_dungeon(self, response_mock):
+        self.authorized_api.get_mythic_keystone_dungeon('us', 'dynamic-us', 5)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/dungeon/5', params=params)
+
+    def test_get_mythic_keystones(self, response_mock):
+        self.authorized_api.get_mythic_keystones('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/index', params=params)
+
+    def test_get_mythic_keystone_periods(self, response_mock):
+        self.authorized_api.get_mythic_keystone_periods('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/period/index', params=params)
+
+    def test_get_mythic_keystone_period(self, response_mock):
+        self.authorized_api.get_mythic_keystone_period('us', 'dynamic-us', 641)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/period/641', params=params)
+
+    def test_get_mythic_keystone_seasons(self, response_mock):
+        self.authorized_api.get_mythic_keystone_seasons('us', 'dynamic-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/season/index', params=params)
+
+    def test_get_mythic_keystone_season(self, response_mock):
+        self.authorized_api.get_mythic_keystone_season('us', 'dynamic-us', 1)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'dynamic-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/mythic-keystone/season/1', params=params)
+
+    # Mythic Keystone Leaderboard API
+
     def test_get_mythic_keystone_leaderboards(self, response_mock):
         self.authorized_api.get_mythic_keystone_leaderboards('us', 'dynamic-us', 1)
         params = copy.deepcopy(self.params)
         params['namespace'] = 'dynamic-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/connected-realm/1/mythic-leaderboard/',
+            'https://us.api.blizzard.com/data/wow/connected-realm/1/mythic-leaderboard/index',
             params=params
         )
 
@@ -355,30 +437,14 @@ class TestWowApi(object):
             params=params
         )
 
-    def test_get_mythic_raid_leaderboard(self, response_mock):
-        self.authorized_api.get_mythic_raid_leaderboard('us', 'dynamic-us', 'uldir', 'horde')
-        params = copy.deepcopy(self.params)
-        params['namespace'] = 'dynamic-us'
-        response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/leaderboard/hall-of-fame/uldir/horde',
-            params=params
-        )
-
-    def test_get_mythic_challenge_modes(self, response_mock):
-        self.authorized_api.get_mythic_challenge_modes('us', 'dynamic-us')
-        params = copy.deepcopy(self.params)
-        params['namespace'] = 'dynamic-us'
-        response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/mythic-challenge-mode/',
-            params=params
-        )
+    # Playable Class API
 
     def test_get_playable_classes(self, response_mock):
         self.authorized_api.get_playable_classes('us', 'static-us')
         params = copy.deepcopy(self.params)
         params['namespace'] = 'static-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/playable-class/',
+            'https://us.api.blizzard.com/data/wow/playable-class/index',
             params=params
         )
 
@@ -391,12 +457,23 @@ class TestWowApi(object):
             params=params
         )
 
+    def test_get_playable_class_pvp_talent_slots(self, response_mock):
+        self.authorized_api.get_playable_class_pvp_talent_slots('us', 'static-us', 7)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/playable-class/7/pvp-talent-slots',
+            params=params
+        )
+
+    # Playable Specialization API
+
     def test_get_playable_specializations(self, response_mock):
         self.authorized_api.get_playable_specializations('us', 'static-us')
         params = copy.deepcopy(self.params)
         params['namespace'] = 'static-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/playable-specialization/',
+            'https://us.api.blizzard.com/data/wow/playable-specialization/index',
             params=params
         )
 
@@ -409,12 +486,54 @@ class TestWowApi(object):
             params=params
         )
 
+    # Power Type API
+
+    def test_get_power_types(self, response_mock):
+        self.authorized_api.get_power_types('us', 'static-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/power-type/index',
+            params=params
+        )
+
+    def test_get_power_type(self, response_mock):
+        self.authorized_api.get_power_type('us', 'static-us', 0)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/power-type/0',
+            params=params
+        )
+
+    # Playable Race API
+
+    def test_get_races(self, response_mock):
+        self.authorized_api.get_races('us', 'static-us')
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/race/index',
+            params=params
+        )
+
+    def test_get_race(self, response_mock):
+        self.authorized_api.get_race('us', 'static-us', 2)
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'static-us'
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/data/wow/race/2',
+            params=params
+        )
+
+    # Realm API
+
     def test_get_realms(self, response_mock):
         self.authorized_api.get_realms('us', 'dynamic-us')
         params = copy.deepcopy(self.params)
         params['namespace'] = 'dynamic-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/realm/',
+            'https://us.api.blizzard.com/data/wow/realm/index',
             params=params
         )
 
@@ -427,12 +546,14 @@ class TestWowApi(object):
             params=params
         )
 
+    # Region API
+
     def test_get_regions(self, response_mock):
         self.authorized_api.get_regions('us', 'dynamic-us')
         params = copy.deepcopy(self.params)
         params['namespace'] = 'dynamic-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/region/',
+            'https://us.api.blizzard.com/data/wow/region/index',
             params=params
         )
 
@@ -445,9 +566,11 @@ class TestWowApi(object):
             params=params
         )
 
+    # WoW Token API
+
     def test_get_token(self, response_mock):
         self.authorized_api.get_token('us', 'dynamic-us')
         params = copy.deepcopy(self.params)
         params['namespace'] = 'dynamic-us'
         response_mock.assert_called_with(
-            'https://us.api.blizzard.com/data/wow/token/', params=params)
+            'https://us.api.blizzard.com/data/wow/token/index', params=params)

@@ -72,5 +72,5 @@ api.get_data_resource('https://eu.api.blizzard.com/data/wow/connected-realm/509?
 ```bash
 pip install -e .
 pip install -e .[tests]
-py.test
+pytest
 ```
