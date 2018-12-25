@@ -2,7 +2,7 @@
 
 
 tests:
-	py.test -s -v tests
+	pytest -s -v tests
 
 devinstall:
 	pip install -e .
