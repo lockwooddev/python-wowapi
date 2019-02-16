@@ -23,7 +23,7 @@ class WowApi(object):
         self._session = requests.Session()
 
         # Use default retry setup
-        if retry_failures:
+        if retry_conn_failures:
             self.retry_conn_failures()
 
         self._access_tokens = {}
