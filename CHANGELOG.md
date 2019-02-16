@@ -22,3 +22,7 @@
 ## 2.2.0 (25-12-2018)
 
 * Add new Game Data API's
+
+## 2.2.1 (16-02-2019)
+
+* Add functionality to retry failed connections
