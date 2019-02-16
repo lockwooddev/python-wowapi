@@ -31,9 +31,11 @@ class WowApi(object):
     def _utcnow(self):
         return datetime.utcnow()
 
-    def retry_conn_failures(self, total=5, backoff_factor=1, status_forcelist=[443, 500, 502, 503, 504]):
+    def retry_conn_failures(self, total=5, backoff_factor=1,
+                            status_forcelist=[443, 500, 502, 503, 504]):
         # Allows a user to control how retries function
-        retries = Retry(total=total, backoff_factor=backoff_factor, status_forcelist=status_forcelist)
+        retries = Retry(total=total, backoff_factor=backoff_factor,
+                        status_forcelist=status_forcelist)
         self._session.mount('http://', HTTPAdapter(max_retries=retries))
         self._session.mount('https://', HTTPAdapter(max_retries=retries))
 
