@@ -582,9 +582,9 @@ class WowApi(object):
 
     # WoW Token API
 
-    def get_token(self, regiom, namespace, **filters):
+    def get_token(self, region, namespace, **filters):
         """
         Game data api - get Wow token
         """
         filters['namespace'] = namespace
-        return self.get_resource('data/wow/token/index', regiom, **filters)
+        return self.get_resource('data/wow/token/index', region, **filters)
