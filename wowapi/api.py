@@ -595,16 +595,27 @@ class WowApi(object):
 
     # WoW Mythic Keystone Character Profile API
 
-    def get_character_mythic_keystone_profile(self, region, realm_slug, character_name, namespace, **filters):
+    def get_character_mythic_keystone_profile(self,
+                                              region, realm_slug, character_name, namespace,
+                                              **filters):
         """
         Profile api - get keystone character profile
         """
         filters['namespace'] = namespace
-        return self.get_resource('profile/wow/character/{0}/{1}/mythic-keystone-profile', region, *[realm_slug, character_name], **filters)
+        return self.get_resource(
+            'profile/wow/character/{0}/{1}/mythic-keystone-profile',
+            region, *[realm_slug, character_name], **filters
+        )
 
-    def get_character_mythic_keystone_profile_season(self, region, realm_slug, character_name, namespace, season_id, **filters):
+    def get_character_mythic_keystone_profile_season(self,
+                                                     region, realm_slug, character_name, namespace,
+                                                     season_id,
+                                                     **filters):
         """
         Profile api - get keystone character profile for specific season
         """
         filters['namespace'] = namespace
-        return self.get_resource('profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}', region, *[realm_slug, character_name, season_id], **filters)
+        return self.get_resource(
+            'profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}',
+            region, *[realm_slug, character_name, season_id], **filters
+        )
