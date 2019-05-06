@@ -574,3 +574,35 @@ class TestWowApi(object):
         params['namespace'] = 'dynamic-us'
         response_mock.assert_called_with(
             'https://us.api.blizzard.com/data/wow/token/index', params=params)
+
+    # ---------------------------------------------------------------------------------------------
+    # Profile API tests
+    # ---------------------------------------------------------------------------------------------
+
+    # WoW Mythic Keystone Character Profile API
+
+    def test_get_character_mythic_keystone_profile(self, response_mock):
+        self.authorized_api.get_character_mythic_keystone_profile(
+            'us', 'blackmoore', 'ayanda', 'profile-us')
+
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'profile-us'
+
+        base_url = 'https://us.api.blizzard.com'
+        response_mock.assert_called_with(
+            '{0}/profile/wow/character/blackmoore/ayanda/mythic-keystone-profile'.format(base_url),
+            params=params)
+
+    def test_get_character_mythic_keystone_profile_season(self, response_mock):
+        self.authorized_api.get_character_mythic_keystone_profile_season(
+            'us', 'blackmoore', 'ayanda', 'profile-us',  '1')
+
+        params = copy.deepcopy(self.params)
+        params['namespace'] = 'profile-us'
+
+        response_mock.assert_called_with(
+            '{0}/profile/wow/character/blackmoore/ayanda/mythic-keystone-profile/season/1'.format(
+                'https://us.api.blizzard.com'
+            ),
+            params=params
+        )
