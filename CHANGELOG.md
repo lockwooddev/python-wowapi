@@ -30,3 +30,7 @@
 ## 2.3.0 (06-05-2019)
 
 * Add profile api
+
+## 2.3.1 (20-05-2019)
+
+* Added some leeway protection against expired tokens
