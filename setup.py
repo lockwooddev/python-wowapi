@@ -3,7 +3,7 @@ import codecs
 from setuptools import setup, find_packages
 
 
-__version__ = '2.2.1'
+__version__ = '2.3.0'
 
 
 def read(*parts):
@@ -47,7 +47,7 @@ setup(
     license='MIT',
     keywords=['warcraft', 'api', 'wow', 'auctionhouse', 'community', 'game'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
