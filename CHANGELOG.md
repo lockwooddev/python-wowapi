@@ -26,3 +26,7 @@
 ## 2.2.1 (16-02-2019)
 
 * Add functionality to retry failed connections
+
+## 2.3.0 (06-05-2019)
+
+* Add profile api
