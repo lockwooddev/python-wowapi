@@ -125,7 +125,7 @@ class WowApi(object):
             # refresh access token if expiring in the next 30 seconds.
             # this protects against the rare occurrence of hitting
             # the API right as your token expires, causing errors.
-            if now >= self._access_tokens[region]['expiration'] - 30:
+            if now >= self._access_tokens[region]['expiration'] - timedelta(seconds=30):
                 logger.info('Access token expired. Fetching new token..')
                 self._get_client_credentials(region)
 
