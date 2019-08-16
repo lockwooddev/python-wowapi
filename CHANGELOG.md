@@ -34,3 +34,18 @@
 ## 2.3.1 (20-05-2019)
 
 * Added some leeway protection against expired tokens
+
+## 2.4.0 (WIP)
+
+* Add game data achievments API
+* Add game data creatures API
+* Add game data guild API
+* Add game data guild crest API
+* Add game data item API
+* Add game data mount API
+* Add game data pets API
+* Add game data pvp API
+* Add game data quest API
+* Add game data pvp season API
+* Add game data pvp tier API
+* Add game data titles API

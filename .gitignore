@@ -9,3 +9,4 @@ docs/_build/
 .coverage
 env/
 .cache
+.vscode
