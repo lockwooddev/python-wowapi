@@ -1,0 +1,2214 @@
+{
+  "name": "WoW Community APIs",
+  "title": "WoW Community APIs",
+  "description": "Endpoints for World of Warcraft player profiles.\n\n**Hosts**: note that Blizzard API request paths follow this format: `{region}.api.blizzard.com/{API path}` (or `gateway.battlenet.com.cn/{API path}` for China). For more information, see the [Getting Started guide](/documentation/guides/getting-started).",
+  "version": "78",
+  "protocol": "rest",
+  "basePath": "https://__region__.api.blizzard.com",
+  "headers": {
+    "Accept": "application/json"
+  },
+  "regionDefault": "us",
+  "auth": {
+    "oauth": {
+      "version": "2.0",
+      "base_uri": "https://us.battle.net",
+      "authorize_uri": "/oauth/authorize",
+      "access_token_uri": "/oauth/token",
+      "auth_flows": [
+        "client_cred"
+      ],
+      "options": {
+        "authorize": {
+          "scope": []
+        }
+      }
+    }
+  },
+  "resources": {
+    "World of Warcraft Profile API": {
+      "methods": {
+        "World of Warcraft OAuth Profile": {
+          "description": "This provides data about the current logged in OAuth user's WoW profile. Note that **GET /wow/user/characters** requires an access token obtained via the [authorization code flow](/documentation/guides/using-oauth/authorization-code-flow).",
+          "path": "/wow/user/characters",
+          "httpMethod": "GET",
+          "parameters": {}
+        }
+      }
+    },
+    "Achievement API": {
+      "methods": {
+        "Achievement": {
+          "description": "Returns data about an individual achievement.",
+          "path": "/wow/achievement/:id",
+          "parameters": {
+            ":id": {
+              "type": "string",
+              "required": true,
+              "default": "2144",
+              "description": "The ID of the achievement to retrieve.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Auction API": {
+      "methods": {
+        "Auction Data Status": {
+          "description": "Auction APIs currently provide rolling batches of data about current auctions. Fetching auction dumps is a two-step process that involves checking a per-realm index file to determine if a recent dump has been generated and then fetching the most recently generated dump file (if necessary).\n\nThis API resource provides a per-realm list of recently generated auction house data dumps.",
+          "path": "/wow/auction/data/:realm",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "medivh",
+              "description": "The realm to request.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Boss API": {
+      "methods": {
+        "Master List": {
+          "description": "Returns a list of all supported bosses. A \"boss\" in this context should be considered a boss encounter, which may include more than one NPC.",
+          "path": "/wow/boss/",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Boss": {
+          "description": "The boss API provides information about bosses. A \"boss\" in this context should be considered a boss encounter, which may include more than one NPC.",
+          "path": "/wow/boss/:bossid",
+          "parameters": {
+            ":bossid": {
+              "type": "string",
+              "required": true,
+              "default": "24723",
+              "description": "The ID of the boss to retrieve.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Challenge Mode API": {
+      "methods": {
+        "Realm Leaderboard": {
+          "description": "The request returns data for all nine challenge mode maps (currently). The map field includes the current medal times for each dungeon. Each ladder provides data about each character that was part of each run. The character data includes the current cached specialization of the character while the member field includes the specialization of the character during the challenge mode run.",
+          "path": "/wow/challenge/:realm",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "medivh",
+              "description": "The realm to request.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Region Leaderboard": {
+          "description": "The region leaderboard has the exact same data format as the realm leaderboards except there is no `realm` field. Instead, the response has the top 100 results gathered for each map for all of the available realm leaderboards in a region.",
+          "path": "/wow/challenge/region",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        }
+      }
+    },
+    "Character Profile API": {
+      "methods": {
+        "Character Profile": {
+          "description": "The Character Profile API is the primary way to access character information. This API can be used to fetch a single character at a time through an HTTP GET request to a URL describing the character profile resource. By default, these requests return a basic dataset, and each request can return zero or more additional fields. To access this API, craft a resource URL pointing to the desired character for which to retrieve information.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "The dataset to retrieve for the character. Each field value is explained in more detail in the following requests. If no fields are specified the API will only return basic data about the character.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Achievements": {
+          "description": "Returns a map of achievement data including completion timestamps and criteria information.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "achievements",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Appearance": {
+          "description": "Returns a map of a character's appearance settings, such as which face texture they've selected and whether or not a helm is visible.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "appearance",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Feed": {
+          "description": "The character's activity feed.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "feed",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Guild": {
+          "description": "A summary of the guild to which the character belongs. If the character does not belong to a guild and this field is requested, this field will not be exposed.\n\nWhen a guild is requested, this resource returns a map with key-value pairs that describe a basic set of guild information. Note that the rank of the character is not included in this block as it describes a guild and not a membership of the guild. To retrieve the character's rank within the guild, make a specific, separate request to the guild profile resource.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "guild",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Hunter Pets": {
+          "description": "Returns a list of all combat pets the character has obtained.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "hunterPets",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Items": {
+          "description": "Returns a list of items equipped by the character. Use of this field will also include the average item level and average item level equipped for the character.\n\nWhen the `items` field is used, this resource returns a map structure containing information about the character's equipped items as well as their average item level.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "items",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Mounts": {
+          "description": "Returns a list of all mounts the character has obtained.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "mounts",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Pets": {
+          "description": "Returns a list of the battle pets the character has obtained.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "pets",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Pet Slots": {
+          "description": "Data about the character's current battle pet slots.\n\nThe response contains which slot a pet is in and whether the slot is empty or locked. The response also includes the `battlePetId`, which is unique for the character and can be used to match a `battlePetId` in the `pets` field for the character. The ability list is the list of three active abilities on a pet. If the pet is not high enough level for multiple abilities it will always be the pet's first three abilities.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "petSlots",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Professions": {
+          "description": "Returns a list of the character's professions. Does not include class professions.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "professions",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Progression": {
+          "description": "Returns a list of raids and bosses indicating raid progression and completeness.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "progression",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "PVP": {
+          "description": "Returns a map of PvP information, including arena team membership and rated battlegrounds information.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "pvp",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Quests": {
+          "description": "Returns a list of quests the character has completed.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "quests",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Reputation": {
+          "description": "Returns a list of the factions with which the character has an associated reputation.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "reputation",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Statistics": {
+          "description": "Returns a map of character statistics.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "statistics",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Stats": {
+          "description": "Returns a map of character attributes and stats.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "stats",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Talents": {
+          "description": "Returns a list of the character's talent structures.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "talents",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Titles": {
+          "description": "Returns a list of titles the character has obtained, including the currently selected title.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "blackrock",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "titles",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Audit": {
+          "description": "Raw character audit data that powers the character audit on the game site.",
+          "path": "/wow/character/:realm/:characterName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "burning-legion",
+              "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+              "location": "pathReplace"
+            },
+            ":characterName": {
+              "type": "string",
+              "required": true,
+              "default": "Thrall",
+              "description": "The name of the character to retrieve.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "audit",
+              "description": "Specifies the data to retrieve.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Guild Profile API": {
+      "methods": {
+        "Guild Profile": {
+          "description": "The guild profile API is the primary way to access guild information. This API can fetch a single guild at a time through an HTTP GET request to a URL describing the guild profile resource. By default, these requests return a basic dataset and each request can retrieve zero or more additional fields.\n\nAlthough this endpoint has no required query string parameters, requests can optionally pass the `fields` query string parameter to indicate that one or more of the optional datasets is to be retrieved. Those additional fields are listed in the method titled \"Optional Fields\".",
+          "path": "/wow/guild/:realm/:guildName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "Medivh",
+              "description": "The guild's realm.",
+              "location": "pathReplace"
+            },
+            ":guildName": {
+              "type": "string",
+              "required": true,
+              "default": "Temp Guild Name",
+              "description": "The name of the guild to query.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": false,
+              "default": "achievements,challenge",
+              "description": "The optional data to retrieve about the guild. Each field value is explained in more detail in the following methods. If no fields are specified the API will only return basic guild data.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Members": {
+          "description": "Returns a list of characters that are members of the guild. When the members list is requested, a list of character objects is returned. Each object in the returned members list contains a character block as well as a rank field.",
+          "path": "/wow/guild/:realm/:guildName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "Medivh",
+              "description": "The guild's realm.",
+              "location": "pathReplace"
+            },
+            ":guildName": {
+              "type": "string",
+              "required": true,
+              "default": "Temp Guild Name",
+              "description": "The name of the guild to query.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "members",
+              "description": "A value of `members` tells the API to include guild's member list in the response.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Achievements": {
+          "description": "A set of data structures that describe the achievements earned by the guild. When requesting achievement data, several sets of data will be returned.\n\n- `achievementsCompleted`: a list of achievement IDs.\n- `achievementsCompletedTimestamp`: a list of timestamps corresponding to the achievement IDs in the `achievementsCompleted` list. The value of each timestamp indicates when the related achievement was earned by the guild.\n- `criteria`: a list of criteria IDs used to determine the partial completeness of guild achievements.\n- `criteriaQuantity`: a list of values associated with a given achievement criteria. The position of a value corresponds to the position of a given achievement criteria.\n- `criteriaTimestamp`: a list of timestamps with values that represent when the criteria was considered complete. The position of a value corresponds to the position of a given achievement criteria.\n- `criteriaCreated`: a list of timestamps for which the value represents the time the criteria was considered started. The position of a value corresponds to the position of a given achievement criteria.\n\n",
+          "path": "/wow/guild/:realm/:guildName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "Medivh",
+              "description": "The guild's realm.",
+              "location": "pathReplace"
+            },
+            ":guildName": {
+              "type": "string",
+              "required": true,
+              "default": "Temp Guild Name",
+              "description": "The name of the guild to query.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "achievements",
+              "description": "A value of `achievements` tells the API to include the guild's achievement data in the response.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "News": {
+          "description": "A set of data structures that describe the guild's news feed. When the news feed is requested, this resource returns a list of news objects. Each one has a type, a timestamp, and some other data depending on the type: `itemId`, an `achievement` object, and so on.",
+          "path": "/wow/guild/:realm/:guildName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "Medivh",
+              "description": "The guild's realm.",
+              "location": "pathReplace"
+            },
+            ":guildName": {
+              "type": "string",
+              "required": true,
+              "default": "Temp Guild Name",
+              "description": "The name of the guild to query.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "news",
+              "description": "A value of `news` tells the API to include the guild's news feed in the response.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Challenge": {
+          "description": "The top three challenge mode guild run times for each challenge mode map.",
+          "path": "/wow/guild/:realm/:guildName",
+          "parameters": {
+            ":realm": {
+              "type": "string",
+              "required": true,
+              "default": "Medivh",
+              "description": "The guild's realm.",
+              "location": "pathReplace"
+            },
+            ":guildName": {
+              "type": "string",
+              "required": true,
+              "default": "",
+              "description": "The name of the guild to query.",
+              "location": "pathReplace"
+            },
+            "fields": {
+              "type": "string",
+              "required": true,
+              "default": "challenge",
+              "description": "A value of `challenge` tells the API to include the guild's Challenge Mode data in the response.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Item API": {
+      "methods": {
+        "Item": {
+          "description": "The item API provides detailed item information, including item set information.",
+          "path": "/wow/item/:itemId",
+          "parameters": {
+            ":itemId": {
+              "type": "number",
+              "required": true,
+              "default": "18803",
+              "description": "The requested item's unique ID.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Item Set": {
+          "description": "The item API provides detailed item information, including item set information.",
+          "path": "/wow/item/set/:setId",
+          "parameters": {
+            ":setId": {
+              "type": "string",
+              "required": true,
+              "default": "1060",
+              "description": "The requested set's unique ID.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Mount API": {
+      "methods": {
+        "Master List": {
+          "description": "Returns a list of all supported mounts.",
+          "path": "/wow/mount/",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Pet API": {
+      "methods": {
+        "Master List": {
+          "description": "Returns a list of all supported battle and vanity pets.",
+          "path": "/wow/pet/",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Abilities": {
+          "description": "Returns data about a individual battle pet ability ID. This resource does not provide ability tooltips.",
+          "path": "/wow/pet/ability/:abilityID",
+          "parameters": {
+            ":abilityID": {
+              "type": "string",
+              "required": true,
+              "default": "640",
+              "description": "The ID of the ability to retrieve.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Species": {
+          "description": "Returns data about an individual pet species. Use `pets` as the `field` value in a character profile request to get species IDs. Each species also has data about its six abilities.",
+          "path": "/wow/pet/species/:speciesID",
+          "parameters": {
+            ":speciesID": {
+              "type": "string",
+              "required": true,
+              "default": "258",
+              "description": "The species for which to retrieve data.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Stats": {
+          "description": "Returns detailed information about a given species of pet.",
+          "path": "/wow/pet/stats/:speciesID",
+          "parameters": {
+            ":speciesID": {
+              "type": "string",
+              "required": true,
+              "default": "258",
+              "description": "The pet's species ID. This can be found by querying a user's list of pets via the Character Profile API.",
+              "location": "pathReplace"
+            },
+            "level": {
+              "type": "number",
+              "required": false,
+              "default": "25",
+              "description": "The pet's level. Pet levels max out at 25. If omitted, the API assumes a default value of 1. ",
+              "location": "query"
+            },
+            "breedId": {
+              "type": "number",
+              "required": false,
+              "default": "5",
+              "description": "The pet's breed. Retrievable via the Character Profile API. If omitted the API assumes a default value of 3.",
+              "location": "query"
+            },
+            "qualityId": {
+              "type": "number",
+              "required": false,
+              "default": "4",
+              "description": "The pet's quality. Retrievable via the Character Profile API. Pet quality can range from 0 to 5 (0 is poor quality and 5 is legendary). If omitted, the API will assume a default value of 1.",
+              "location": "query"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "PVP API": {
+      "methods": {
+        "Leaderboards": {
+          "description": "The Leaderboard API endpoint provides leaderboard information for the 2v2, 3v3, 5v5, and Rated Battleground leaderboards.",
+          "path": "/wow/leaderboard/:bracket",
+          "parameters": {
+            ":bracket": {
+              "type": "string",
+              "required": true,
+              "default": "2v2",
+              "enum": [
+                "2v2",
+                "3v3",
+                "5v5",
+                "rbg"
+              ],
+              "description": "The type of leaderboard to retrieve. Valid entries are `2v2`, `3v3`, `5v5`, and `rbg`.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Quest API": {
+      "methods": {
+        "Quest": {
+          "description": "Returns metadata for a specified quest.",
+          "path": "/wow/quest/:questId",
+          "parameters": {
+            ":questId": {
+              "type": "string",
+              "required": true,
+              "default": "13146",
+              "description": "The ID of the quest to retrieve.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Realm Status API": {
+      "methods": {
+        "Realm Status": {
+          "description": "The realm status API allows developers to retrieve realm status information. This information is limited to whether or not the realm is up, the type and state of the realm, and the current population.\n\nAlthough this endpoint has no required query string parameters, use the optional `realms` parameter to limit the realms returned to a specific set of realms.",
+          "path": "/wow/realm/status",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        }
+      }
+    },
+    "Recipe API": {
+      "methods": {
+        "Recipe": {
+          "description": "Returns basic recipe information.",
+          "path": "/wow/recipe/:recipeId",
+          "parameters": {
+            ":recipeId": {
+              "type": "string",
+              "required": true,
+              "default": "33994",
+              "description": "Unique ID for the desired recipe.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Spell API": {
+      "methods": {
+        "Spell": {
+          "description": "Returns information about spells.",
+          "path": "/wow/spell/:spellId",
+          "parameters": {
+            ":spellId": {
+              "type": "string",
+              "required": true,
+              "default": "17086",
+              "description": "The ID of the spell to retrieve.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "User API": {
+      "methods": {
+        "Characters": {
+          "description": "Returns a list of characters for an account.",
+          "path": "/wow/user/characters",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }  
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Zone API": {
+      "methods": {
+        "Master List": {
+          "description": "Returns a list of all supported zones and their bosses. A \"zone\" in this context should be considered a dungeon or a raid, not a world zone. A \"boss\" in this context should be considered a boss encounter, which may include more than one NPC.",
+          "path": "/wow/zone/",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        },
+        "Zone": {
+          "description": "Returns information about zones.",
+          "path": "/wow/zone/:zoneid",
+          "parameters": {
+            ":zoneid": {
+              "type": "string",
+              "required": true,
+              "default": "4131",
+              "description": "The ID of the zone to retrieve.",
+              "location": "pathReplace"
+            },
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          },
+          "httpMethod": "GET"
+        }
+      }
+    },
+    "Data Resources": {
+      "methods": {
+        "Battlegroups": {
+          "description": "Returns a list of battlegroups for the specified region. Note the trailing `/` on this request path.",
+          "path": "/wow/data/battlegroups/",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Character Races": {
+          "description": "Returns a list of races and their associated faction, name, unique ID, and skin.",
+          "path": "/wow/data/character/races",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Character Classes": {
+          "description": "Returns a list of character classes.",
+          "path": "/wow/data/character/classes",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Character Achievements": {
+          "description": "Returns a list of all achievements that characters can earn as well as the category structure and hierarchy.",
+          "path": "/wow/data/character/achievements",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Guild Rewards": {
+          "description": "The guild rewards data API provides a list of all guild rewards.",
+          "path": "/wow/data/guild/rewards",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Guild Perks": {
+          "description": "Returns a list of all guild perks.",
+          "path": "/wow/data/guild/perks",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Guild Achievements": {
+          "description": "Returns a list of all guild achievements as well as the category structure and hierarchy.",
+          "path": "/wow/data/guild/achievements",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Item Classes": {
+          "description": "Returns a list of item classes.",
+          "path": "/wow/data/item/classes",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Talents": {
+          "description": "Returns a list of talents, specs, and glyphs for each class.",
+          "path": "/wow/data/talents",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        },
+        "Pet Types": {
+          "description": "Returns a list of the different battle pet types, including what they are strong and weak against.",
+          "path": "/wow/data/pet/types",
+          "httpMethod": "GET",
+          "parameters": {
+            "locale": {
+              "type": "string",
+              "required": false,
+              "default": "en_US",
+              "enum": [
+                "en_US",
+                "pt_BR",
+                "es_MX"
+              ],
+              "description": "The locale to reflect in localized data.",
+              "location": "query"
+            },
+            "jsonp": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "description": "Request for the data to be returned as a JSONP callback.",
+              "location": "query"
+            }
+          }
+        }
+      }
+    }
+  }
+}
