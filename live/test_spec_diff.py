@@ -15,6 +15,7 @@ def check_spec(id, spec_file):
     new_spec_file.seek(0)
 
     result = subprocess.run(["diff", spec_file, new_spec_file.name], capture_output=True)
+    changed = bool(result.stdout)
     if bool(result.stdout):
         print('Changes in the {0} have been detected since last release!'.format(id))
         print('I need a human to look for possible deprecations..')
@@ -22,10 +23,12 @@ def check_spec(id, spec_file):
 
         lines = result.stdout.decode('utf-8').split('\n')
         [print(l) for l in lines]
+        print('-----------------------------------------------------')
     else:
         print('No API changes detected..')
+    return changed
 
 
-if __name__ == '__main__':
-    check_spec('WoW Community API', 'wow-community-api.json')
-    check_spec('WoW Game Data API', 'wow-game-data-api.json')
+def test_spec_changes():
+    assert not check_spec('WoW Community API', 'wow-community-api.json')
+    assert not check_spec('WoW Game Data API', 'wow-game-data-api.json')

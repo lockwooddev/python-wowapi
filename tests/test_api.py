@@ -159,6 +159,11 @@ class TestWowApi(object):
             }
         }
 
+    def test_get_oauth_profile(self, response_mock):
+        self.authorized_api.get_oauth_profile('us')
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/wow/user/characters', params=self.params)
+
     def test_get_achievement(self, response_mock):
         self.authorized_api.get_achievement('us', 1234)
         response_mock.assert_called_with(
@@ -258,6 +263,13 @@ class TestWowApi(object):
         self.authorized_api.get_spell('us', 8056)
         response_mock.assert_called_with(
             'https://us.api.blizzard.com/wow/spell/8056', params=self.params)
+
+    def test_get_characters(self, response_mock):
+        params = copy.deepcopy(self.params)
+        params['locale'] = 'de_DE'
+        self.authorized_api.get_characters('us', locale='de_DE')
+        response_mock.assert_called_with(
+            'https://us.api.blizzard.com/wow/user/characters', params=params)
 
     def test_get_zones(self, response_mock):
         self.authorized_api.get_zones('us')
