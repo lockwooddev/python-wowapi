@@ -199,9 +199,7 @@ class WowApi(object):
         >>> api.get_guild_profile('eu', 'khadgar')
         >>> api.get_guild_profile('eu', 'khadgar', locale='en_GB', fields='achievements,challenge')
         """
-        return self.get_resource(
-            'wow/guild/{0}/{1}', region, *[realm, guild_name], **filters
-        )
+        return self.get_resource('wow/guild/{0}/{1}', region, *[realm, guild_name], **filters)
 
     def get_item(self, region, id, **filters):
         """
@@ -382,7 +380,7 @@ class WowApi(object):
         filters['namespace'] = namespace
         return self.get_resource('data/wow/achievement/index', region, **filters)
 
-    def get_achievement(self, region, namespace, id, **filters):
+    def get_achievement_data(self, region, namespace, id, **filters):
         """
         Data Achievement API - Returns an achievement by id
         """
@@ -578,14 +576,14 @@ class WowApi(object):
 
     def get_mythic_keystone_affixes(self, region, namespace, **filters):
         """
-        Game data api - get mythic keystone affixes
+        Mythic Keystone Affix API - get mythic keystone affixes
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/keystone-affix/index', region, **filters)
 
     def get_mythic_keystone_affix(self, region, namespace, affix_id, **filters):
         """
-        Game data api - get mythic keystone affix by id
+        Mythic Keystone Affix API - get mythic keystone affix by id
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/keystone-affix/{0}', region, *[affix_id], **filters)
@@ -594,7 +592,7 @@ class WowApi(object):
 
     def get_mythic_raid_leaderboard(self, region, namespace, raid, faction, **filters):
         """
-        Game data api - get mythic raid leaderboard of specific faction
+        Mythic Raid Leaderboard API - get mythic raid leaderboard of specific faction
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -624,14 +622,14 @@ class WowApi(object):
 
     def get_mythic_keystone_dungeons(self, region, namespace, **filters):
         """
-        Game data api - get all mythic keystone dungeons
+        Mythic Keystone Dungeon API - get all mythic keystone dungeons
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/mythic-keystone/dungeon/index', region, **filters)
 
     def get_mythic_keystone_dungeon(self, region, namespace, dungeon_id, **filters):
         """
-        Game data api - get mythic keystone dungeon by id
+        Mythic Keystone Dungeon API - get mythic keystone dungeon by id
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -639,21 +637,21 @@ class WowApi(object):
 
     def get_mythic_keystones(self, region, namespace, **filters):
         """
-        Game data api - get links to documents related to mythic keystone dungeons
+        Mythic Keystone Dungeon API - get links to documents related to mythic keystone dungeons
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/mythic-keystone/index', region, **filters)
 
     def get_mythic_keystone_periods(self, region, namespace, **filters):
         """
-        Game data api - get all mythic keystone periods
+        Mythic Keystone Dungeon API - get all mythic keystone periods
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/mythic-keystone/period/index', region, **filters)
 
     def get_mythic_keystone_period(self, region, namespace, period_id, **filters):
         """
-        Game data api - get mythic keystone period by id
+        Mythic Keystone Dungeon API - get mythic keystone period by id
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -661,14 +659,14 @@ class WowApi(object):
 
     def get_mythic_keystone_seasons(self, region, namespace, **filters):
         """
-        Game data api - get all mythic keystone seasons
+        Mythic Keystone Dungeon API - get all mythic keystone seasons
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/mythic-keystone/season/index', region, **filters)
 
     def get_mythic_keystone_season(self, region, namespace, season_id, **filters):
         """
-        Game data api - get mythic keystone season by id
+        Mythic Keystone Dungeon API - get mythic keystone season by id
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -689,11 +687,11 @@ class WowApi(object):
                                         region, namespace, connected_realm_id, dungeon_id, period,
                                         **filters):
         """
-        Game data api - get a weekly mythic keystone leaderboard by period
+        Mythic Keystone Leaderboard API - get a weekly mythic keystone leaderboard by period
         """
         filters['namespace'] = namespace
         resource = 'data/wow/connected-realm/{0}/mythic-leaderboard/{1}/period/{2}'
-        params = *[connected_realm_id, dungeon_id, period]
+        params = [connected_realm_id, dungeon_id, period]
         return self.get_resource(resource, region, *params, **filters)
 
     # Pet API
@@ -716,21 +714,21 @@ class WowApi(object):
 
     def get_playable_classes(self, region, namespace, **filters):
         """
-        Game data api - get available playable classes
+        Playable Class API - get available playable classes
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/playable-class/index', region, **filters)
 
     def get_playable_class(self, region, namespace, class_id, **filters):
         """
-        Game data api - get playable classes by class id
+        Playable Class API - get playable classes by class id
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/playable-class/{0}', region, *[class_id], **filters)
 
     def get_playable_class_pvp_talent_slots(self, region, namespace, class_id, **filters):
         """
-        Game data api - get pvp talent slots for a playable class by id
+        Playable Class API - get pvp talent slots for a playable class by id
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -740,14 +738,14 @@ class WowApi(object):
 
     def get_races(self, region, namespace, **filters):
         """
-        Game data api - get races
+        Playable Race API - get races
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/race/index', region, **filters)
 
     def get_race(self, region, namespace, race_id, **filters):
         """
-        Game data api - get race by id
+        Playable Race API - get race by id
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/race/{0}', region, *[race_id], **filters)
@@ -756,14 +754,14 @@ class WowApi(object):
 
     def get_playable_specializations(self, region, namespace, **filters):
         """
-        Game data api - get playable specializations
+        Playable Specialization API - get playable specializations
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/playable-specialization/index', region, **filters)
 
     def get_playable_specialization(self, region, namespace, spec_id, **filters):
         """
-        Game data api - get playable specialization by spec id
+        Playable Specialization API - get playable specialization by spec id
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -777,19 +775,26 @@ class WowApi(object):
 
     def get_power_types(self, region, namespace, **filters):
         """
-        Game data api - get power types
+        Power Type API - get power types
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/power-type/index', region, **filters)
 
     def get_power_type(self, region, namespace, power_type_id, **filters):
         """
-        Game data api - get power type by id
+        Power Type API - get power type by id
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/power-type/{0}', region, *[power_type_id], **filters)
 
     # TODO: PvP Season API
+    def get_pvp_season_index(self, region, namespace, **filters):
+        """
+        Power Type API - Returns an index of PvP seasons
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/pvp-season/index', region, **filters)
+    # TODO: missing endpoints here
 
     # TODO: PvP Tier API
 
@@ -797,14 +802,14 @@ class WowApi(object):
 
     def get_realms(self, region, namespace, **filters):
         """
-        Game data api - get realms
+        Realm API - get realms
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/realm/index', region, **filters)
 
     def get_realm(self, region, namespace, realm_slug, **filters):
         """
-        Game data api - get realm by realm slug
+        Realm API - get realm by realm slug
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/realm/{0}', region, *[realm_slug], **filters)
@@ -813,25 +818,39 @@ class WowApi(object):
 
     def get_regions(self, region, namespace, **filters):
         """
-        Game data api - get regions
+        Region API - get regions
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/region/index', region, **filters)
 
     def get_region(self, region, namespace, region_id, **filters):
         """
-        Game data api - get region by region id
+        Region API - get region by region id
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/region/{0}', region, *[region_id], **filters)
 
-    # TODO: Title API
+    # Title API
+
+    def get_title_index(self, region, namespace, **filters):
+        """
+        Title API - Returns an index of titles
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/title/index', region, **filters)
+
+    def get_title(self, region, namespace, id, **filters):
+        """
+        Title API - Returns a title by id
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/title/{0}', region, *[id], **filters)
 
     # WoW Token API
 
     def get_token(self, region, namespace, **filters):
         """
-        Game data api - get Wow token
+        WoW Token API - Returns the WoW Token index
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/token/index', region, **filters)
@@ -840,15 +859,129 @@ class WowApi(object):
     # Profile API wrappers
     # ---------------------------------------------------------------------------------------------
 
-    # TODO: Character Achievements API
-    # TODO: Character Appearance API
-    # TODO: Character Equipment API
-    # TODO: Character Media API
-    # TODO: Character Profile API
-    # TODO: Character PvP API
-    # TODO: Character Specializations API
-    # TODO: Character Statistics API
-    # TODO: Character Titles API
+    # Character Achievements API
+
+    def get_character_achievements_summary(self,
+                                           region, realm_slug, character_name, namespace,
+                                           **filters):
+        """
+        Character Achievements API
+        Returns a summary of the achievements a character has completed
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/achievements'
+        return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
+
+    # Character Appearance API
+
+    def get_character_appearance_summary(self,
+                                         region, realm_slug, character_name, namespace,
+                                         **filters):
+        """
+        Character Appearance API - Returns a summary of a character's appearance settings
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/appearance'
+        return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
+
+    # Character Equipment API
+
+    def get_character_equipment_summary(self,
+                                         region, realm_slug, character_name, namespace,
+                                         **filters):
+        """
+        Character Equipment API - Returns a summary of the items equipped by a character
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/equipment'
+        return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
+
+    # Character Media API
+
+    def get_character_media_summary(self,
+                                    region, realm_slug, character_name, namespace,
+                                    **filters):
+        """
+        Character Media API - Returns a summary of the media assets available for a character
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/character-media'
+        return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
+
+    # Character Profile API
+
+    def get_character_profile_summary(self,
+                                      region, realm_slug, character_name, namespace,
+                                      **filters):
+        """
+        Character Profile API - Returns a profile summary for a character
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}'
+        return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
+
+    # Character PvP API
+
+    def get_character_pvp_bracket_stats(self,
+                                        region, realm_slug, character_name, bracket, namespace,
+                                        **filters):
+        """
+        Character PvP API - Returns the PvP bracket statistics for a character
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/pvp-bracket/{2}'
+        params = [realm_slug, character_name, bracket]
+        return self.get_resource(resource, region, *params, **filters)
+
+    def get_character_pvp_stats(self,
+                                region, realm_slug, character_name, namespace,
+                                **filters):
+        """
+        Character PvP API - Returns a PvP summary for a character
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/pvp-summary'
+        params = [realm_slug, character_name]
+        return self.get_resource(resource, region, *params, **filters)
+
+    # Character Specializations API
+
+    def get_character_specializations_summary(self,
+                                              region, realm_slug, character_name, namespace,
+                                              **filters):
+        """
+        Character Specializations API - Returns a summary of a character's specializations
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/specializations'
+        params = [realm_slug, character_name]
+        return self.get_resource(resource, region, *params, **filters)
+
+    # Character Statistics API
+
+    def get_character_stats_summary(self,
+                                    region, realm_slug, character_name, namespace,
+                                    **filters):
+        """
+        Character Statistics API - Returns a statistics summary for a character
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/statistics'
+        params = [realm_slug, character_name]
+        return self.get_resource(resource, region, *params, **filters)
+
+    # Character Titles API
+
+    def get_character_titles_summary(self,
+                                    region, realm_slug, character_name, namespace,
+                                    **filters):
+        """
+        Character Titles API - Returns a summary of titles a character has obtained
+        """
+        filters['namespace'] = namespace
+        resource = 'profile/wow/character/{0}/{1}/titles'
+        params = [realm_slug, character_name]
+        return self.get_resource(resource, region, *params, **filters)
 
     # WoW Mythic Keystone Character Profile API
 
@@ -856,23 +989,20 @@ class WowApi(object):
                                               region, realm_slug, character_name, namespace,
                                               **filters):
         """
-        Profile api - get keystone character profile
+        Profile API - Mythic Keystone Character Profile Index
         """
         filters['namespace'] = namespace
-        return self.get_resource(
-            'profile/wow/character/{0}/{1}/mythic-keystone-profile',
-            region, *[realm_slug, character_name], **filters
-        )
+        resource = 'profile/wow/character/{0}/{1}/mythic-keystone-profile'
+        return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
 
     def get_character_mythic_keystone_profile_season(self,
                                                      region, realm_slug, character_name, namespace,
                                                      season_id,
                                                      **filters):
         """
-        Profile api - get keystone character profile for specific season
+        Profile API - Returns the Mythic Keystone season details for a character
         """
         filters['namespace'] = namespace
-        return self.get_resource(
-            'profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}',
-            region, *[realm_slug, character_name, season_id], **filters
-        )
+        resource = 'profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}'
+        params = [realm_slug, character_name, season_id]
+        return self.get_resource(resource, region, *params, **filters)
