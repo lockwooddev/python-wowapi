@@ -787,16 +787,71 @@ class WowApi(object):
         filters['namespace'] = namespace
         return self.get_resource('data/wow/power-type/{0}', region, *[power_type_id], **filters)
 
-    # TODO: PvP Season API
+    # PvP Season API
+
     def get_pvp_season_index(self, region, namespace, **filters):
         """
-        Power Type API - Returns an index of PvP seasons
+        PvP Season API - Returns an index of PvP seasons
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/pvp-season/index', region, **filters)
-    # TODO: missing endpoints here
 
-    # TODO: PvP Tier API
+    def get_pvp_season(self, region, namespace, season_id, **filters):
+        """
+        PvP Season API - Returns a PvP season by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/pvp-season/{0}', region, *[season_id], **filters)
+
+    def get_pvp_leaderboard_index(self, region, namespace, season_id, **filters):
+        """
+        PvP Season API - Returns an index of PvP leaderboards for a PvP season
+        """
+        filters['namespace'] = namespace
+        resource = 'data/wow/pvp-season/{0}/pvp-leaderboard/index'
+        return self.get_resource(resource, region, *[season_id], **filters)
+
+    def get_pvp_leaderboard(self, region, namespace, season_id, bracket, **filters):
+        """
+        PvP Season API - Returns the PvP leaderboard of a specific PvP bracket for a PvP season
+        """
+        filters['namespace'] = namespace
+        resource = 'data/wow/pvp-season/{0}/pvp-leaderboard/{1}'
+        return self.get_resource(resource, region, *[season_id, bracket], **filters)
+
+    def get_pvp_rewards_index(self, region, namespace, season_id, **filters):
+        """
+        PvP Season API - Returns an index of PvP rewards for a PvP season
+        """
+        filters['namespace'] = namespace
+        resource = 'data/wow/pvp-season/{0}/pvp-reward/index'
+        return self.get_resource(resource, region, *[season_id], **filters)
+
+    # PvP Tier API
+
+    def get_pvp_tier_media(self, region, namespace, tier_id, **filters):
+        """
+        PvP Tier API - Returns media for a PvP tier by ID
+        """
+        filters['namespace'] = namespace
+        resource = 'data/wow/media/pvp-tier/{0}'
+        return self.get_resource(resource, region, *[tier_id], **filters)
+
+    def get_pvp_tier_index(self, region, namespace, **filters):
+        """
+        PvP Tier API - Returns an index of PvP tiers
+        """
+        filters['namespace'] = namespace
+        resource = 'data/wow/pvp-tier/index'
+        return self.get_resource(resource, region, **filters)
+
+    def get_pvp_tier(self, region, namespace, tier_id, **filters):
+        """
+        PvP Tier API - Returns a PvP tier by ID
+        """
+        filters['namespace'] = namespace
+        resource = 'data/wow/pvp-tier/{0}'
+        return self.get_resource(resource, region, *[tier_id], **filters)
 
     # Realm API
 
@@ -887,8 +942,8 @@ class WowApi(object):
     # Character Equipment API
 
     def get_character_equipment_summary(self,
-                                         region, realm_slug, character_name, namespace,
-                                         **filters):
+                                        region, realm_slug, character_name, namespace,
+                                        **filters):
         """
         Character Equipment API - Returns a summary of the items equipped by a character
         """

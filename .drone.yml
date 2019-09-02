@@ -1,16 +1,5 @@
 ---
 kind: pipeline
-name: python27
-
-steps:
-- name: test
-  image: python:2.7-alpine3.8
-  commands:
-    - ./drone.sh
-    - pytest -c pytest_legacy.ini
-
----
-kind: pipeline
 name: python35
 
 steps:

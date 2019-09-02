@@ -37,6 +37,8 @@
 
 ## 2.4.0 (WIP)
 
+* Drop support for python 2.7
+
 * Add game data achievments API
 * Add game data creatures API
 * Add game data guild API
