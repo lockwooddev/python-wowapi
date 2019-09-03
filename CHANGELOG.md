@@ -35,9 +35,18 @@
 
 * Added some leeway protection against expired tokens
 
-## 2.4.0 (WIP)
+## 3.0.0 (WIP)
 
 * Drop support for python 2.7
+* Deprecated endpoints:
+    * `get_races` became `get_playable_race_index`
+    * `get_race` became `get_playable_race`
+* New Endpoints:
+    * Profile API
+        * All
+    * Game Data API
+        * Achievement
+    * Community API
 
 * Add game data achievments API
 * Add game data creatures API

@@ -65,7 +65,7 @@ class WowApi(object):
         try:
             json = response.json()
         except Exception:
-            msg = 'Invalid Json in OAuth request: {0} for {1}'.format(response.content, url)
+            msg = 'Invalid Json in OAuth response: {0} for {1}'.format(response.content, url)
             logger.exception(msg)
             raise WowApiOauthException(msg)
 
@@ -371,7 +371,7 @@ class WowApi(object):
         Data Achievement API - Returns an achievement category by id
         """
         filters['namespace'] = namespace
-        return self.get_resource('/data/wow/achievement-category/{0}', region, *[id],  **filters)
+        return self.get_resource('data/wow/achievement-category/{0}', region, *[id],  **filters)
 
     def get_achievement_index(self, region, namespace, **filters):
         """
@@ -385,14 +385,14 @@ class WowApi(object):
         Data Achievement API - Returns an achievement by id
         """
         filters['namespace'] = namespace
-        return self.get_resource('/data/wow/achievement/{0}', region, *[id], **filters)
+        return self.get_resource('data/wow/achievement/{0}', region, *[id], **filters)
 
     def get_achievement_media(self, region, namespace, id, **filters):
         """
         Data Achievement API - Returns media for an achievement by id
         """
         filters['namespace'] = namespace
-        return self.get_resource('/data/wow/media/achievement/{0}', region, *[id], **filters)
+        return self.get_resource('data/wow/media/achievement/{0}', region, *[id], **filters)
 
     # Azerite Essence API
 
@@ -408,14 +408,14 @@ class WowApi(object):
         Data Azerite Essence API - Returns an azerite essence by id
         """
         filters['namespace'] = namespace
-        return self.get_resource('/data/wow/azerite-essence/{0}', region, *[id], **filters)
+        return self.get_resource('data/wow/azerite-essence/{0}', region, *[id], **filters)
 
     def get_azerite_essence_media(self, region, namespace, id, **filters):
         """
         Data Azerite Essence API - Returns media for an azerite essence by id
         """
         filters['namespace'] = namespace
-        return self.get_resource('/data/wow/media/azerite-essence/{0}', region, *[id], **filters)
+        return self.get_resource('data/wow/media/azerite-essence/{0}', region, *[id], **filters)
 
     # Connected Realm API
 
@@ -736,19 +736,19 @@ class WowApi(object):
 
     # Playable Race API
 
-    def get_races(self, region, namespace, **filters):
+    def get_playable_race_index(self, region, namespace, **filters):
         """
-        Playable Race API - get races
+        Playable Race API - Returns an index of playable races
         """
         filters['namespace'] = namespace
-        return self.get_resource('data/wow/race/index', region, **filters)
+        return self.get_resource('data/wow/playable-race/index', region, **filters)
 
-    def get_race(self, region, namespace, race_id, **filters):
+    def get_playable_race(self, region, namespace, race_id, **filters):
         """
-        Playable Race API - get race by id
+        Playable Race API - Returns a playable race by ID
         """
         filters['namespace'] = namespace
-        return self.get_resource('data/wow/race/{0}', region, *[race_id], **filters)
+        return self.get_resource('data/wow/playable-race/{0}', region, *[race_id], **filters)
 
     # Playable Specialization API
 
@@ -917,8 +917,8 @@ class WowApi(object):
     # Character Achievements API
 
     def get_character_achievements_summary(self,
-                                           region, realm_slug, character_name, namespace,
-                                           **filters):
+                                           region, namespace,
+                                           realm_slug, character_name, **filters):
         """
         Character Achievements API
         Returns a summary of the achievements a character has completed
@@ -930,7 +930,8 @@ class WowApi(object):
     # Character Appearance API
 
     def get_character_appearance_summary(self,
-                                         region, realm_slug, character_name, namespace,
+                                         region, namespace,
+                                         realm_slug, character_name,
                                          **filters):
         """
         Character Appearance API - Returns a summary of a character's appearance settings
@@ -942,7 +943,8 @@ class WowApi(object):
     # Character Equipment API
 
     def get_character_equipment_summary(self,
-                                        region, realm_slug, character_name, namespace,
+                                        region, namespace,
+                                        realm_slug, character_name,
                                         **filters):
         """
         Character Equipment API - Returns a summary of the items equipped by a character
@@ -954,7 +956,8 @@ class WowApi(object):
     # Character Media API
 
     def get_character_media_summary(self,
-                                    region, realm_slug, character_name, namespace,
+                                    region, namespace,
+                                    realm_slug, character_name,
                                     **filters):
         """
         Character Media API - Returns a summary of the media assets available for a character
@@ -966,7 +969,8 @@ class WowApi(object):
     # Character Profile API
 
     def get_character_profile_summary(self,
-                                      region, realm_slug, character_name, namespace,
+                                      region, namespace,
+                                      realm_slug, character_name,
                                       **filters):
         """
         Character Profile API - Returns a profile summary for a character
@@ -978,7 +982,8 @@ class WowApi(object):
     # Character PvP API
 
     def get_character_pvp_bracket_stats(self,
-                                        region, realm_slug, character_name, bracket, namespace,
+                                        region, namespace,
+                                        realm_slug, character_name, bracket,
                                         **filters):
         """
         Character PvP API - Returns the PvP bracket statistics for a character
@@ -988,8 +993,9 @@ class WowApi(object):
         params = [realm_slug, character_name, bracket]
         return self.get_resource(resource, region, *params, **filters)
 
-    def get_character_pvp_stats(self,
-                                region, realm_slug, character_name, namespace,
+    def get_character_pvp_summary(self,
+                                region, namespace,
+                                realm_slug, character_name,
                                 **filters):
         """
         Character PvP API - Returns a PvP summary for a character
@@ -1002,7 +1008,8 @@ class WowApi(object):
     # Character Specializations API
 
     def get_character_specializations_summary(self,
-                                              region, realm_slug, character_name, namespace,
+                                              region, namespace,
+                                              realm_slug, character_name,
                                               **filters):
         """
         Character Specializations API - Returns a summary of a character's specializations
@@ -1015,7 +1022,8 @@ class WowApi(object):
     # Character Statistics API
 
     def get_character_stats_summary(self,
-                                    region, realm_slug, character_name, namespace,
+                                    region, namespace,
+                                    realm_slug, character_name,
                                     **filters):
         """
         Character Statistics API - Returns a statistics summary for a character
@@ -1028,7 +1036,8 @@ class WowApi(object):
     # Character Titles API
 
     def get_character_titles_summary(self,
-                                    region, realm_slug, character_name, namespace,
+                                    region, namespace,
+                                    realm_slug, character_name,
                                     **filters):
         """
         Character Titles API - Returns a summary of titles a character has obtained
@@ -1041,7 +1050,8 @@ class WowApi(object):
     # WoW Mythic Keystone Character Profile API
 
     def get_character_mythic_keystone_profile(self,
-                                              region, realm_slug, character_name, namespace,
+                                              region, namespace,
+                                              realm_slug, character_name,
                                               **filters):
         """
         Profile API - Mythic Keystone Character Profile Index
@@ -1051,8 +1061,8 @@ class WowApi(object):
         return self.get_resource(resource, region, *[realm_slug, character_name], **filters)
 
     def get_character_mythic_keystone_profile_season(self,
-                                                     region, realm_slug, character_name, namespace,
-                                                     season_id,
+                                                     region, namespace,
+                                                     realm_slug, character_name, season_id,
                                                      **filters):
         """
         Profile API - Returns the Mythic Keystone season details for a character
