@@ -6,14 +6,21 @@ devinstall:
 	pip install -e .[tests]
 	pip install -e .[docs]
 
-docs: clean
-	sphinx-apidoc --force -o docs/modules/ wowapi
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
+docs:
+	rm -rf docs
+	mkdir docs
+	pydocmd simple wowapi++ wowapi.api++ wowapi.mixins.community++ wowapi.mixins.game_data++ wowapi.mixins.profile++ > docs/api.md
 
-build:
+clean:
 	rm -rf dist
 	rm -rf build
+	rm -rf cov_html
+	rm -rf python_wowapi.egg-info
+	rm -rf .coverage
+	rm -rf docs
+
+build:
+	make clean
 	python setup.py sdist bdist_wheel
 
 test_publish:

@@ -14,49 +14,20 @@ Python-wowapi includes support for the following WoW API's:
 * Game data API
 * Character Profile API
 
-To interact with this library, you need to first get a client-id and client secret by registering [here](https://develop.battle.net/access)
+To interact with this library, you need to first get a client-id and client secret by [registering](https://develop.battle.net/access) your application.
 
 For more information about official World of Warcraft API's visit:
 * [Official API documentation](https://develop.battle.net/documentation)
 * [Official API Forum](https://us.forums.blizzard.com/en/blizzard/c/api-discussion)
 
-API documentation can be found at [python-wowapi.readthedocs.org](https://python-wowapi.readthedocs.org). Examples and installation instructions are documented here.
+## API Docs
+
+For examples and all available endpoints, visit the [API Documentation](docs/api.md)
 
 ## Installing
 
 ```bash
 pip install python-wowapi
-```
-
-## Usage example
-
-```python
-import os
-
-from wowapi import WowApi
-
-api = WowApi(os.environ['WOW_CLIENT_ID'], os.environ['WOW_CLIENT_SECRET'])
-
-# Token price
-api.get_token('eu', namespace='dynamic-eu', locale='de_DE')
-
-# Playable specializations
-data = api.get_playable_specializations('us', namespace='static-us')
-spec_id = data['character_specializations'][0]['id']
-specialization = api.get_playable_specialization('us', namespace='static-us', spec_id=spec_id)
-
-# Character achievements
-api.get_character_achievements_summary('eu', 'khadgar', 'awesomepally', 'static-eu', 'fr_FR')
-```
-
-## Data resource urls
-
-Some endpoints return a url pointing to another resource. These urls do not include OAuth tokens. `api.get_data_resource` takes care of this.
-
-
-```python
-auctions_ref = api.get_auctions('eu', 'silvermoon', locale='de_DE')
-api.get_data_resource(auctions_ref['files'][0]['url'], 'eu')
 ```
 
 ## WoW Classic API support
@@ -80,4 +51,10 @@ Alternatively you can also run the full [drone.io](https://drone.io) pipeline [l
 
 ```bash
 drone exec
+```
+
+To build the docs:
+
+```bash
+make docs
 ```

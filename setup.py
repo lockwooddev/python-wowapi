@@ -26,7 +26,7 @@ test_requirements = [
 ]
 
 docs_requirements = [
-    'Sphinx==2.2.0',
+    'pydoc-markdown==2.0.5',
 ]
 
 setup(

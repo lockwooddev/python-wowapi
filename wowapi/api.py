@@ -15,6 +15,21 @@ logger.addHandler(logging.NullHandler())
 
 
 class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
+    """
+    ```python
+    import os
+
+    from wowapi import WowApi
+
+    api = WowApi('client_id', 'client_secret')
+
+    # Token price
+    api.get_token('eu', namespace='dynamic-eu', locale='de_DE')
+
+    # Auctions
+    api.get_auctions('eu', 'silvermoon', locale='de_DE')
+    ```
+    """
 
     __base_url = '{0}.api.blizzard.com'
 
@@ -81,6 +96,16 @@ class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
         }
 
     def get_data_resource(self, url, region):
+        """
+        Some endpoints return a url pointing to another resource.
+        These urls do not include OAuth tokens.
+        `api.get_data_resource` takes care of this.
+
+        ```python
+        auctions_ref = api.get_auctions('eu', 'silvermoon', locale='de_DE')
+        api.get_data_resource(auctions_ref['files'][0]['url'], 'eu')
+        ```
+        """
         params = {'access_token': self._access_tokens.get(region, {}).get('token', '')}
         return self._handle_request(url, region, params=params)
 

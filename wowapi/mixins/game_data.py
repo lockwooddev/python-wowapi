@@ -1,4 +1,5 @@
 class GameDataMixin:
+    """All Game Data API methods"""
 
     # Achievement API
 

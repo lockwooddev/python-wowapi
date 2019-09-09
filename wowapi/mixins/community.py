@@ -1,10 +1,13 @@
 class CommunityMixin:
+    """All Community API methods"""
 
     def get_oauth_profile(self, region):
         """
         World of Warcraft Profile API - data about wow profile for oauth token
 
-        >>> WowApi.get_oauth_profile('us')
+        ```python
+        api.get_oauth_profile('us')
+        ```
         """
         return self.get_resource('wow/user/characters', region)
 
@@ -12,7 +15,9 @@ class CommunityMixin:
         """
         Achievement API
 
-        >>> WowApi.get_achievement('us', 2144, locale='pt_BR')
+        ```python
+        api.get_achievement('us', 2144, locale='pt_BR')
+        ```
         """
         return self.get_resource('wow/achievement/{0}', region, *[id], **filters)
 
@@ -50,9 +55,11 @@ class CommunityMixin:
         """
         Character Profile API - base info or specific comma separated fields as filters
 
-        >>> api = WowApi('client-id', 'client-secret')
-        >>> api.get_character_profile('eu', 'khadgar', 'patchwerk')
-        >>> api.get_character_profile('eu', 'khadgar', 'patchwerk', locale='en_GB', fields='guild,mounts')
+        ```python
+        api = WowApi('client-id', 'client-secret')
+        api.get_character_profile('eu', 'khadgar', 'patchwerk')
+        api.get_character_profile('eu', 'khadgar', 'patchwerk', locale='en_GB', fields='guild,mounts')
+        ```
         """  # noqa
         return self.get_resource(
             'wow/character/{0}/{1}', region, *[realm, character_name], **filters
@@ -62,9 +69,11 @@ class CommunityMixin:
         """
         Guild Profile API - base info or specific comma separated fields as filters
 
-        >>> api = WowApi('client-id', 'client-secret')
-        >>> api.get_guild_profile('eu', 'khadgar')
-        >>> api.get_guild_profile('eu', 'khadgar', locale='en_GB', fields='achievements,challenge')
+        ```python
+        api = WowApi('client-id', 'client-secret')
+        api.get_guild_profile('eu', 'khadgar')
+        api.get_guild_profile('eu', 'khadgar', locale='en_GB', fields='achievements,challenge')
+        ```
         """
         return self.get_resource('wow/guild/{0}/{1}', region, *[realm, guild_name], **filters)
 
@@ -144,7 +153,9 @@ class CommunityMixin:
         """
         User API - List of characters of account
 
-        >>> WowApi.get_characters('us')
+        ```python
+        WowApi.get_characters('us')
+        ```
         """
         return self.get_resource('wow/user/characters', region, **filters)
 

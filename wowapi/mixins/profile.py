@@ -1,4 +1,5 @@
 class ProfileMixin:
+    """All Profile API methods"""
 
     # Character Achievements API
 
