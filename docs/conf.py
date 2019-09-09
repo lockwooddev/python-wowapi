@@ -21,8 +21,8 @@ project ='python-wowapi'
 year = datetime.datetime.now().strftime('%Y')
 copyright ='{0}, Carlo Smouter'.format(year)
 
-version = '2.1.0'
-release = '2.1.0'
+version = '3.0.0'
+release = '3.0.0'
 
 exclude_patterns = ['_build']
 

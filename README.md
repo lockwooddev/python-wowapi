@@ -17,8 +17,8 @@ Python-wowapi includes support for the following WoW API's:
 To interact with this library, you need to first get a client-id and client secret by registering [here](https://develop.battle.net/access)
 
 For more information about official World of Warcraft API's visit:
-[Official API documentation](https://develop.battle.net/documentation)
-[Official API Forum](https://us.battle.net/forums/en/bnet/15051532/)
+* [Official API documentation](https://develop.battle.net/documentation)
+* [Official API Forum](https://us.forums.blizzard.com/en/blizzard/c/api-discussion)
 
 API documentation can be found at [python-wowapi.readthedocs.org](https://python-wowapi.readthedocs.org). Examples and installation instructions are documented here.
 
@@ -72,7 +72,12 @@ api.get_item_class_index('us', 'static-classic-us')
 ## Development & Testing
 
 ```bash
-pip install -e .
-pip install -e .[tests]
+make devinstall
 pytest
+```
+
+Alternatively you can also run the full [drone.io](https://drone.io) pipeline [locally](https://docs.drone.io/cli/install/) or [remote](https://cloud.drone.io/lockwooddev/python-wowapi/)
+
+```bash
+drone exec
 ```
