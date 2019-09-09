@@ -1,9 +1,6 @@
 .PHONY: tests devinstall docs clean clean_build build test_publish publish
 
 
-tests:
-	pytest -s -v tests
-
 devinstall:
 	pip install -e .
 	pip install -e .[tests]

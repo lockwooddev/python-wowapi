@@ -317,7 +317,9 @@ class GameDataMixin:
 
     # Mythic Keystone Leaderboard API
 
-    def get_mythic_keystone_leaderboard_index(self, region, namespace, connected_realm_id, **filters):
+    def get_mythic_keystone_leaderboard_index(
+        self, region, namespace, connected_realm_id, **filters
+    ):
         """
         Mythic Keystone Leaderboard API
         Returns an index of Mythic Keystone Leaderboard dungeon instances for a connected realm
@@ -326,9 +328,9 @@ class GameDataMixin:
         resource = 'data/wow/connected-realm/{0}/mythic-leaderboard/index'
         return self.get_resource(resource, region, *[connected_realm_id], **filters)
 
-    def get_mythic_keystone_leaderboard(self,
-                                        region, namespace, connected_realm_id, dungeon_id, period,
-                                        **filters):
+    def get_mythic_keystone_leaderboard(
+        self, region, namespace, connected_realm_id, dungeon_id, period, **filters
+    ):
         """
         Mythic Keystone Leaderboard API - get a weekly mythic keystone leaderboard by period
         """

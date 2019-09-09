@@ -29,6 +29,6 @@ def check_spec(id, spec_file):
     return changed
 
 
-def test_spec_changes():
+if __name__ == '__main__':
     assert not check_spec('WoW Community API', 'wow-community-api.json')
     assert not check_spec('WoW Game Data API', 'wow-game-data-api.json')

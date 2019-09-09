@@ -1,6 +1,7 @@
-import os
 import codecs
-from setuptools import setup, find_packages
+import os
+
+from setuptools import find_packages, setup
 
 
 __version__ = '3.0.0'
@@ -19,7 +20,7 @@ install_requirements = [
 test_requirements = [
     'pytest>=5.0,<6.0',
     'pytest-flake8',
-    'pytest-isort==0.3.1'
+    'pytest-isort==0.3.1',
     'pytest-cov>=2.7,<3.0',
     'pytest-mock==1.10.4',
 ]
@@ -31,7 +32,10 @@ docs_requirements = [
 setup(
     name='python-wowapi',
     version=__version__,
-    description="Python-wowapi is a client library for the World of Warcraft Community, Data and Profile API's.",
+    description=(
+        "Python-wowapi is a client library for the "
+        "World of Warcraft Community, Data and Profile API's."
+    ),
     long_description=read('README.md'),
     long_description_content_type="text/markdown",
     author='Carlo Smouter',
