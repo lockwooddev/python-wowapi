@@ -34,3 +34,47 @@
 ## 2.3.1 (20-05-2019)
 
 * Added some leeway protection against expired tokens
+
+## 3.0.0
+
+* Split community, game data and profile API's into separate mixins
+* Add flake8 and isort to test requirements
+* Drop support for python 2.7
+* Changes in game data endpoints:
+    * `get_races` became `get_playable_race_index`
+    * `get_race` became `get_playable_race`
+    * `get_connected_realms` became `get_connected_realm_index`
+    * `get_mythic_keystone_dungeon` became `get_mythic_keystone_dungeon_index`
+    * `get_mythic_keystones` became `get_mythic_keystone_index`
+    * `get_mythic_keystone_periods` became `get_mythic_keystone_period_index`
+    * `get_mythic_keystone_seasons` became `get_mythic_keystone_season_index`
+    * `get_mythic_keystone_leaderboards` became `get_mythic_keystone_leaderboard_index`
+    * `get_playable_specializations` became `get_playable_specialization_index`
+    * `get_power_types` became `get_power_type_index`
+    * `get_realms` became `get_realm_index`
+    * `get_regions` became `get_region_index`
+    * `get_token` became `get_token_index`
+    * new achievments endpoints
+    * new creatures endpoints
+    * new guild endpoints
+    * new guild crest endpoints
+    * new item endpoints
+    * new mount endpoints
+    * new pets endpoints
+    * new pvp endpoints
+    * new quest endpoints
+    * new pvp season endpoints
+    * new pvp tier endpoints
+    * new titles endpoints
+* Changes in profile endpoints:
+    * new character achievements endpoint
+    * new character appearance endpoint
+    * new character equipment endpoint
+    * new character media endpoint
+    * new character profile endpoint
+    * new character pvp endpoints
+    * new character specialization endpoint
+    * new character statistics endpoint
+    * new character titles endpoint
+* Changes in community endpoints:
+    * new `get_oauth_profile` endpoint

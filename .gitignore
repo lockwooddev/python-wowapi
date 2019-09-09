@@ -9,3 +9,6 @@ docs/_build/
 .coverage
 env/
 .cache
+.vscode
+cov_html/
+.pytest_cache

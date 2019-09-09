@@ -1,0 +1,5846 @@
+{
+  "name": "WoW Game Data",
+  "title": "WoW Game Data",
+  "description": "Endpoints for World of Warcraft game data.\n\n**Hosts**: Note that Blizzard API request paths follow this format: `{region}.api.blizzard.com/{API path}` (or `gateway.battlenet.com.cn/{API path}` for China). For more information, see the [Getting Started guide](/documentation/guides/getting-started).\n\n**Namespaces:** World of Warcraft Game Data APIs require a namespace as part of the request. Each endpoint below lists the correct namespace to use as a parameter. Namespaces can be submitted as headers (**Battlenet-Namespace: {namespace}**) or as query parameters (**?namespace={namespace}**). See [Game Data APIs](/documentation/guides/game-data-apis) for more details.",
+  "version": "1.2.0",
+  "protocol": "rest",
+  "basePath": "https://__region__.api.blizzard.com",
+  "regionDefault": "us",
+  "auth": {
+    "oauth": {
+      "version": "2.0",
+      "base_uri": "https://us.battle.net",
+      "authorize_uri": "/oauth/authorize",
+      "access_token_uri": "/oauth/token",
+      "auth_flows": [
+        "client_cred",
+        "auth_code"
+      ],
+      "options": {
+        "authorize": {
+          "scope": []
+        }
+      }
+    }
+  },
+  "resources": {
+    "Achievement API": {
+      "methods": {
+        "Achievement Categories Index": {
+          "description": "Returns an index of achievement categories.",
+          "httpMethod": "GET",
+          "path": "/data/wow/achievement-category/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Achievement Category": {
+          "description": "Returns an achievement category by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/achievement-category/{achievementCategoryId}",
+          "parameters": {
+            "{achievementCategoryId}": {
+              "description": "The ID of the achievement category.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 81,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Achievements Index": {
+          "description": "Returns an index of achievements.",
+          "httpMethod": "GET",
+          "path": "/data/wow/achievement/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Achievement": {
+          "description": "Returns an achievement by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/achievement/{achievementId}",
+          "parameters": {
+            "{achievementId}": {
+              "description": "The ID of the achievement.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 6,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Achievement Media": {
+          "description": "Returns media for an achievement by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/achievement/{achievementId}",
+          "parameters": {
+            "{achievementId}": {
+              "description": "The ID of the achievement.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 6,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Azerite Essence API": {
+      "methods": {
+        "Azerite Essences Index": {
+          "description": "Returns an index of azerite essences.",
+          "httpMethod": "GET",
+          "path": "/data/wow/azerite-essence/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Azerite Essence": {
+          "description": "Returns an azerite essence by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/azerite-essence/{azeriteEssenceId}",
+          "parameters": {
+            "{azeriteEssenceId}": {
+              "description": "The ID of the azerite essence.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "2",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Azerite Essence Media": {
+          "description": "Returns media for an azerite essence by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/azerite-essence/{azeriteEssenceId}",
+          "parameters": {
+            "{azeriteEssenceId}": {
+              "description": "The ID of the azerite essence.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 2,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Connected Realm API": {
+      "methods": {
+        "Connected Realms Index": {
+          "description": "Returns an index of connected realms.",
+          "httpMethod": "GET",
+          "path": "/data/wow/connected-realm/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Connected Realm": {
+          "description": "Returns a connected realm by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/connected-realm/{connectedRealmId}",
+          "parameters": {
+            "{connectedRealmId}": {
+              "description": "The ID of the connected realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 11,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Creature API": {
+      "methods": {
+        "Creature Families Index": {
+          "description": "Returns an index of creature families.",
+          "httpMethod": "GET",
+          "path": "/data/wow/creature-family/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Creature Family": {
+          "description": "Returns a creature family by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/creature-family/{creatureFamilyId}",
+          "parameters": {
+            "{creatureFamilyId}": {
+              "description": "The ID of the creature family.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Creature Types Index": {
+          "description": "Returns an index of creature types.",
+          "httpMethod": "GET",
+          "path": "/data/wow/creature-type/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Creature Type": {
+          "description": "Returns a creature type by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/creature-type/{creatureTypeId}",
+          "parameters": {
+            "{creatureTypeId}": {
+              "description": "The ID of the creature type.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Creature": {
+          "description": "Returns a creature by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/creature/{creatureId}",
+          "parameters": {
+            "{creatureId}": {
+              "description": "The ID of the creature.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 42722,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Creature Display Media": {
+          "description": "Returns media for a creature display by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/creature-display/{creatureDisplayId}",
+          "parameters": {
+            "{creatureDisplayId}": {
+              "description": "The ID of the creature display.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 30221,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Creature Family Media": {
+          "description": "Returns media for a creature family by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/creature-family/{creatureFamilyId}",
+          "parameters": {
+            "{creatureFamilyId}": {
+              "description": "The ID of the creature family.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Guild API": {
+      "methods": {
+        "Guild": {
+          "description": "Returns a single guild by its name and realm.",
+          "httpMethod": "GET",
+          "path": "/data/wow/guild/{realmSlug}/{nameSlug}",
+          "parameters": {
+            "{realmSlug}": {
+              "description": "The slug of the realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "tichondrius",
+              "type": "string"
+            },
+            "{nameSlug}": {
+              "description": "The slug of the guild.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "guild-slug",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "profile-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Guild Achievements": {
+          "description": "Returns a single guild's achievements by name and realm.",
+          "httpMethod": "GET",
+          "path": "/data/wow/guild/{realmSlug}/{nameSlug}/achievements",
+          "parameters": {
+            "{realmSlug}": {
+              "description": "The slug of the realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "tichondrius",
+              "type": "string"
+            },
+            "{nameSlug}": {
+              "description": "The slug of the guild.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "guild-slug",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "profile-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Guild Roster": {
+          "description": "Returns a single guild's roster by its name and realm.",
+          "httpMethod": "GET",
+          "path": "/data/wow/guild/{realmSlug}/{nameSlug}/roster",
+          "parameters": {
+            "{realmSlug}": {
+              "description": "The slug of the realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "tichondrius",
+              "type": "string"
+            },
+            "{nameSlug}": {
+              "description": "The slug of the guild.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "guild-slug",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "profile-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Guild Crest API": {
+      "methods": {
+        "Guild Crest Components Index": {
+          "description": "Returns an index of guild crest media.",
+          "httpMethod": "GET",
+          "path": "/data/wow/guild-crest/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Guild Crest Border Media": {
+          "description": "Returns media for a guild crest border by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/guild-crest/border/{borderId}",
+          "parameters": {
+            "{borderId}": {
+              "description": "The ID of the guild crest border.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 0,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Guild Crest Emblem Media": {
+          "description": "Returns media for a guild crest emblem by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/guild-crest/emblem/{emblemId}",
+          "parameters": {
+            "{emblemId}": {
+              "description": "The ID of the guild crest emblem.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 0,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Item API": {
+      "methods": {
+        "Item Classes Index": {
+          "description": "Returns an index of item classes.",
+          "httpMethod": "GET",
+          "path": "/data/wow/item-class/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Item Class": {
+          "description": "Returns an item class by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/item-class/{itemClassId}",
+          "parameters": {
+            "{itemClassId}": {
+              "description": "The ID of the item class.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "0",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Item Subclass": {
+          "description": "Returns an item subclass by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/item-class/{itemClassId}/item-subclass/{itemSubclassId}",
+          "parameters": {
+            "{itemClassId}": {
+              "description": "The ID of the item class.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "0",
+              "type": "string"
+            },
+            "{itemSubclassId}": {
+              "description": "The ID of the item subclass.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "0",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Item": {
+          "description": "Returns an item by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/item/{itemId}",
+          "parameters": {
+            "{itemId}": {
+              "description": "The ID of the item.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "19019",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Item Media": {
+          "description": "Returns media for an item by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/item/{itemId}",
+          "parameters": {
+            "{itemId}": {
+              "description": "The ID of the item.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 19019,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Mythic Keystone Affix API": {
+      "methods": {
+        "Mythic Keystone Affixes Index": {
+          "description": "Returns a index of mythic keystone affixes.",
+          "httpMethod": "GET",
+          "path": "/data/wow/keystone-affix/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Affix": {
+          "description": "Returns a mythic keystone affix by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/keystone-affix/{keystoneAffixId}",
+          "parameters": {
+            "{keystoneAffixId}": {
+              "description": "The ID of the Keystone affix.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Mythic Raid Leaderboard API": {
+      "methods": {
+        "Mythic Raid Leaderboard": {
+          "description": "Returns the leaderboard for a given raid and faction.",
+          "httpMethod": "GET",
+          "path": "/data/wow/leaderboard/hall-of-fame/{raid}/{faction}",
+          "parameters": {
+            "{raid}": {
+              "description": "The raid for a leaderboard.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "uldir",
+              "type": "string"
+            },
+            "{faction}": {
+              "description": "Player faction (`alliance` or `horde`).",
+              "required": true,
+              "location": "pathReplace",
+              "default": "alliance",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Mount API": {
+      "methods": {
+        "Mounts Index": {
+          "description": "Returns an index of mounts.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mount/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mount": {
+          "description": "Returns a mount by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mount/{mountId}",
+          "parameters": {
+            "{mountId}": {
+              "description": "The ID of the mount.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 6,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Mythic Keystone Dungeon API": {
+      "methods": {
+        "Mythic Keystone Dungeons Index": {
+          "description": "Returns an index of Mythic Keystone dungeons.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/dungeon/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Dungeon": {
+          "description": "Returns a Mythic Keystone dungeon by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/dungeon/{dungeonId}",
+          "parameters": {
+            "{dungeonId}": {
+              "description": "The ID of the dungeon.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 353,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Index": {
+          "description": "Returns an index of links to other documents related to Mythic Keystone dungeons.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Periods Index": {
+          "description": "Returns an index of Mythic Keystone periods.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/period/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Period": {
+          "description": "Returns a Mythic Keystone period by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/period/{periodId}",
+          "parameters": {
+            "{periodId}": {
+              "description": "The ID of the Mythic Keystone season period.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 641,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Seasons Index": {
+          "description": "Returns an index of Mythic Keystone seasons.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/season/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Season": {
+          "description": "Returns a Mythic Keystone season by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/mythic-keystone/season/{seasonId}",
+          "parameters": {
+            "{seasonId}": {
+              "description": "The ID of the Mythic Keystone season.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Mythic Keystone Leaderboard API": {
+      "methods": {
+        "Mythic Keystone Leaderboards Index": {
+          "description": "Returns an index of Mythic Keystone Leaderboard dungeon instances for a connected realm.",
+          "httpMethod": "GET",
+          "path": "/data/wow/connected-realm/{connectedRealmId}/mythic-leaderboard/index",
+          "parameters": {
+            "{connectedRealmId}": {
+              "description": "The ID of the connected realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 11,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Mythic Keystone Leaderboard": {
+          "description": "Returns a weekly Mythic Keystone Leaderboard by period.",
+          "httpMethod": "GET",
+          "path": "/data/wow/connected-realm/{connectedRealmId}/mythic-leaderboard/{dungeonId}/period/{period}",
+          "parameters": {
+            "{connectedRealmId}": {
+              "description": "The ID of the connected realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 11,
+              "type": "integer"
+            },
+            "{dungeonId}": {
+              "description": "The ID of the dungeon.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 197,
+              "type": "integer"
+            },
+            "{period}": {
+              "description": "The unique identifier for the leaderboard period.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 641,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Pet API": {
+      "methods": {
+        "Pets Index": {
+          "description": "Returns an index of pets.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pet/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Pet": {
+          "description": "Returns a pet by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pet/{petId}",
+          "parameters": {
+            "{petId}": {
+              "description": "The ID of the pet.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 39,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Playable Class API": {
+      "methods": {
+        "Playable Classes Index": {
+          "description": "Returns an index of playable classes.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-class/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Playable Class": {
+          "description": "Returns a playable class by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-class/{classId}",
+          "parameters": {
+            "{classId}": {
+              "description": "The ID of the playable class.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 7,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Talent Slots": {
+          "description": "Returns the PvP talent slots for a playable class by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-class/{classId}/pvp-talent-slots",
+          "parameters": {
+            "{classId}": {
+              "description": "The ID of the playable class.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 7,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Playable Race API": {
+      "methods": {
+        "Playable Races Index": {
+          "description": "Returns an index of playable races.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-race/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Playable Race": {
+          "description": "Returns a playable race by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-race/{playableRaceId}",
+          "parameters": {
+            "{playableRaceId}": {
+              "description": "The ID of the playable race.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 2,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Playable Specialization API": {
+      "methods": {
+        "Playable Specializations Index": {
+          "description": "Returns an index of playable specializations.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-specialization/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Playable Specialization": {
+          "description": "Returns a playable specialization by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/playable-specialization/{specId}",
+          "parameters": {
+            "{specId}": {
+              "description": "The ID of the playable specialization.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 262,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Power Type API": {
+      "methods": {
+        "Power Types Index": {
+          "description": "Returns an index of power types.",
+          "httpMethod": "GET",
+          "path": "/data/wow/power-type/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Power Type": {
+          "description": "Returns a power type by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/power-type/{powerTypeId}",
+          "parameters": {
+            "{powerTypeId}": {
+              "description": "The ID of the power type.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 0,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "PvP Season API": {
+      "methods": {
+        "PvP Seasons Index": {
+          "description": "Returns an index of PvP seasons.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-season/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Season": {
+          "description": "Returns a PvP season by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-season/{pvpSeasonId}",
+          "parameters": {
+            "{pvpSeasonId}": {
+              "description": "The ID of the PvP season.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 27,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Leaderboards Index": {
+          "description": "Returns an index of PvP leaderboards for a PvP season.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-season/{pvpSeasonId}/pvp-leaderboard/index",
+          "parameters": {
+            "{pvpSeasonId}": {
+              "description": "The ID of the PvP season.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 27,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Leaderboard": {
+          "description": "Returns the PvP leaderboard of a specific PvP bracket for a PvP season.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-season/{pvpSeasonId}/pvp-leaderboard/{pvpBracket}",
+          "parameters": {
+            "{pvpSeasonId}": {
+              "description": "The ID of the PvP season.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 27,
+              "type": "integer"
+            },
+            "{pvpBracket}": {
+              "description": "The PvP bracket type.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "3v3",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Rewards Index": {
+          "description": "Returns an index of PvP rewards for a PvP season.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-season/{pvpSeasonId}/pvp-reward/index",
+          "parameters": {
+            "{pvpSeasonId}": {
+              "description": "The ID of the PvP season.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 27,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "PvP Tier API": {
+      "methods": {
+        "PvP Tier Media": {
+          "description": "Returns media for a PvP tier by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/media/pvp-tier/{pvpTierId}",
+          "parameters": {
+            "{pvpTierId}": {
+              "description": "The ID of the PvP tier.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Tiers Index": {
+          "description": "Returns an index of PvP tiers.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-tier/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "PvP Tier": {
+          "description": "Returns a PvP tier by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/pvp-tier/{pvpTierId}",
+          "parameters": {
+            "{pvpTierId}": {
+              "description": "The ID of the PvP tier.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Realm API": {
+      "methods": {
+        "Realms Index": {
+          "description": "Returns an index of realms.",
+          "httpMethod": "GET",
+          "path": "/data/wow/realm/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Realm": {
+          "description": "Returns a single realm by slug or ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/realm/{realmSlug}",
+          "parameters": {
+            "{realmSlug}": {
+              "description": "The slug of the realm.",
+              "required": true,
+              "location": "pathReplace",
+              "default": "tichondrius",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Region API": {
+      "methods": {
+        "Regions Index": {
+          "description": "Returns an index of regions.",
+          "httpMethod": "GET",
+          "path": "/data/wow/region/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Region": {
+          "description": "Returns a region by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/region/{regionId}",
+          "parameters": {
+            "{regionId}": {
+              "description": "The ID of the region.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Title API": {
+      "methods": {
+        "Titles Index": {
+          "description": "Returns an index of titles.",
+          "httpMethod": "GET",
+          "path": "/data/wow/title/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        },
+        "Title": {
+          "description": "Returns a title by ID.",
+          "httpMethod": "GET",
+          "path": "/data/wow/title/{titleId}",
+          "parameters": {
+            "{titleId}": {
+              "description": "The ID of the title.",
+              "required": true,
+              "location": "pathReplace",
+              "default": 1,
+              "type": "integer"
+            },
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "static-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "WoW Token API": {
+      "methods": {
+        "WoW Token Index": {
+          "description": "Returns the WoW Token index.",
+          "httpMethod": "GET",
+          "path": "/data/wow/token/index",
+          "parameters": {
+            "namespace": {
+              "description": "The namespace to use to locate this document.",
+              "required": false,
+              "location": "query",
+              "default": "dynamic-us",
+              "type": "string"
+            },
+            "locale": {
+              "description": "The locale to reflect in localized data.",
+              "required": false,
+              "location": "query",
+              "default": "en_US",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "schemas": {
+    "Achievement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the achievement."
+        },
+        "name": {
+          "description": "The localized name of the achievement.",
+          "$ref": "LocalizedString"
+        },
+        "description": {
+          "description": "The localized description of the achievement.",
+          "$ref": "LocalizedString"
+        },
+        "category": {
+          "description": "The localized category for which this achievement falls under, along with a link for more information.",
+          "$ref": "LocalizedLinkAchievement Category"
+        },
+        "faction": {
+          "description": "The localized faction of the achievement (e.g. ALLIANCE or HORDE).",
+          "$ref": "LocalizedTypePlayer Faction"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The amount of achievement points the achievement is worth."
+        },
+        "criteria": {
+          "description": "The criteria required to obtain the achievement.",
+          "$ref": "Achievement Criteria"
+        },
+        "rewardDescription": {
+          "description": "A localized description of the reward for completing the achievement.",
+          "$ref": "LocalizedString"
+        },
+        "rewardItem": {
+          "description": "A localized item that the achievement awards for completion, along with a link for more information.",
+          "$ref": "LocalizedLinkItem"
+        },
+        "guildRewardItems": {
+          "type": "array",
+          "description": "A list of localized items that a guild achievement awards for completion, if applicable, along with a link for more information.",
+          "items": {
+            "$ref": "LocalizedLinkItem"
+          }
+        },
+        "prerequisiteAchievement": {
+          "description": "A localized achievement that is required to complete this achievement, along with a link for more information.",
+          "$ref": "LocalizedLinkAchievement"
+        },
+        "nextAchievement": {
+          "description": "The next achievement to be acquired in the chain.",
+          "$ref": "LocalizedLinkAchievement"
+        },
+        "media": {
+          "description": "A link to associated media for the achievement.",
+          "$ref": "MediaLink"
+        },
+        "accountWide": {
+          "type": "boolean",
+          "description": "If true, the achievement is account-wide."
+        },
+        "hiddenUntilEarned": {
+          "type": "boolean",
+          "description": "If true, the achievement is hidden until it is earned."
+        }
+      },
+      "description": "A World of Warcraft achievement."
+    },
+    "Achievement Categories": {
+      "type": "object",
+      "properties": {
+        "rootCategories": {
+          "type": "array",
+          "description": "A complete list of all top-level achievement categories.",
+          "items": {
+            "$ref": "LocalizedLinkAchievement Category"
+          }
+        },
+        "guildCategories": {
+          "type": "array",
+          "description": "A complete list of all guild achievement categories.",
+          "items": {
+            "$ref": "LocalizedLinkAchievement Category"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "description": "A complete list of all non-guild achievement categories and subcategories.",
+          "items": {
+            "$ref": "LocalizedLinkAchievement Category"
+          }
+        }
+      },
+      "description": "A collection of categories for which achievements fall under."
+    },
+    "Achievement Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the achievement category."
+        },
+        "name": {
+          "description": "The localized name of the achievement category.",
+          "$ref": "LocalizedString"
+        },
+        "achievements": {
+          "type": "array",
+          "description": "A list of localized achievements under this category with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkAchievement"
+          }
+        },
+        "subcategories": {
+          "type": "array",
+          "description": "A list of subcategories under this category with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkAchievement Category"
+          }
+        },
+        "parentCategory": {
+          "description": "A link to this category's parent, if applicable.",
+          "$ref": "LocalizedLinkAchievement Category"
+        },
+        "aggregatesByFaction": {
+          "description": "An aggregated summary of achievement category data for each faction.",
+          "$ref": "Factioned AggregatesAchievement Category Aggregate"
+        },
+        "displayOrder": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The sort order of achievements."
+        },
+        "guildCategory": {
+          "type": "boolean",
+          "description": "If true, this category is for guild achievements."
+        }
+      },
+      "description": "A category for an achievement."
+    },
+    "Achievement Category Aggregate": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "description": "A link to the achievement category for this aggregate.",
+          "$ref": "LinkAchievement Category"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of achievements."
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of achievement points."
+        }
+      },
+      "description": "An aggregate of data for achievement categories."
+    },
+    "Achievement Criteria": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the criteria."
+        },
+        "description": {
+          "description": "A localized description of the criteria.",
+          "$ref": "LocalizedString"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The amount that has been completed for the criteria."
+        },
+        "operator": {
+          "description": "The operation that this criteria must perform to be completed.",
+          "$ref": "LocalizedTypeAchievement Criteria Operator"
+        },
+        "childCriteria": {
+          "type": "array",
+          "description": "A list of children criteria required to complete this criteria.",
+          "items": {
+            "$ref": "Achievement Criteria"
+          }
+        },
+        "faction": {
+          "description": "The localized faction of the criteria (e.g. ALLIANCE or HORDE).",
+          "$ref": "LocalizedTypePlayer Faction"
+        },
+        "showProgressBar": {
+          "type": "boolean",
+          "description": "If true, this achievement should show a progress bar along the path for obtaining all of this criteria."
+        },
+        "achievement": {
+          "description": "The localized achievement for which this criteria pertains to, along with a link for more information.",
+          "$ref": "LocalizedLinkAchievement"
+        },
+        "gold": {
+          "type": "boolean",
+          "description": "If true, this achievement is tracking in-game gold."
+        }
+      },
+      "description": "Criteria required to acquire a World of Warcraft achievement."
+    },
+    "Achievement Criteria Progress": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the criteria."
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The amount that has been completed for the criteria."
+        },
+        "childCriteria": {
+          "type": "array",
+          "description": "A list of children criteria required to complete this criteria.",
+          "items": {
+            "$ref": "Achievement Criteria Progress"
+          }
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "If true, the criteria is fully completed."
+        }
+      },
+      "description": "Progress toward a World of Warcraft achievement."
+    },
+    "Achievement Event": {
+      "type": "object",
+      "properties": {
+        "achievement": {
+          "description": "A link to the achievement.",
+          "$ref": "LinkAchievement"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the event."
+        }
+      },
+      "description": "A World of Warcraft achievement coupled with point-in-time event information."
+    },
+    "Achievement Progress": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the achievement."
+        },
+        "achievement": {
+          "description": "A link to the achievement.",
+          "$ref": "LinkAchievement"
+        },
+        "criteria": {
+          "description": "The criteria required to progress the achievement.",
+          "$ref": "Achievement Criteria Progress"
+        },
+        "completedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time the achievement was completed, if applicable."
+        }
+      },
+      "description": "A World of Warcraft achievement coupled with the criteria for its progress."
+    },
+    "Achievement Summary": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "description": "The character that the achievements belong to.",
+          "$ref": "RealmDocumentLinkCharacter"
+        },
+        "guild": {
+          "description": "The guild that the achievements belong to.",
+          "$ref": "RealmDocumentLinkGuild"
+        },
+        "totalQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The total number of completed achievements."
+        },
+        "totalPoints": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The total number of achievement points."
+        },
+        "achievements": {
+          "type": "array",
+          "description": "The list of achievements and their details.",
+          "items": {
+            "$ref": "Achievement Progress"
+          }
+        },
+        "categoryProgress": {
+          "type": "array",
+          "description": "The list of achievement categories and their progress.",
+          "items": {
+            "$ref": "Achievement Category Aggregate"
+          }
+        },
+        "recentEvents": {
+          "type": "array",
+          "description": "Recent achievement events that have occurred, sorted descending by timestamp.",
+          "items": {
+            "$ref": "Achievement Event"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "description": "A summary of achievements for a World of Warcraft character or guild."
+    },
+    "Achievements": {
+      "type": "object",
+      "properties": {
+        "tiers": {
+          "type": "array",
+          "description": "A list of localized PvP tiers with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkPvP Tier"
+          }
+        }
+      },
+      "description": "A collection of World of Warcraft PvP tiers."
+    },
+    "AzeriteClassPowers": {
+      "type": "object",
+      "properties": {
+        "playable_class": {
+          "$ref": "LocalizedLinkPlayableClass"
+        },
+        "powers": {
+          "type": "array",
+          "items": {
+            "$ref": "AzeritePower"
+          }
+        }
+      }
+    },
+    "AzeriteEssence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "allowed_specializations": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkPlayableSpecialization"
+          }
+        },
+        "powers": {
+          "type": "array",
+          "items": {
+            "$ref": "AzeriteEssencePower"
+          }
+        },
+        "media": {
+          "$ref": "MediaLink"
+        }
+      }
+    },
+    "AzeriteEssencePower": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "main_power_spell": {
+          "$ref": "LocalizedLinkSpell"
+        },
+        "passive_power_spell": {
+          "$ref": "LocalizedLinkSpell"
+        },
+        "acquisition_string": {
+          "$ref": "LocalizedString"
+        }
+      }
+    },
+    "AzeriteEssences": {
+      "type": "object",
+      "properties": {
+        "azerite_essences": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkAzeriteEssence"
+          }
+        }
+      }
+    },
+    "AzeritePower": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tier": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "spell": {
+          "$ref": "LocalizedLinkSpell"
+        },
+        "bonus_list": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "applicable_specs": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkPlayableSpecialization"
+          }
+        }
+      }
+    },
+    "BattlePetAbilitySlot": {
+      "type": "object",
+      "properties": {
+        "ability": {
+          "$ref": "LocalizedLinkBattlePetAbility"
+        },
+        "slot": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "requiredLevel": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CharacterLink": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "The key to the linked document.",
+          "$ref": "KeyCharacter"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The numeric ID of the linked document."
+        },
+        "realm": {
+          "description": "The realm in which the linked object resides.",
+          "$ref": "LocalizedLinkRealm"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The level of the linked character."
+        },
+        "playableClass": {
+          "description": "The playable class of the linked character.",
+          "$ref": "LocalizedLinkPlayableClass"
+        },
+        "playableRace": {
+          "description": "The playable race of the linked character.",
+          "$ref": "LocalizedLinkPlayable Race"
+        }
+      },
+      "description": "A link to a character on a specific realm."
+    },
+    "ConnectedRealm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of this connected realm."
+        },
+        "population": {
+          "description": "The population of this connected realm.",
+          "$ref": "LocalizedTypeRealmPopulation"
+        },
+        "queue": {
+          "type": "boolean",
+          "description": "If true, this connected realm is currently queuing."
+        },
+        "status": {
+          "description": "The current status of the connected realm.",
+          "$ref": "LocalizedTypeRealmAvailability"
+        },
+        "realms": {
+          "type": "array",
+          "description": "The list of realms belonging to this connected realm.",
+          "items": {
+            "$ref": "Realm"
+          }
+        },
+        "mythicLeaderboards": {
+          "description": "A link to the index of Mythic Keystone Leaderboard dungeons for this connected realm.",
+          "$ref": "KeyMythicLeaderboards"
+        }
+      },
+      "description": "A group of realms in which residing characters can interact."
+    },
+    "ConnectedRealms": {
+      "type": "object",
+      "properties": {
+        "connectedRealms": {
+          "type": "array",
+          "description": "A list of all connected realms.",
+          "items": {
+            "$ref": "KeyConnectedRealm"
+          }
+        }
+      },
+      "description": "An index of all connected realms."
+    },
+    "Creature": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the creature."
+        },
+        "name": {
+          "description": "The localized name of the creature.",
+          "$ref": "LocalizedString"
+        },
+        "type": {
+          "description": "The localized type of this creature, along with a link for more information.",
+          "$ref": "LocalizedLinkCreature Type"
+        },
+        "family": {
+          "description": "The localized family of this creature, along with a link for more information.",
+          "$ref": "LocalizedLinkCreature Family"
+        },
+        "creatureDisplays": {
+          "type": "array",
+          "description": "A list of links to the creature display media items for this creature.",
+          "items": {
+            "$ref": "MediaLink"
+          }
+        }
+      },
+      "description": "A World of Warcraft creature."
+    },
+    "Creature Families": {
+      "type": "object",
+      "properties": {
+        "families": {
+          "type": "array",
+          "description": "A list of localized creature families with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkCreature Family"
+          }
+        }
+      },
+      "description": "A collection of World of Warcraft creature families."
+    },
+    "Creature Family": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the creature family."
+        },
+        "name": {
+          "description": "The name of the creature family.",
+          "$ref": "LocalizedString"
+        },
+        "specialization": {
+          "description": "A localized pet specialization for this creature family, along with a link for more information.",
+          "$ref": "LocalizedLinkPetSpecialization"
+        },
+        "media": {
+          "description": "A link to the media for the creature family.",
+          "$ref": "MediaLink"
+        }
+      },
+      "description": "A category that a World of Warcraft creature belongs to."
+    },
+    "Creature Type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the creature type."
+        },
+        "name": {
+          "description": "The name of the creature type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type for a World of Warcraft creature."
+    },
+    "CreatureTypes": {
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "array",
+          "description": "A list of localized creature types with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkCreature Type"
+          }
+        }
+      },
+      "description": "A collection of World of Warcraft creature types."
+    },
+    "CurrentKeystoneAffix": {
+      "type": "object",
+      "properties": {
+        "keystoneAffix": {
+          "description": "The link to the Keystone affix.",
+          "$ref": "LocalizedLinkKeystoneAffix"
+        },
+        "startingLevel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The Keystone level at which this affix will start to be applied."
+        }
+      },
+      "description": "The current Keystone affix information for a specific leaderboard or leaderboard period."
+    },
+    "Factioned Aggregates": {
+      "type": "object",
+      "properties": {
+        "alliance": {
+          "type": "object",
+          "description": "The aggregate of data for Alliance."
+        },
+        "horde": {
+          "type": "object",
+          "description": "The aggregate of data for Horde."
+        }
+      },
+      "description": "An aggregate of data for each faction."
+    },
+    "Factioned AggregatesAchievement Category Aggregate": {
+      "type": "object",
+      "properties": {
+        "alliance": {
+          "description": "The aggregate of data for Alliance.",
+          "$ref": "Achievement Category Aggregate"
+        },
+        "horde": {
+          "description": "The aggregate of data for Horde.",
+          "$ref": "Achievement Category Aggregate"
+        }
+      },
+      "description": "An aggregate of data for each faction."
+    },
+    "GdaEnum": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "localizedProperty": {
+          "type": "string"
+        }
+      }
+    },
+    "Guild": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The numeric ID of the guild."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the guild."
+        },
+        "faction": {
+          "description": "The faction of the guild (e.g. ALLIANCE or HORDE).",
+          "$ref": "LocalizedTypePlayer Faction"
+        },
+        "achievementPoints": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of achievement points this guild has."
+        },
+        "memberCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of members this guild has."
+        },
+        "realm": {
+          "description": "The realm this guild is located on.",
+          "$ref": "LocalizedLinkRealm"
+        },
+        "roster": {
+          "description": "A link to the roster of characters for this guild.",
+          "$ref": "KeyGuild Roster"
+        },
+        "achievements": {
+          "description": "A link to the list of achievements for this guild.",
+          "$ref": "KeyAchievement Summary"
+        },
+        "news": {
+          "description": "A link to the news for this guild.",
+          "$ref": "KeyGuildNews"
+        },
+        "createdTimestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The timestamp for the creation of this document."
+        },
+        "guildCrest": {
+          "description": "The crest of the guild.",
+          "$ref": "Guild Crest"
+        },
+        "documentType": {
+          "type": "string",
+          "description": "The type of this document. Always \"guild\".",
+          "enum": [
+            "ROOT",
+            "CONNECTED_REALM",
+            "REALM",
+            "REGION",
+            "BNET_ACCOUNT",
+            "GAME_ACCOUNT",
+            "PROTECTED_CHARACTER",
+            "PROTECTED_STATS",
+            "CHARACTER",
+            "CHARACTER_MEDIA",
+            "CHARACTER_APPEARANCE",
+            "CHARACTER_ACHIEVEMENTS",
+            "CHARACTER_RECENT_ACHIEVEMENTS",
+            "CHARACTER_TITLES",
+            "HUNTER_PETS",
+            "REPUTATION",
+            "CHARACTER_SPECIALIZATIONS",
+            "CHARACTER_STATISTICS",
+            "CHARACTER_EQUIPMENT",
+            "COLLECTIONS",
+            "COLLECTION_PETS",
+            "COLLECTION_MOUNTS",
+            "MYTHIC_KEYSTONE_PROFILE",
+            "MYTHIC_KEYSTONE_PROFILE_SEASON",
+            "RAID_PROGRESSION",
+            "PVP_SUMMARY",
+            "PVP_BRACKET",
+            "GUILD",
+            "PROTECTED_GUILD",
+            "GUILD_ACHIEVEMENTS",
+            "GUILD_ROSTER",
+            "GUILD_RANKS",
+            "GUILD_CREST_COMPONENTS",
+            "PLAYABLE_CLASS",
+            "PLAYABLE_RACE",
+            "PLAYABLE_SPECIALIZATION",
+            "CHARACTER_CLASS",
+            "RACE",
+            "SPEC",
+            "TITLE",
+            "ITEM",
+            "GLYPH",
+            "ARTIFACT",
+            "ITEM_CLASS",
+            "ITEM_SUBCLASS",
+            "FACTION",
+            "FACTION_GROUP",
+            "ACHIEVEMENT",
+            "ACHIEVEMENT_CATEGORY",
+            "ZONE",
+            "ZONE_BOSS",
+            "MAP",
+            "QUEST",
+            "PVP_TALENT",
+            "PVP_TALENT_SLOTS",
+            "TALENT",
+            "SPELL",
+            "CREATURE_TYPE",
+            "CREATURE_FAMILY",
+            "CREATURE",
+            "PET",
+            "PET_ABILITY",
+            "MOUNT",
+            "KEYSTONE_AFFIX",
+            "PVP_SEASON",
+            "PVP_LEADERBOARD",
+            "PVP_TIER",
+            "PVP_REWARD",
+            "MYTHIC_CHALLENGE_MODE",
+            "MYTHIC_LEADERBOARD",
+            "MYTHIC_KEYSTONE",
+            "MYTHIC_KEYSTONE_SEASON",
+            "MYTHIC_KEYSTONE_PERIOD",
+            "MYTHIC_KEYSTONE_DUNGEON",
+            "LEADERBOARD_CRITERIA",
+            "LEADERBOARD_ENTRY",
+            "LEADERBOARD",
+            "MEDIA",
+            "GAME_TABLE",
+            "CHAT_PROFANITY"
+          ]
+        }
+      },
+      "description": "A single World of Warcraft guild."
+    },
+    "Guild Crest": {
+      "type": "object",
+      "properties": {
+        "emblem": {
+          "description": "The icons that makes up the center of the guild crest.",
+          "$ref": "Guild Crest Component"
+        },
+        "border": {
+          "description": "The border that makes up the outside of the guild crest.",
+          "$ref": "Guild Crest Component"
+        },
+        "background": {
+          "description": "The background of the guild crest.",
+          "$ref": "Guild Crest Component"
+        }
+      },
+      "description": "The symbol representing a World of Warcraft guild."
+    },
+    "Guild Crest Component": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "description": "The RGBA color of the component.",
+          "$ref": "RGBA Color"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the component."
+        },
+        "media": {
+          "description": "A link to the media URL for the component.",
+          "$ref": "MediaLink"
+        }
+      },
+      "description": "An individual component that forms a section of a World of Warcraft guild crest."
+    },
+    "Guild Crest Components": {
+      "type": "object",
+      "properties": {
+        "emblems": {
+          "type": "array",
+          "description": "The list of icons that make up the center of the guild crest.",
+          "items": {
+            "$ref": "Guild Crest Component"
+          }
+        },
+        "borders": {
+          "type": "array",
+          "description": "The list of borders that make up the outside of the guild crest.",
+          "items": {
+            "$ref": "Guild Crest Component"
+          }
+        }
+      },
+      "description": "A list of components that can be combined to form a World of Warcraft guild crest."
+    },
+    "Guild Member": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "description": "The character that the member represents.",
+          "$ref": "CharacterLink"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The member's rank in the guild."
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The numeric ID of the guild member."
+        }
+      },
+      "description": "A member of a World of Warcraft guild."
+    },
+    "Guild Roster": {
+      "type": "object",
+      "properties": {
+        "guild": {
+          "description": "The guild that this roster belongs to.",
+          "$ref": "RealmDocumentLinkGuild"
+        },
+        "members": {
+          "type": "array",
+          "description": "The list of characters in the guild.",
+          "items": {
+            "$ref": "Guild Member"
+          }
+        }
+      },
+      "description": "A roster of characters for a World of Warcraft guild."
+    },
+    "IdentifiedType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type.",
+          "readOnly": true
+        },
+        "type": {
+          "description": "The constant value representing this type.",
+          "$ref": "GdaEnum"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction')."
+    },
+    "IdentifiedTypePvP Bracket Type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "ARENA_2v2",
+            "ARENA_3v3",
+            "BATTLEGROUNDS"
+          ]
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction')."
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "quality": {
+          "$ref": "LocalizedTypeItemQuality"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "required_level": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "media": {
+          "$ref": "MediaLink"
+        },
+        "item_class": {
+          "$ref": "LocalizedLink"
+        },
+        "item_subclass": {
+          "$ref": "LocalizedLink"
+        },
+        "inventory_type": {
+          "$ref": "LocalizedTypeInventoryType"
+        },
+        "purchase_price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sell_price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "max_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "equippable": {
+          "type": "boolean"
+        },
+        "stackable": {
+          "type": "boolean"
+        },
+        "azerite_class_powers": {
+          "type": "array",
+          "items": {
+            "$ref": "AzeriteClassPowers"
+          }
+        },
+        "is_azerite_item": {
+          "type": "boolean"
+        },
+        "azerite_item": {
+          "type": "boolean"
+        },
+        "azerite_empowered": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ItemClass": {
+      "type": "object",
+      "properties": {
+        "class_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "item_subclasses": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkItemSubclass"
+          }
+        }
+      }
+    },
+    "ItemClasses": {
+      "type": "object",
+      "properties": {
+        "item_classes": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkItemClass"
+          }
+        }
+      }
+    },
+    "ItemSubclass": {
+      "type": "object",
+      "properties": {
+        "class_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "subclass_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "display_name": {
+          "$ref": "LocalizedString"
+        },
+        "verbose_name": {
+          "$ref": "LocalizedString"
+        }
+      }
+    },
+    "Key": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyAchievement": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyAchievement Category": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyAchievement Summary": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyAzeriteEssence": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyBaseDocument": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyBattlePetAbility": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyCharacter": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyConnectedRealm": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyCreature Family": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyCreature Type": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyGuild": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyGuild Roster": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyGuildNews": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyItem": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyItemClass": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyItemSubclass": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyKeystoneAffix": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMedia": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMount": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMythicKeystoneDungeon": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMythicKeystoneDungeons": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMythicKeystonePeriod": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMythicKeystoneSeason": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMythicKeystoneSeasons": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyMythicLeaderboards": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPet": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPetSpecialization": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPlayable Race": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPlayableClass": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPlayableSpecialization": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPowerType": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvP Leaderboard": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvP Leaderboards": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvP Rewards": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvP Season": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvP Tier": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvpTalent": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyPvpTalentSlots": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyRealm": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyRegion": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeySpec": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeySpell": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyTalent": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyTitle": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyWorldMap": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeyZone": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The URL of the linked document."
+        }
+      },
+      "description": "A link to another document."
+    },
+    "KeystoneAffix": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the Keystone affix."
+        },
+        "name": {
+          "description": "The localized name of the Keystone affix.",
+          "$ref": "LocalizedString"
+        },
+        "description": {
+          "description": "A description of the effect the affix has on the dungeon instance.",
+          "$ref": "LocalizedString"
+        },
+        "media": {
+          "description": "A link to the media document containing any media assets for the affix.",
+          "$ref": "MediaLink"
+        }
+      },
+      "description": "A dungeon modifier that affects the way dungeon enemies behave."
+    },
+    "KeystoneAffixes": {
+      "type": "object",
+      "properties": {
+        "keystoneAffixes": {
+          "type": "array",
+          "description": "A list of all Keystone affixes.",
+          "items": {
+            "$ref": "LocalizedLinkKeystoneAffix"
+          }
+        }
+      },
+      "description": "An index of all Keystone affixes."
+    },
+    "KeystoneUpgrade": {
+      "type": "object",
+      "properties": {
+        "upgradeLevel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "qualifyingDuration": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Leaderboard": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "description": "The leaderboard slug."
+        },
+        "criteriaType": {
+          "type": "string",
+          "description": "The criteria type."
+        },
+        "entries": {
+          "type": "array",
+          "description": "Leaderboard entries.",
+          "items": {
+            "$ref": "LeaderboardEntry"
+          }
+        },
+        "zone": {
+          "description": "The raid zone.",
+          "$ref": "LocalizedLinkZone"
+        }
+      },
+      "description": "A Leaderboard"
+    },
+    "LeaderboardEntry": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "RealmDocumentLinkCharacter"
+        },
+        "guild": {
+          "description": "A link to an entry's guild.",
+          "$ref": "RealmDocumentLinkGuild"
+        },
+        "faction": {
+          "description": "The guild's faction.",
+          "$ref": "LocalizedTypePlayer Faction"
+        },
+        "criteriaType": {
+          "type": "string"
+        },
+        "criteria": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The completion timestamp for the raid (epoch / miliseconds)."
+        },
+        "metadata": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string",
+          "description": "The guild's region."
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The guild's rank."
+        }
+      },
+      "description": "An entry on a leaderboard"
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyBaseDocument"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "LinkAchievement": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyAchievement"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "LinkAchievement Category": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyAchievement Category"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "LinkMythicKeystonePeriod": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyMythicKeystonePeriod"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "LinkMythicKeystoneSeason": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyMythicKeystoneSeason"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "LinkPvP Leaderboard": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPvP Leaderboard"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "LinkPvP Season": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPvP Season"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        }
+      },
+      "description": "A reference that provides the name and link of another document."
+    },
+    "Localized Gender": {
+      "type": "object",
+      "properties": {
+        "male": {
+          "description": "The male localized value.",
+          "$ref": "LocalizedString"
+        },
+        "female": {
+          "description": "The female localized value.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A reference that provides the localized values for both male and female genders of a race or creature."
+    },
+    "LocalizedLink": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyBaseDocument"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkAchievement": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyAchievement"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkAchievement Category": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyAchievement Category"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkAzeriteEssence": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyAzeriteEssence"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkBaseDocument": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyBaseDocument"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkBattlePetAbility": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyBattlePetAbility"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkConnectedRealm": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyConnectedRealm"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkCreature Family": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyCreature Family"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkCreature Type": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyCreature Type"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyItem"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkItemClass": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyItemClass"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkItemSubclass": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyItemSubclass"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkKeystoneAffix": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyKeystoneAffix"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkMount": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyMount"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkMythicKeystoneDungeon": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyMythicKeystoneDungeon"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPet": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPet"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPetSpecialization": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPetSpecialization"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPlayable Race": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPlayable Race"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPlayableClass": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPlayableClass"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPlayableSpecialization": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPlayableSpecialization"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPowerType": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPowerType"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPvP Season": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPvP Season"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPvP Tier": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPvP Tier"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkPvpTalent": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyPvpTalent"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkRealm": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyRealm"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkRegion": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyRegion"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkSpec": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeySpec"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkSpell": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeySpell"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkTalent": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyTalent"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkTitle": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyTitle"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkWorldMap": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyWorldMap"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedLinkZone": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyZone"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document."
+    },
+    "LocalizedString": {
+      "type": "object",
+      "description": "A string that has been localized in all supported game locales."
+    },
+    "LocalizedType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "description": "The constant value representing this type.",
+          "$ref": "GdaEnum"
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeAchievement Criteria Operator": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "CRITERIA_COMPLETE",
+            "CRITERIA_INCOMPLETE",
+            "MODIFIER_TRUE",
+            "MODIFIER_FALSE",
+            "AND",
+            "CUMULATIVE",
+            "HIGHEST",
+            "COUNT",
+            "COMPLETE_AT_LEAST"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeBattlePetType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "HUMANOID",
+            "DRAGONKIN",
+            "FLYING",
+            "UNDEAD",
+            "CRITTER",
+            "MAGIC",
+            "ELEMENTAL",
+            "BEAST",
+            "AQUATIC",
+            "MECHANICAL"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeCreature Source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "DROP",
+            "QUEST",
+            "VENDOR",
+            "PROFESSION",
+            "WILDPET",
+            "ACHIEVEMENT",
+            "WORLDEVENT",
+            "PROMOTION",
+            "TCG",
+            "PETSTORE",
+            "DISCOVERY"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeInventoryType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "NON_EQUIP",
+            "HEAD",
+            "NECK",
+            "SHOULDER",
+            "BODY",
+            "CHEST",
+            "WAIST",
+            "LEGS",
+            "FEET",
+            "WRIST",
+            "HAND",
+            "FINGER",
+            "TRINKET",
+            "WEAPON",
+            "SHIELD",
+            "RANGED",
+            "CLOAK",
+            "TWOHWEAPON",
+            "BAG",
+            "TABARD",
+            "ROBE",
+            "WEAPONMAINHAND",
+            "WEAPONOFFHAND",
+            "HOLDABLE",
+            "AMMO",
+            "THROWN",
+            "RANGEDRIGHT",
+            "QUIVER",
+            "RELIC"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeItemQuality": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "POOR",
+            "COMMON",
+            "UNCOMMON",
+            "RARE",
+            "EPIC",
+            "LEGENDARY",
+            "ARTIFACT",
+            "HEIRLOOM",
+            "WOWTOKEN"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypePlayer Faction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "NONE",
+            "ALLIANCE",
+            "HORDE",
+            "NEUTRAL"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypePvP Bracket Type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "ARENA_2v2",
+            "ARENA_3v3",
+            "BATTLEGROUNDS"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeRealmAvailability": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "UP",
+            "DOWN"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeRealmPopulation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "UNKNOWN",
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "FULL",
+            "NEW",
+            "OFFLINE",
+            "LOCKED",
+            "RECOMMENDED"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeRealmType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "NORMAL",
+            "PVP",
+            "RP",
+            "PVP_RP"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeSpecializationRole": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "TANK",
+            "HEALER",
+            "DAMAGE"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "LocalizedTypeSpellProcType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of this type."
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type.",
+          "enum": [
+            "CHANCE_ON_HIT",
+            "CHANCE_ON_CRITICAL_HIT",
+            "CHANCE_ON_SPELL_HIT",
+            "CHANCE_ON_SPELL_CRITICAL_HIT",
+            "EQUIP",
+            "USE"
+          ]
+        },
+        "name": {
+          "description": "The localized name of this type.",
+          "$ref": "LocalizedString"
+        }
+      },
+      "description": "A type representing constant game values (e.g., 'ItemQuality' or 'PlayerFaction') that includes a localized name."
+    },
+    "Media": {
+      "type": "object",
+      "properties": {
+        "assets": {
+          "type": "array",
+          "description": "The list of assets pertaining to this media item.",
+          "items": {
+            "$ref": "MediaEntry"
+          }
+        }
+      },
+      "description": "A World of Warcraft media item."
+    },
+    "MediaEntry": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "readOnly": true
+        },
+        "value": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "MediaLink": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A key to the linked document.",
+          "$ref": "KeyMedia"
+        },
+        "name": {
+          "description": "The localized name of the linked document.",
+          "$ref": "LocalizedString"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The ID of the linked document."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document."
+        },
+        "content": {
+          "description": "The inline assets from a media item.",
+          "$ref": "Media"
+        }
+      },
+      "description": "A link to a media item."
+    },
+    "Mount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the mount."
+        },
+        "name": {
+          "description": "The localized name of the mount.",
+          "$ref": "LocalizedString"
+        },
+        "description": {
+          "description": "The localized description of the mount.",
+          "$ref": "LocalizedString"
+        },
+        "creatureDisplays": {
+          "type": "array",
+          "description": "A list of links to the creature display media items for this mount.",
+          "items": {
+            "$ref": "MediaLink"
+          }
+        },
+        "source": {
+          "description": "The source of the mount.",
+          "$ref": "LocalizedTypeCreature Source"
+        }
+      },
+      "description": "A World of Warcraft mount."
+    },
+    "Mounts": {
+      "type": "object",
+      "properties": {
+        "mounts": {
+          "type": "array",
+          "description": "A list of localized mounts with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkMount"
+          }
+        }
+      },
+      "description": "A collection of World of Warcraft mounts."
+    },
+    "MythicKeystoneDungeon": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "map": {
+          "$ref": "LocalizedLinkWorldMap"
+        },
+        "zone": {
+          "$ref": "LocalizedLinkZone"
+        },
+        "keystoneUpgrades": {
+          "type": "array",
+          "items": {
+            "$ref": "KeystoneUpgrade"
+          }
+        }
+      }
+    },
+    "MythicKeystoneDungeons": {
+      "type": "object",
+      "properties": {
+        "dungeons": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkMythicKeystoneDungeon"
+          }
+        }
+      }
+    },
+    "MythicKeystoneIndex": {
+      "type": "object",
+      "properties": {
+        "seasons": {
+          "type": "array",
+          "items": {
+            "$ref": "KeyMythicKeystoneSeasons"
+          }
+        },
+        "dungeons": {
+          "type": "array",
+          "items": {
+            "$ref": "KeyMythicKeystoneDungeons"
+          }
+        }
+      }
+    },
+    "MythicKeystonePeriod": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "startTimestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTimestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "keystone_affixes": {
+          "type": "array",
+          "items": {
+            "$ref": "CurrentKeystoneAffix"
+          }
+        }
+      }
+    },
+    "MythicKeystonePeriods": {
+      "type": "object",
+      "properties": {
+        "currentPeriod": {
+          "$ref": "LinkMythicKeystonePeriod"
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "$ref": "LinkMythicKeystonePeriod"
+          }
+        }
+      }
+    },
+    "MythicKeystoneSeason": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "startTimestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTimestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "$ref": "LinkMythicKeystonePeriod"
+          }
+        }
+      }
+    },
+    "MythicKeystoneSeasons": {
+      "type": "object",
+      "properties": {
+        "currentSeason": {
+          "$ref": "LinkMythicKeystoneSeason"
+        },
+        "currentPeriod": {
+          "$ref": "LinkMythicKeystonePeriod"
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "$ref": "LinkMythicKeystoneSeason"
+          }
+        }
+      }
+    },
+    "MythicLeaderboards": {
+      "type": "object",
+      "properties": {
+        "currentLeaderboards": {
+          "type": "array",
+          "description": "A list of all Mythic Keystone dungeon leaderboards.",
+          "items": {
+            "$ref": "LocalizedLinkRegion"
+          }
+        }
+      },
+      "description": "An index of all Mythic Keystone dungeon leaderboards available on a specific connected realm."
+    },
+    "MythicLeadingGroup": {
+      "type": "object",
+      "properties": {
+        "ranking": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The overall ranking of this group for this Mythic Keystone dungeon leaderboard."
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The time in seconds it took to complete the dungeon."
+        },
+        "completedTimestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The timestamp when this dungeon was completed."
+        },
+        "keystoneLevel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The level of the Keystone that was used to run this dungeon."
+        },
+        "members": {
+          "type": "array",
+          "description": "A list of all members of the group.",
+          "items": {
+            "$ref": "MythicLeadingGroupMember"
+          }
+        }
+      },
+      "description": "A ranked group of characters that completed a Mythic Keystone dungeon."
+    },
+    "MythicLeadingGroupMember": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "description": "The profile of the current group member.",
+          "$ref": "RealmDocumentLinkCharacter"
+        },
+        "faction": {
+          "description": "The faction of the member.",
+          "$ref": "LocalizedTypePlayer Faction"
+        },
+        "specialization": {
+          "description": "The spec of the member.",
+          "$ref": "LocalizedLinkSpec"
+        }
+      },
+      "description": "A member of a ranked leaderboard group."
+    },
+    "Pet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the pet."
+        },
+        "name": {
+          "description": "The localized name of the pet.",
+          "$ref": "LocalizedString"
+        },
+        "description": {
+          "description": "The localized description of the pet.",
+          "$ref": "LocalizedString"
+        },
+        "creatureDisplay": {
+          "description": "A link to the media document containing any media assets for the pet.",
+          "$ref": "MediaLink"
+        },
+        "battlePetType": {
+          "description": "The localized battle type of the pet.",
+          "$ref": "LocalizedTypeBattlePetType"
+        },
+        "abilities": {
+          "type": "array",
+          "description": "A list of the abilities that the pet can perform.",
+          "items": {
+            "$ref": "BattlePetAbilitySlot"
+          }
+        },
+        "source": {
+          "description": "The source of the pet.",
+          "$ref": "LocalizedTypeCreature Source"
+        },
+        "icon": {
+          "type": "string",
+          "description": "The icon of the pet."
+        },
+        "capturable": {
+          "type": "boolean",
+          "description": "If true, the pet is capturable."
+        },
+        "hordeOnly": {
+          "type": "boolean",
+          "description": "If true, the pet is Horde only."
+        },
+        "battlepet": {
+          "type": "boolean",
+          "description": "If true, the pet is a battle pet."
+        },
+        "allianceOnly": {
+          "type": "boolean",
+          "description": "If true, the pet is Alliance only."
+        },
+        "tradable": {
+          "type": "boolean",
+          "description": "If true, the pet is tradable."
+        }
+      },
+      "description": "A World of Warcraft pet."
+    },
+    "Pets": {
+      "type": "object",
+      "properties": {
+        "pets": {
+          "type": "array",
+          "description": "A list of localized pets with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkPet"
+          }
+        }
+      },
+      "description": "A collection of World of Warcraft pets."
+    },
+    "Playable Race": {
+      "type": "object",
+      "properties": {
+        "races": {
+          "type": "array",
+          "description": "A list of localized playable races with links for more information.",
+          "items": {
+            "$ref": "LocalizedLinkPlayable Race"
+          }
+        }
+      },
+      "description": "A collection of World of Warcraft playable races."
+    },
+    "PlayableClass": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "genderName": {
+          "$ref": "Localized Gender"
+        },
+        "powerType": {
+          "$ref": "LocalizedLinkPowerType"
+        },
+        "specializations": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkPlayableSpecialization"
+          }
+        },
+        "media": {
+          "$ref": "MediaLink"
+        },
+        "pvpTalentSlots": {
+          "$ref": "KeyPvpTalentSlots"
+        }
+      }
+    },
+    "PlayableClasses": {
+      "type": "object",
+      "properties": {
+        "characterClasses": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkPlayableClass"
+          }
+        }
+      }
+    },
+    "PlayableSpecialization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "playableClass": {
+          "$ref": "LocalizedLinkPlayableClass"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "genderDescription": {
+          "$ref": "Localized Gender"
+        },
+        "media": {
+          "$ref": "MediaLink"
+        },
+        "role": {
+          "$ref": "LocalizedTypeSpecializationRole"
+        },
+        "pvpTalents": {
+          "type": "array",
+          "items": {
+            "$ref": "TalentTooltipPvpTalent"
+          }
+        },
+        "talentTiers": {
+          "type": "array",
+          "items": {
+            "$ref": "TalentTier"
+          }
+        }
+      }
+    },
+    "PowerType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        }
+      }
+    },
+    "PowerTypes": {
+      "type": "object",
+      "properties": {
+        "powerTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkPowerType"
+          }
+        }
+      }
+    },
+    "PvP Bracket": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "description": "A link to the character for this PvP bracket entry.",
+          "$ref": "RealmDocumentLinkCharacter"
+        },
+        "faction": {
+          "description": "The localized faction of the entry (e.g. ALLIANCE or HORDE).",
+          "$ref": "LocalizedTypePlayer Faction"
+        },
+        "bracket": {
+          "description": "The type of PvP bracket this entry pertains to.",
+          "$ref": "IdentifiedTypePvP Bracket Type"
+        },
+        "rating": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The rating for the entry."
+        },
+        "seasonMatchStatistics": {
+          "description": "The season match statistics for the entry.",
+          "$ref": "PvP Match Statistics"
+        },
+        "weeklyMatchStatistics": {
+          "description": "The weekly match statistics for the entry.",
+          "$ref": "PvP Match Statistics"
+        },
+        "updated": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The timestamp this document was last updated."
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The rank of the entry on the associated PvP leaderboard."
+        },
+        "tier": {
+          "description": "A link to the tier that this entry's rank has earned them.",
+          "$ref": "LocalizedLinkPvP Tier"
+        },
+        "season": {
+          "description": "A link to the season this entry participated in.",
+          "$ref": "LocalizedLinkPvP Season"
+        }
+      },
+      "description": "Information pertaining to an entry on a PvP leaderboard."
+    },
+    "PvP Leaderboard": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the PvP leaderboard."
+        },
+        "bracket": {
+          "description": "The bracket type for the PvP leaderboard.",
+          "$ref": "IdentifiedTypePvP Bracket Type"
+        },
+        "entries": {
+          "type": "array",
+          "description": "The list of entities on the PvP leaderboard.",
+          "items": {
+            "$ref": "PvP Bracket"
+          }
+        }
+      },
+      "description": "A leaderboard for a PvP bracket in World of Warcraft."
+    },
+    "PvP Leaderboards": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "description": "A link to the PvP season for these leaderboards.",
+          "$ref": "LinkPvP Season"
+        },
+        "leaderboards": {
+          "type": "array",
+          "description": "A list of PvP leaderboards with links for more information.",
+          "items": {
+            "$ref": "LinkPvP Leaderboard"
+          }
+        }
+      },
+      "description": "A collection of PvP leaderboards in World of Warcraft."
+    },
+    "PvP Match Statistics": {
+      "type": "object",
+      "properties": {
+        "played": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of matches played."
+        },
+        "won": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of matches won."
+        },
+        "lost": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of matches lost."
+        }
+      },
+      "description": "The statistics for a PvP match."
+    },
+    "PvP Reward": {
+      "type": "object",
+      "properties": {
+        "bracket": {
+          "description": "The bracket type for which this reward is given.",
+          "$ref": "LocalizedTypePvP Bracket Type"
+        },
+        "achievement": {
+          "description": "The localized achievement for this reward, along with a link for more information.",
+          "$ref": "LocalizedLinkAchievement"
+        },
+        "ratingCutoff": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The rating cutoff above which characters receive this reward."
+        },
+        "faction": {
+          "description": "The localized faction of the reward (e.g. ALLIANCE or HORDE).",
+          "$ref": "LocalizedTypePlayer Faction"
+        }
+      },
+      "description": "A reward for a PvP season in World of Warcraft."
+    },
+    "PvP Rewards": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "description": "A link to the PvP season for these rewards.",
+          "$ref": "LinkPvP Season"
+        },
+        "rewards": {
+          "type": "array",
+          "description": "A list of PvP rewards with links for more information.",
+          "items": {
+            "$ref": "PvP Reward"
+          }
+        }
+      },
+      "description": "A collection of PvP rewards in World of Warcraft."
+    },
+    "PvP Season": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the PvP season."
+        },
+        "seasonStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The timestamp of the start of the PvP season."
+        },
+        "seasonEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The timestamp of the end of the PvP season."
+        },
+        "leaderboards": {
+          "description": "A link to the leaderboards for this PvP season.",
+          "$ref": "KeyPvP Leaderboards"
+        },
+        "rewards": {
+          "description": "A link to the rewards for this PvP season.",
+          "$ref": "KeyPvP Rewards"
+        }
+      },
+      "description": "A PvP season in World of Warcraft."
+    },
+    "PvP Seasons": {
+      "type": "object",
+      "properties": {
+        "seasons": {
+          "type": "array",
+          "description": "A list of seasons with links for more information.",
+          "items": {
+            "$ref": "LinkPvP Season"
+          }
+        },
+        "currentSeason": {
+          "description": "A link to the current PvP season.",
+          "$ref": "LinkPvP Season"
+        }
+      },
+      "description": "A collection of PvP seasons in World of Warcraft."
+    },
+    "PvP Tier": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the PvP tier."
+        },
+        "name": {
+          "description": "The localized name of the PvP tier.",
+          "$ref": "LocalizedString"
+        },
+        "bracket": {
+          "description": "The bracket type that this PvP tier pertains to.",
+          "$ref": "IdentifiedTypePvP Bracket Type"
+        },
+        "minRating": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The minimum rating required to be in the PvP tier."
+        },
+        "maxRating": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum rating to be in the PvP tier."
+        },
+        "media": {
+          "description": "A link to associated media for the PvP tier.",
+          "$ref": "MediaLink"
+        },
+        "ratingType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Identifies similar PvP tiers across different PvP brackets."
+        }
+      },
+      "description": "A ranking tier for a PvP season in World of Warcraft."
+    },
+    "RGBA Color": {
+      "type": "object",
+      "properties": {
+        "g": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The green component of the RGBA color."
+        },
+        "r": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The red component of the RGBA color."
+        },
+        "a": {
+          "type": "number",
+          "format": "float",
+          "description": "The alpha component of the RGBA color."
+        },
+        "b": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The blue component of the RGBA color."
+        }
+      },
+      "description": "A color represented in RGBA color space."
+    },
+    "Realm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the realm."
+        },
+        "region": {
+          "description": "The game region.",
+          "$ref": "LocalizedLinkRegion"
+        },
+        "connectedRealm": {
+          "description": "The parent connected realm that contains this realm.",
+          "$ref": "KeyConnectedRealm"
+        },
+        "name": {
+          "description": "The name of this realm.",
+          "$ref": "LocalizedString"
+        },
+        "category": {
+          "description": "A custom geographic grouping for this realm.",
+          "$ref": "LocalizedString"
+        },
+        "locale": {
+          "type": "string",
+          "description": "The default locale of this realm."
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The default timezone of this realm"
+        },
+        "type": {
+          "description": "The playstyle supported on this game realm.",
+          "$ref": "LocalizedTypeRealmType"
+        },
+        "tournament": {
+          "type": "boolean",
+          "description": "If true, this is a designated tournament realm."
+        },
+        "openDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date this realm came online."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to represent or identify this realm."
+        }
+      },
+      "description": "A single instance of the World of Warcraft game world."
+    },
+    "RealmDocumentLink": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "The key to the linked document.",
+          "$ref": "KeyBaseDocument"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The numeric ID of the linked document."
+        },
+        "realm": {
+          "description": "The realm in which the linked object resides.",
+          "$ref": "LocalizedLinkRealm"
+        }
+      },
+      "description": "A link to a document that resides on a specific realm."
+    },
+    "RealmDocumentLinkCharacter": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "The key to the linked document.",
+          "$ref": "KeyCharacter"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The numeric ID of the linked document."
+        },
+        "realm": {
+          "description": "The realm in which the linked object resides.",
+          "$ref": "LocalizedLinkRealm"
+        }
+      },
+      "description": "A link to a document that resides on a specific realm."
+    },
+    "RealmDocumentLinkGuild": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "The key to the linked document.",
+          "$ref": "KeyGuild"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the linked document."
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The numeric ID of the linked document."
+        },
+        "realm": {
+          "description": "The realm in which the linked object resides.",
+          "$ref": "LocalizedLinkRealm"
+        }
+      },
+      "description": "A link to a document that resides on a specific realm."
+    },
+    "Realms": {
+      "type": "object",
+      "properties": {
+        "realms": {
+          "type": "array",
+          "description": "A list of all realms.",
+          "items": {
+            "$ref": "LocalizedLinkRealm"
+          }
+        }
+      },
+      "description": "An index of all realms."
+    },
+    "Region": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric ID of the region."
+        },
+        "name": {
+          "description": "The name of the region.",
+          "$ref": "LocalizedString"
+        },
+        "tag": {
+          "type": "string",
+          "description": "An abbreviation used for this region."
+        }
+      },
+      "description": "A grouping of game realms by geographic location."
+    },
+    "Regions": {
+      "type": "object",
+      "properties": {
+        "regions": {
+          "type": "array",
+          "description": "A list of all game regions.",
+          "items": {
+            "$ref": "KeyRegion"
+          }
+        }
+      },
+      "description": "An index of all game regions."
+    },
+    "SpellTooltip": {
+      "type": "object",
+      "properties": {
+        "spell": {
+          "$ref": "LocalizedLinkSpell"
+        },
+        "description": {
+          "$ref": "LocalizedString"
+        },
+        "castTime": {
+          "$ref": "LocalizedString"
+        },
+        "powerCost": {
+          "$ref": "LocalizedString"
+        },
+        "range": {
+          "$ref": "LocalizedString"
+        },
+        "cooldown": {
+          "$ref": "LocalizedString"
+        },
+        "procType": {
+          "$ref": "LocalizedTypeSpellProcType"
+        }
+      }
+    },
+    "TalentTier": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "talents": {
+          "type": "array",
+          "items": {
+            "$ref": "TalentTooltipTalent"
+          }
+        }
+      }
+    },
+    "TalentTooltip": {
+      "type": "object",
+      "properties": {
+        "talent": {
+          "$ref": "LocalizedLinkBaseDocument"
+        },
+        "spellTooltip": {
+          "$ref": "SpellTooltip"
+        }
+      }
+    },
+    "TalentTooltipPvpTalent": {
+      "type": "object",
+      "properties": {
+        "talent": {
+          "$ref": "LocalizedLinkPvpTalent"
+        },
+        "spellTooltip": {
+          "$ref": "SpellTooltip"
+        }
+      }
+    },
+    "TalentTooltipTalent": {
+      "type": "object",
+      "properties": {
+        "talent": {
+          "$ref": "LocalizedLinkTalent"
+        },
+        "spellTooltip": {
+          "$ref": "SpellTooltip"
+        }
+      }
+    },
+    "Title": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "$ref": "LocalizedString"
+        },
+        "sourceAchievements": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkAchievement"
+          }
+        }
+      }
+    },
+    "Titles": {
+      "type": "object",
+      "properties": {
+        "titles": {
+          "type": "array",
+          "items": {
+            "$ref": "LocalizedLinkTitle"
+          }
+        }
+      }
+    },
+    "Token": {
+      "type": "object",
+      "properties": {
+        "lastUpdated": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The timestamp reflecting the last time the token price was updated."
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The current price of a WoW Token in gold."
+        }
+      },
+      "description": "Information about the WoW Token price for a region."
+    }
+  }
+}

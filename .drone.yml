@@ -1,16 +1,6 @@
 ---
 kind: pipeline
-name: python27
-
-steps:
-- name: test
-  image: python:2.7-alpine3.8
-  commands:
-    - ./drone.sh
-    - pytest -c pytest_legacy.ini
-
----
-kind: pipeline
+type: docker
 name: python35
 
 steps:
@@ -18,10 +8,10 @@ steps:
   image: python:3.5-alpine3.8
   commands:
     - ./drone.sh
-    - pytest -c pytest_legacy.ini
 
 ---
 kind: pipeline
+type: docker
 name: python36
 
 steps:
@@ -29,10 +19,10 @@ steps:
   image: python:3.6-alpine3.8
   commands:
     - ./drone.sh
-    - pytest
 
 ---
 kind: pipeline
+type: docker
 name: python37
 
 steps:
@@ -40,4 +30,3 @@ steps:
   image: python:3.7-alpine3.8
   commands:
     - ./drone.sh
-    - pytest

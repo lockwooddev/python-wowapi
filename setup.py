@@ -1,9 +1,10 @@
-import os
 import codecs
-from setuptools import setup, find_packages
+import os
+
+from setuptools import find_packages, setup
 
 
-__version__ = '2.3.1'
+__version__ = '3.0.0'
 
 
 def read(*parts):
@@ -13,25 +14,28 @@ def read(*parts):
 
 
 install_requirements = [
-    'requests==2.20.1',
+    'requests==2.22.0',
 ]
 
 test_requirements = [
-    'pytest==4.0.2',
-    "pytest-pycodestyle ; python_version>'3.5'",
-    'pytest-cov==2.6.0',
-    'mock==2.0.0',
-    'pytest-mock==1.10.0',
+    'pytest>=5.0,<6.0',
+    'pytest-flake8',
+    'pytest-isort==0.3.1',
+    'pytest-cov>=2.7,<3.0',
+    'pytest-mock==1.10.4',
 ]
 
 docs_requirements = [
-    'Sphinx==1.8.1',
+    'pydoc-markdown==2.0.5',
 ]
 
 setup(
     name='python-wowapi',
     version=__version__,
-    description='Python-wowapi is a client library for the World of Warcraft Community API.',
+    description=(
+        "Python-wowapi is a client library for the "
+        "World of Warcraft Community, Data and Profile API's."
+    ),
     long_description=read('README.md'),
     long_description_content_type="text/markdown",
     author='Carlo Smouter',
@@ -45,14 +49,25 @@ setup(
         'docs': docs_requirements,
     },
     license='MIT',
-    keywords=['warcraft', 'api', 'wow', 'auctionhouse', 'community', 'game'],
+    keywords=[
+        'warcraft',
+        'api',
+        'wow',
+        'auctionhouse',
+        'community',
+        'game',
+        'data',
+        'profile',
+        'blizzard',
+        'classic',
+        'wow',
+    ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',

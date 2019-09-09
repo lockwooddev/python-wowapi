@@ -7,16 +7,22 @@
 
 
 
-Python-wowapi is a client library for interacting with the World of Warcraft
-Community and Game Data API.
+Python-wowapi is a client library for interacting with the World of Warcraft endpoins of the [Blizzard API](https://develop.battle.net/documentation/guides/getting-started)
 
-To interact with this library, you need to first get a client-id and client secret by registering [here](https://develop.battle.net/access)
+Python-wowapi includes support for the following WoW API's:
+* Community API
+* Game data API
+* Character Profile API
+
+To interact with this library, you need to first get a client-id and client secret by [registering](https://develop.battle.net/access) your application.
 
 For more information about official World of Warcraft API's visit:
-[Official API documentation](https://develop.battle.net/documentation)
-[Official API Forum](https://us.battle.net/forums/en/bnet/15051532/)
+* [Official API documentation](https://develop.battle.net/documentation)
+* [Official API Forum](https://us.forums.blizzard.com/en/blizzard/c/api-discussion)
 
-API documentation can be found at [python-wowapi.readthedocs.org](https://python-wowapi.readthedocs.org). Examples and installation instructions are documented here.
+## API Docs
+
+For examples and all available endpoints, visit the [API Documentation](docs/api.md)
 
 ## Installing
 
@@ -24,53 +30,31 @@ API documentation can be found at [python-wowapi.readthedocs.org](https://python
 pip install python-wowapi
 ```
 
-## API instance
+## WoW Classic API support
+
+According to this [Forum post](https://us.forums.blizzard.com/en/blizzard/t/world-of-warcraft-classic-api-endpoints/346), Blizzard is adding support for some game data API's.
+
+In order to use these endpoints, you need to provide the classic namespace:
 
 ```python
-import os
-
-from wowapi import WowApi
-
-api = WowApi(os.environ['WOW_CLIENT_ID'], os.environ['WOW_CLIENT_SECRET'])
+api.get_item_class_index('us', 'static-classic-us')
 ```
-
-## Community API example
-
-```python
-api.get_auctions('eu', 'silvermoon', locale='de_DE')
-```
-
-
-## Game Data API examples
-
-
-### Get token price
-```python
-api.get_token('eu', namespace='dynamic-eu', locale='de_DE')
-```
-
-### Get class specializations and detail specialization resource
-```python
-data = api.get_playable_specializations('us', namespace='static-us')
-
-spec_id = data['character_specializations'][0]['id']
-specialization = api.get_playable_specialization('us', namespace='static-us', spec_id=spec_id)
-```
-
-### Get game data resource by url
-
-This example shows how to fetch a game data resource by url.
-The `get_data_resource` method will take care of adding your access_token to the url.
-
-```python
-api.get_data_resource('https://eu.api.blizzard.com/data/wow/connected-realm/509?namespace=dynamic-eu', region='eu')
-```
-
 
 ## Development & Testing
 
 ```bash
-pip install -e .
-pip install -e .[tests]
+make devinstall
 pytest
+```
+
+Alternatively you can also run the full [drone.io](https://drone.io) pipeline [locally](https://docs.drone.io/cli/install/) or [remote](https://cloud.drone.io/lockwooddev/python-wowapi/)
+
+```bash
+drone exec
+```
+
+To build the docs:
+
+```bash
+make docs
 ```
