@@ -1,39 +1,10 @@
 # Changelog
 
-## 2.0.0 (14-10-2018)
+## 4.0.0 (15-06-2020)
 
-* Deprecate 1.0 WowApi
-* Implement client credentials flow for OAuth authentication
-* Add dronefile for testing against multiple python versions
-* Add coverage to pytest
-* Add logging
+* Deprecate Community API
+* Update Data & Profile API and missing endpoints
 
-## 2.0.1 (Unreleased)
-
-* Add drone cloud support for CI
-* Bump requests library to 2.20.1
-* Change packaging with setup.py
-
-## 2.1.0 (13-12-2018)
-
-* Add Game Data API methods
-* Token handling per region
-
-## 2.2.0 (25-12-2018)
-
-* Add new Game Data API's
-
-## 2.2.1 (16-02-2019)
-
-* Add functionality to retry failed connections
-
-## 2.3.0 (06-05-2019)
-
-* Add profile api
-
-## 2.3.1 (20-05-2019)
-
-* Added some leeway protection against expired tokens
 
 ## 3.0.0
 
@@ -78,3 +49,45 @@
     * new character titles endpoint
 * Changes in community endpoints:
     * new `get_oauth_profile` endpoint
+
+
+## 2.3.1 (20-05-2019)
+
+* Added some leeway protection against expired tokens
+
+
+## 2.3.0 (06-05-2019)
+
+* Add profile api
+
+
+## 2.2.1 (16-02-2019)
+
+* Add functionality to retry failed connections
+
+
+## 2.2.0 (25-12-2018)
+
+* Add new Game Data API's
+
+
+## 2.1.0 (13-12-2018)
+
+* Add Game Data API methods
+* Token handling per region
+
+
+## 2.0.1 (Unreleased)
+
+* Add drone cloud support for CI
+* Bump requests library to 2.20.1
+* Change packaging with setup.py
+
+
+## 2.0.0 (14-10-2018)
+
+* Deprecate 1.0 WowApi
+* Implement client credentials flow for OAuth authentication
+* Add dronefile for testing against multiple python versions
+* Add coverage to pytest
+* Add logging

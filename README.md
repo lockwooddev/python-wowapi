@@ -10,7 +10,6 @@
 Python-wowapi is a client library for interacting with the World of Warcraft endpoins of the [Blizzard API](https://develop.battle.net/documentation/guides/getting-started)
 
 Python-wowapi includes support for the following WoW API's:
-* Community API
 * Game data API
 * Character Profile API
 
@@ -56,5 +55,6 @@ drone exec
 To build the docs:
 
 ```bash
+make docinstall
 make docs
 ```

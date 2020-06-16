@@ -5,7 +5,7 @@ name: python35
 
 steps:
 - name: test
-  image: python:3.5-alpine3.8
+  image: python:3.5-alpine3.12
   commands:
     - ./drone.sh
 
@@ -16,7 +16,7 @@ name: python36
 
 steps:
 - name: test
-  image: python:3.6-alpine3.8
+  image: python:3.6-alpine3.12
   commands:
     - ./drone.sh
 
@@ -27,6 +27,6 @@ name: python37
 
 steps:
 - name: test
-  image: python:3.7-alpine3.8
+  image: python:3.7-alpine3.12
   commands:
     - ./drone.sh
