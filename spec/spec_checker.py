@@ -22,7 +22,7 @@ def check_spec(id, spec_file):
         print('-----------------------------------------------------')
 
         lines = result.stdout.decode('utf-8').split('\n')
-        [print(l) for l in lines]
+        [print(line) for line in lines]
         print('-----------------------------------------------------')
     else:
         print('No API changes detected..')

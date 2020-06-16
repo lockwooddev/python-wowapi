@@ -7,14 +7,14 @@ from requests.exceptions import RequestException
 from requests.packages.urllib3.util.retry import Retry
 
 from .exceptions import WowApiException, WowApiOauthException
-from .mixins import CommunityMixin, GameDataMixin, ProfileMixin
+from .mixins import GameDataMixin, ProfileMixin
 
 
 logger = logging.getLogger('wowapi')
 logger.addHandler(logging.NullHandler())
 
 
-class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
+class WowApi(GameDataMixin, ProfileMixin):
     """
     ```python
     import os
@@ -95,7 +95,7 @@ class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
             'expiration': expiration
         }
 
-    def get_data_resource(self, url, region):
+    def get_data_resource(self, url, region, **filters):
         """
         Some endpoints return a url pointing to another resource.
         These urls do not include OAuth tokens.
@@ -106,10 +106,13 @@ class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
         api.get_data_resource(auctions_ref['files'][0]['url'], 'eu')
         ```
         """
-        params = {'access_token': self._access_tokens.get(region, {}).get('token', '')}
-        return self._handle_request(url, region, params=params)
+        access_token = self._access_tokens.get(region, {}).get('token', '')
+        if access_token:
+            filters['access_token'] = access_token
 
-    def _handle_request(self, url, region, **kwargs):
+        return self._handle_request(url, params=filters)
+
+    def _handle_request(self, url, **kwargs):
         try:
             response = self._session.get(url, **kwargs)
         except RequestException as exc:
@@ -117,12 +120,6 @@ class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
             raise WowApiException(str(exc))
 
         if not response.ok:
-            # get a new token and try request again
-            if response.status_code == 401:
-                logger.info('Access token invalid. Fetching new token..')
-                self._get_client_credentials(region)
-                return self._handle_request(url, region, **kwargs)
-
             msg = 'Invalid response - {0} - {1}'.format(url, response.status_code)
             logger.warning(msg)
             raise WowApiException(msg)
@@ -136,12 +133,6 @@ class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
 
     def get_resource(self, resource, region, *args, **filters):
         resource = resource.format(*args)
-
-        base_url = self.__base_url.format(region)
-        if region == 'cn':
-            base_url = 'www.gateway.battlenet.com.cn'
-
-        url = 'https://{0}/{1}'.format(base_url, resource)
 
         # fetch access token on first run for region
         if region not in self._access_tokens:
@@ -157,5 +148,22 @@ class WowApi(CommunityMixin, GameDataMixin, ProfileMixin):
                 self._get_client_credentials(region)
 
         filters['access_token'] = self._access_tokens[region]['token']
+        url = self._format_base_url(resource, region)
         logger.info('Requesting resource: {0} with parameters: {1}'.format(url, filters))
-        return self._handle_request(url, region, params=filters)
+        return self._handle_request(url, params=filters)
+
+    def get_oauth_resource(self, resource, region, token, *args, **filters):
+        filters['access_token'] = token
+
+        resource = resource.format(*args)
+
+        url = self._format_base_url(resource, region)
+        logger.info('Requesting resource: {0} with parameters: {1}'.format(url, filters))
+        return self._handle_request(url, params=filters)
+
+    def _format_base_url(self, resource, region):
+        base_url = self.__base_url.format(region)
+        if region == 'cn':
+            base_url = 'www.gateway.battlenet.com.cn'
+
+        return 'https://{0}/{1}'.format(base_url, resource)

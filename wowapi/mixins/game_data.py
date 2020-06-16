@@ -38,6 +38,20 @@ class GameDataMixin:
         filters['namespace'] = namespace
         return self.get_resource('data/wow/media/achievement/{0}', region, *[id], **filters)
 
+    # Auction House API
+
+    def get_auctions(self, region, namespace, connected_realm_id, **filters):
+        """
+        Auction House API - Returns all active auctions for a connected realm
+        """
+        filters['namespace'] = namespace
+        return self.get_resource(
+            'data/wow/connected-realm/{0}/auctions',
+            region,
+            *[connected_realm_id],
+            **filters
+        )
+
     # Azerite Essence API
 
     def get_azerite_essence_index(self, region, namespace, **filters):
@@ -128,32 +142,6 @@ class GameDataMixin:
         filters['namespace'] = namespace
         return self.get_resource('data/wow/media/creature-family/{0}', region, *[id], **filters)
 
-    # Guild API
-
-    def get_guild_data(self, region, namespace, realm_slug, guild_slug, **filters):
-        """
-        Data Guild API - Returns a single guild by its name and realm
-        """
-        filters['namespace'] = namespace
-        params = [realm_slug, guild_slug]
-        return self.get_resource('data/wow/guild/{0}/{1}', region, *params, **filters)
-
-    def get_guild_achievements_data(self, region, namespace, realm_slug, guild_slug, **filters):
-        """
-        Data Guild API - Returns a single guild's achievements by name and realm
-        """
-        filters['namespace'] = namespace
-        params = [realm_slug, guild_slug]
-        return self.get_resource('data/wow/guild/{0}/{1}/achievements', region, *params, **filters)
-
-    def get_guild_roster_data(self, region, namespace, realm_slug, guild_slug, **filters):
-        """
-        Data Guild API - Returns a single guild's roster by its name and realm
-        """
-        filters['namespace'] = namespace
-        params = [realm_slug, guild_slug]
-        return self.get_resource('data/wow/guild/{0}/{1}/roster', region, *params, **filters)
-
     # Guild Crest API
 
     def get_guild_crest_index(self, region, namespace, **filters):
@@ -193,6 +181,20 @@ class GameDataMixin:
         filters['namespace'] = namespace
         return self.get_resource('data/wow/item-class/{0}', region, *[id], **filters)
 
+    def get_item_set_index(self, region, namespace, **filters):
+        """
+        Item API - Returns an index of item sets
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/item-set/index', region, **filters)
+
+    def get_item_set(self, region, namespace, id, **filters):
+        """
+        Item API - Returns an item set by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/item-set/{0}', region, *[id], **filters)
+
     def get_item_subclass(self, region, namespace, class_id, subclass_id, **filters):
         """
         Item API - Returns an item subclass by id
@@ -216,35 +218,56 @@ class GameDataMixin:
         filters['namespace'] = namespace
         return self.get_resource('data/wow/media/item/{0}', region, *[id], **filters)
 
-    # Mythic Keystone Affix API
+    # Journal API
 
-    def get_mythic_keystone_affixes(self, region, namespace, **filters):
+    def get_journal_index(self, region, namespace, **filters):
         """
-        Mythic Keystone Affix API - get mythic keystone affixes
+        Item API - Returns an index of journal expansions
         """
         filters['namespace'] = namespace
-        return self.get_resource('data/wow/keystone-affix/index', region, **filters)
+        return self.get_resource('data/wow/journal-expansion/index', region, **filters)
 
-    def get_mythic_keystone_affix(self, region, namespace, affix_id, **filters):
+    def get_journal_expansion(self, region, namespace, id, **filters):
         """
-        Mythic Keystone Affix API - get mythic keystone affix by id
+        Item API - Returns a journal expansion by ID
         """
         filters['namespace'] = namespace
-        return self.get_resource('data/wow/keystone-affix/{0}', region, *[affix_id], **filters)
+        return self.get_resource('data/wow/journal-expansion/{0}', region, *[id], **filters)
 
-    # Mythic Raid Leaderboard API
-
-    def get_mythic_raid_leaderboard(self, region, namespace, raid, faction, **filters):
+    def get_journal_encounter_index(self, region, namespace, **filters):
         """
-        Mythic Raid Leaderboard API - get mythic raid leaderboard of specific faction
+        Item API - Returns an index of journal encounters
         """
         filters['namespace'] = namespace
-        return self.get_resource(
-            'data/wow/leaderboard/hall-of-fame/{0}/{1}',
-            region,
-            *[raid, faction],
-            **filters
-        )
+        return self.get_resource('data/wow/journal-encounter/index', region, **filters)
+
+    def get_journal_encounter(self, region, namespace, id, **filters):
+        """
+        Item API - Returns a journal encounter by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/journal-encounter/{0}', region, *[id], **filters)
+
+    def get_journal_instance_index(self, region, namespace, **filters):
+        """
+        Item API - Returns an index of journal instances
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/journal-instance/index', region, **filters)
+
+    def get_journal_instance(self, region, namespace, id, **filters):
+        """
+        Item API - Returns a journal instance
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/journal-instance/{0}', region, *[id], **filters)
+
+    def get_journal_instance_media(self, region, namespace, id, **filters):
+        """
+        Item API - Returns media for a journal instance by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/media/journal-instance/{0}', region, *[id], **filters)
 
     # Mount API
 
@@ -261,6 +284,34 @@ class GameDataMixin:
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/mount/{0}', region, *[id], **filters)
+
+    # Mythic Keystone Affix API
+
+    def get_mythic_keystone_affixes(self, region, namespace, **filters):
+        """
+        Mythic Keystone Affix API - get mythic keystone affixes
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/keystone-affix/index', region, **filters)
+
+    def get_mythic_keystone_affix(self, region, namespace, affix_id, **filters):
+        """
+        Mythic Keystone Affix API - get mythic keystone affix by id
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/keystone-affix/{0}', region, *[affix_id], **filters)
+
+    def get_mythic_keystone_affix_media(self, region, namespace, affix_id, **filters):
+        """
+        Mythic Keystone Affix API - get mythic keystone affix by id
+        """
+        filters['namespace'] = namespace
+        return self.get_resource(
+            'data/wow/media/keystone-affix/{0}',
+            region,
+            *[affix_id],
+            **filters
+        )
 
     # Mythic Keystone Dungeon API
 
@@ -340,6 +391,20 @@ class GameDataMixin:
         params = [connected_realm_id, dungeon_id, period]
         return self.get_resource(resource, region, *params, **filters)
 
+    # Mythic Raid Leaderboard API
+
+    def get_mythic_raid_leaderboard(self, region, namespace, raid, faction, **filters):
+        """
+        Mythic Raid Leaderboard API - get mythic raid leaderboard of specific faction
+        """
+        filters['namespace'] = namespace
+        return self.get_resource(
+            'data/wow/leaderboard/hall-of-fame/{0}/{1}',
+            region,
+            *[raid, faction],
+            **filters
+        )
+
     # Pet API
 
     def get_pet_index(self, region, namespace, **filters):
@@ -358,23 +423,35 @@ class GameDataMixin:
 
     # Playable Class API
 
-    def get_playable_classes(self, region, namespace, **filters):
+    def get_playable_class_index(self, region, namespace, **filters):
         """
-        Playable Class API - get available playable classes
+        Playable Class API - Returns an index of playable classes
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/playable-class/index', region, **filters)
 
     def get_playable_class(self, region, namespace, class_id, **filters):
         """
-        Playable Class API - get playable classes by class id
+        Playable Class API - Returns a playable class by ID
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/playable-class/{0}', region, *[class_id], **filters)
 
+    def get_playable_class_media(self, region, namespace, class_id, **filters):
+        """
+        Playable Class API - Returns a playable class media by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource(
+            'data/wow/media/playable-class/{0}',
+            region,
+            *[class_id],
+            **filters
+        )
+
     def get_playable_class_pvp_talent_slots(self, region, namespace, class_id, **filters):
         """
-        Playable Class API - get pvp talent slots for a playable class by id
+        Playable Class API - Returns the PvP talent slots for a playable class by ID
         """
         filters['namespace'] = namespace
         return self.get_resource(
@@ -417,6 +494,18 @@ class GameDataMixin:
             **filters
         )
 
+    def get_playable_specialization_media(self, region, namespace, spec_id, **filters):
+        """
+        Playable Specialization API - Returns media for a playable specialization by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource(
+            'data/wow/media/playable-specialization/{0}',
+            region,
+            *[spec_id],
+            **filters
+        )
+
     # Power Type API
 
     def get_power_type_index(self, region, namespace, **filters):
@@ -432,6 +521,51 @@ class GameDataMixin:
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/power-type/{0}', region, *[power_type_id], **filters)
+
+    # Profession API
+
+    def get_profession_index(self, region, namespace, **filters):
+        """
+        Profession API - Returns an index of professions
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/profession/index', region, **filters)
+
+    def get_profession(self, region, namespace, id, **filters):
+        """
+        Profession API - Returns a profession by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/profession/{0}', region, *[id], **filters)
+
+    def get_profession_media(self, region, namespace, id, **filters):
+        """
+        Profession API - Returns media for a profession by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/media/profession/{0}', region, *[id], **filters)
+
+    def get_profession_skill_tier(self, region, namespace, prof_id, tier_id, **filters):
+        """
+        Profession API - Returns a skill tier for a profession by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource(
+            'data/wow/profession/{0}/skill-tier/{1}', region, *[prof_id, tier_id], **filters)
+
+    def get_recipe(self, region, namespace, id, **filters):
+        """
+        Profession API - Returns a recipe by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/recipe/{0}', region, *[id], **filters)
+
+    def get_recipe_media(self, region, namespace, id, **filters):
+        """
+        Profession API - Returns media for a recipe by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/media/recipe/{0}', region, *[id], **filters)
 
     # PvP Season API
 
@@ -499,6 +633,68 @@ class GameDataMixin:
         resource = 'data/wow/pvp-tier/{0}'
         return self.get_resource(resource, region, *[tier_id], **filters)
 
+    # Quest API
+
+    def get_quest_index(self, region, namespace, **filters):
+        """
+        Quest API - Returns an index of quests
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/index', region, **filters)
+
+    def get_quest(self, region, namespace, id, **filters):
+        """
+        Quest API - Returns a quest by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/{0}', region, *[id], **filters)
+
+    def get_quest_categories_index(self, region, namespace, **filters):
+        """
+        Quest API - Returns an index of quest categories
+
+        (such as quests for a specific class, profession, or storyline)
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/category/index', region, **filters)
+
+    def get_quest_catagory(self, region, namespace, id, **filters):
+        """
+        Quest API - Returns a quest category by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/category/{0}', region, *[id], **filters)
+
+    def get_quest_area_index(self, region, namespace, **filters):
+        """
+        Quest API - Returns an index of quest areas
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/area/index', region, **filters)
+
+    def get_quest_area(self, region, namespace, id, **filters):
+        """
+        Quest API - Returns a quest area by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/area/{0}', region, *[id], **filters)
+
+    def get_quest_types_index(self, region, namespace, **filters):
+        """
+        Quest API - Returns an index of quest types
+
+        (such as PvP quests, raid quests, or account quests)
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/type/index', region, **filters)
+
+    def get_quest_type(self, region, namespace, id, **filters):
+        """
+        Quest API - Returns a quest type by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/quest/type/{0}', region, *[id], **filters)
+
     # Realm API
 
     def get_realm_index(self, region, namespace, **filters):
@@ -530,6 +726,82 @@ class GameDataMixin:
         """
         filters['namespace'] = namespace
         return self.get_resource('data/wow/region/{0}', region, *[region_id], **filters)
+
+    # Reputations API
+
+    def get_reputation_faction_index(self, region, namespace, **filters):
+        """
+        Reputations API - Returns an index of reputation factions
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/reputation-faction/index', region, **filters)
+
+    def get_reputation_faction(self, region, namespace, id, **filters):
+        """
+        Reputations API - Returns a single reputation faction by ID.
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/reputation-faction/{0}', region, *[id], **filters)
+
+    def get_reputation_tier_index(self, region, namespace, **filters):
+        """
+        Reputations API - Returns an index of reputation tiers
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/reputation-tiers/index', region, **filters)
+
+    def get_reputation_tier(self, region, namespace, id, **filters):
+        """
+        Reputations API - Returns a single set of reputation tiers by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/reputation-tiers/{0}', region, *[id], **filters)
+
+    # Spell API
+
+    def get_spell(self, region, namespace, id, **filters):
+        """
+        Spell API - Returns a spell by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/spell/{0}', region, *[id], **filters)
+
+    def get_spell_media(self, region, namespace, id, **filters):
+        """
+        Spell API - Returns media for a spell by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/media/spell/{0}', region, *[id], **filters)
+
+    # Talent API
+
+    def get_talent_index(self, region, namespace, **filters):
+        """
+        Talent API - Returns an index of talents
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/talent/index', region, **filters)
+
+    def get_talent(self, region, namespace, id, **filters):
+        """
+        Talent API - Returns a talent by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/talent/{0}', region, *[id], **filters)
+
+    def get_pvp_talent_index(self, region, namespace, **filters):
+        """
+        Talent API - Returns an index of PvP talents
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/pvp-talent/index', region, **filters)
+
+    def get_pvp_talent(self, region, namespace, id, **filters):
+        """
+        Talent API - Returns a PvP talent by ID
+        """
+        filters['namespace'] = namespace
+        return self.get_resource('data/wow/pvp-talent/{0}', region, *[id], **filters)
 
     # Title API
 

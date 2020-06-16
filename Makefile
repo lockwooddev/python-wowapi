@@ -1,15 +1,17 @@
-.PHONY: tests devinstall docs clean clean_build build test_publish publish
+.PHONY: tests devinstall docinstall docs clean clean_build build test_publish publish
 
 
 devinstall:
 	pip install -e .
 	pip install -e .[tests]
+
+docinstall:
 	pip install -e .[docs]
 
 docs:
 	rm -rf docs
 	mkdir docs
-	pydocmd simple wowapi++ wowapi.api++ wowapi.mixins.community++ wowapi.mixins.game_data++ wowapi.mixins.profile++ > docs/api.md
+	pydocmd simple wowapi++ wowapi.api++ wowapi.mixins.game_data++ wowapi.mixins.profile++ > docs/api.md
 
 clean:
 	rm -rf dist
