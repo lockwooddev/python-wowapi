@@ -59,7 +59,8 @@ class WowApi(GameDataMixin, ProfileMixin):
     def _get_client_credentials(self, region):
         path = '/oauth/token'
         data = { 'grant_type': 'client_credentials'}
-        self._session.auth = (self._client_id, self._client_secret)
+        auth = (self._client_id, self._client_secret)
+
 
         url = 'https://{0}.battle.net{1}'.format(region, path)
         if region == 'cn':
@@ -69,7 +70,7 @@ class WowApi(GameDataMixin, ProfileMixin):
 
         now = self._utcnow()
         try:
-            response = self._session.post(url, data=data)
+            response = self._session.post(url, data=data, auth=auth)
         except RequestException as exc:
             logger.exception(str(exc))
             raise WowApiOauthException(str(exc))
