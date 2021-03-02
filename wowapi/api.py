@@ -57,9 +57,9 @@ class WowApi(GameDataMixin, ProfileMixin):
         self._session.mount('https://', HTTPAdapter(max_retries=retries))
 
     def _get_client_credentials(self, region):
-        path = '/oauth/token?grant_type=client_credentials&client_id={0}&client_secret={1}'.format(
-            self._client_id, self._client_secret
-        )
+        path = '/oauth/token'
+        data = { 'grant_type': 'client_credentials'}
+        self._session.auth = (self._client_id, self._client_secret)
 
         url = 'https://{0}.battle.net{1}'.format(region, path)
         if region == 'cn':
@@ -69,7 +69,7 @@ class WowApi(GameDataMixin, ProfileMixin):
 
         now = self._utcnow()
         try:
-            response = self._session.get(url)
+            response = self._session.post(url, data=data)
         except RequestException as exc:
             logger.exception(str(exc))
             raise WowApiOauthException(str(exc))
@@ -87,6 +87,7 @@ class WowApi(GameDataMixin, ProfileMixin):
             raise WowApiOauthException(msg)
 
         token = json['access_token']
+
         expiration = now + timedelta(seconds=json['expires_in'])
         logger.info('New token {0} expires at {1} UTC'.format(token, expiration))
 
@@ -112,7 +113,7 @@ class WowApi(GameDataMixin, ProfileMixin):
 
         return self._handle_request(url, params=filters)
 
-    def _handle_request(self, url, **kwargs):
+    def _handle_request(self, url, **kwargs): 
         try:
             response = self._session.get(url, **kwargs)
         except RequestException as exc:
