@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import pytest
 from requests.exceptions import RequestException
 
-from wowapi import WowApi, WowApiException
+from wowapi import WowApi, WowApiException, WowApiOauthException
 
 from .fixtures import ResponseMock
 
@@ -124,15 +124,16 @@ class TestWowApi(object):
             ResponseMock()(200, b'{"access_token": "111", "expires_in": 60}'),
             ResponseMock()(200, b'{"response": "ok"}'),
         ]
-        data = self.api.get_resource('foo', 'eu')
+        with pytest.raises(WowApiOauthException):
+            data = self.api.get_resource('foo', 'eu')
 
-        assert data == {'response': 'ok'}
-        assert self.api._access_tokens == {
-            'eu': {
-                'token': '111',
-                'expiration': now + timedelta(seconds=60)
+            assert data == {'response': 'ok'}
+            assert self.api._access_tokens == {
+                'eu': {
+                    'token': '111',
+                    'expiration': now + timedelta(seconds=60)
+                }
             }
-        }
 
     def test_get_resource_no_access_expired(self, session_get_mock, utc_mock):
         now = datetime.utcnow()
@@ -149,15 +150,16 @@ class TestWowApi(object):
             ResponseMock()(200, b'{"access_token": "333", "expires_in": 60}'),
             ResponseMock()(200, b'{"response": "ok"}'),
         ]
-        data = self.api.get_resource('foo', 'eu')
+        with pytest.raises(WowApiOauthException):
+            data = self.api.get_resource('foo', 'eu')
 
-        assert data == {'response': 'ok'}
-        assert self.api._access_tokens == {
-            'eu': {
-                'token': '333',
-                'expiration': now + timedelta(seconds=60)
+            assert data == {'response': 'ok'}
+            assert self.api._access_tokens == {
+                'eu': {
+                    'token': '333',
+                    'expiration': now + timedelta(seconds=60)
+                }
             }
-        }
 
     def test_format_base_url(self):
         assert self.api._format_base_url('test', 'us') == 'https://us.api.blizzard.com/test'

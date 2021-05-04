@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 import requests
 from requests.adapters import HTTPAdapter
+from requests.auth import HTTPBasicAuth
 from requests.exceptions import RequestException
 from requests.packages.urllib3.util.retry import Retry
 
@@ -57,9 +58,9 @@ class WowApi(GameDataMixin, ProfileMixin):
         self._session.mount('https://', HTTPAdapter(max_retries=retries))
 
     def _get_client_credentials(self, region):
-        path = '/oauth/token?grant_type=client_credentials&client_id={0}&client_secret={1}'.format(
-            self._client_id, self._client_secret
-        )
+        path = '/oauth/token'
+        data = {'grant_type': 'client_credentials'}
+        auth = HTTPBasicAuth(self._client_id, self._client_secret)
 
         url = 'https://{0}.battle.net{1}'.format(region, path)
         if region == 'cn':
@@ -69,7 +70,7 @@ class WowApi(GameDataMixin, ProfileMixin):
 
         now = self._utcnow()
         try:
-            response = self._session.get(url)
+            response = self._session.post(url, data=data, auth=auth)
         except RequestException as exc:
             logger.exception(str(exc))
             raise WowApiOauthException(str(exc))
